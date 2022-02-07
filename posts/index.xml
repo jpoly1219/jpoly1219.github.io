@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jacob&#39;s Dev Blog</title>
-    <link>https://jpoly1219.github.io/</link>
-    <description>Recent content on Jacob&#39;s Dev Blog</description>
+    <title>Posts on Jacob&#39;s Dev Blog</title>
+    <link>https://jpoly1219.github.io/posts/</link>
+    <description>Recent content in Posts on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Feb 2022 10:07:58 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Feb 2022 10:07:58 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Why I Love Go</title>
       <link>https://jpoly1219.github.io/posts/why-i-love-go/</link>
@@ -15,28 +15,6 @@
       <guid>https://jpoly1219.github.io/posts/why-i-love-go/</guid>
       
         <description>Image credits to tottie_designerI am proud to say that I am a gopher. I probably have the least experience with Go out of all the languages under my belt, but I love it the most. Aside from the cute mascot, I think Go has some amazing features that made me fall in love with the language. I thought it would be fun to share my experiences and thoughts with you guys.</description>
-      
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://jpoly1219.github.io/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jpoly1219.github.io/about/</guid>
-      
-        <description></description>
-      
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://jpoly1219.github.io/portfolio/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jpoly1219.github.io/portfolio/</guid>
-      
-        <description></description>
       
     </item>
     
