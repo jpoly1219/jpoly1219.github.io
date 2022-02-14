@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Feb 2022 10:07:58 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Feb 2022 11:24:04 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why I Decided to Become a Web Backend Developer</title>
+      <link>https://jpoly1219.github.io/posts/why-i-decided-to-become-a-web-backend-developer/</link>
+      <pubDate>Tue, 08 Feb 2022 11:24:04 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/why-i-decided-to-become-a-web-backend-developer/</guid>
+      
+        <description>I&amp;rsquo;m sure you all have experienced this. You just learned your first language, and you&amp;rsquo;re full of hopes and dreams, even if the only thing you know at the moment is how to write a simple command-line program that takes a user input and does something with it. Awesome! The question that you now have is, &amp;ldquo;What now?&amp;rdquo; This was me after learning Python in codecademy.com. I didn&amp;rsquo;t know what I wanted to do with my newfound powers.</description>
+      
+    </item>
+    
     <item>
       <title>Why I Love Go</title>
       <link>https://jpoly1219.github.io/posts/why-i-love-go/</link>
