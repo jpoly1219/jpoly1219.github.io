@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Feb 2022 14:36:52 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Mar 2022 20:08:30 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Watch Out for These Tricky Things in Go</title>
+      <link>https://jpoly1219.github.io/posts/watch-out-for-these-tricky-things-in-go/</link>
+      <pubDate>Sun, 06 Mar 2022 20:08:30 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/watch-out-for-these-tricky-things-in-go/</guid>
+      
+        <description>I love Go. I wrote an entire blog post about why I love the language. It is an attractive language with many fun features. Go is considered a relatively easy language, but sometimes it can be tricky. I certainly had my share of challenges that I had to do a lot of research on while learning the language. In this post, I listed some of the things that bummed me out when I was learning Go so that you don&amp;rsquo;t have to struggle like me.</description>
+      
+    </item>
+    
     <item>
       <title>Cs Students You Should Absoutely Join Clubs</title>
       <link>https://jpoly1219.github.io/posts/cs-students-you-should-absoutely-join-clubs/</link>
