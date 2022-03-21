@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        How Slices Work in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/how-slices-work-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How Slices Work in Go"/>
+<meta name="twitter:description" content="Go provides a way for us to group similar data using slices. I guess it&rsquo;s a rather unfamiliar term. At least I haven&rsquo;t seen the term slice being used in any other languages. Being able to use slices well is important, but understanding how it works under the hood is important as well. I think understanding the inner workings is half the fun. In this post, I will explain how slices work in Go."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "How Slices Work in Go",
+        "headline": "How Slices Work in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Go provides a way for us to group similar data using slices. I guess it\u0026rsquo;s a rather unfamiliar term. At least I haven\u0026rsquo;t seen the term slice being used in any other languages. Being able to use slices well is important, but understanding how it works under the hood is important as well. I think understanding the inner workings is half the fun. In this post, I will explain how slices work in Go.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/how-slices-work-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-03-21T12:18:53.00Z",
+        "datePublished": "2022-03-21T12:18:53.00Z",
+        "dateModified": "2022-03-21T12:18:53.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/how-slices-work-in-go\/",
+        "wordCount" : "725",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>How Slices Work in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Mon, Mar 21, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">4-minute read</span>
+          </div>
+
+        
+      </div><p>Go provides a way for us to group similar data using slices. I guess it&rsquo;s a rather unfamiliar term. At least I haven&rsquo;t seen the term slice being used in any other languages. Being able to use slices well is important, but understanding how it works under the hood is important as well. I think understanding the inner workings is half the fun. In this post, I will explain how slices work in Go.</p>
+<h3 id="but-first-lets-look-at-arrays">But first, let&rsquo;s look at arrays.</h3>
+<p>The reason why we are starting with arrays is that slices are implemented using arrays. Arrays are basically containers with fixed sizes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">myArray</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+</code></pre></div><p>You specify the size of the array inside the square brackets, decide on the data type of the elements, and write the elements inside the curly braces. You could also let the compiler find out the length of the array by doing this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">myArray</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>}
+</code></pre></div><p>If you do not specify the length, a slice will be created instead. You cannot change the size of an array once it has been created.</p>
+<p>So already, you can see that arrays are more primitive and not as feature-rich as, say, a Python list would. I come from a Python background, and like a spoiled newbie dev I am, wanted to find something more useful. Immediately I was looking for something more powerful.</p>
+<h3 id="behold-the-creation-of-slices">Behold, the creation of slices.</h3>
+<p>Slices are much more powerful than arrays, because of their dynamic nature. Simply put, a slice is like a rubber band. It will expand as much as you need as you go. A rubber band won&rsquo;t be very useful if it was hard and can&rsquo;t stretch.</p>
+<p>It&rsquo;s similar to how C++ developers can use both arrays and vectors but will opt to use vectors for its dynamic-ness.</p>
+<p>Here are some ways that you can initialize a slice.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// method 1: use make() and specify type, length, and capacity.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mySlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>)
+<span style="color:#75715e">// assign values to each index.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mySlice</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">0</span>
+<span style="color:#a6e22e">mySlice</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">mySlice</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">2</span>
+<span style="color:#a6e22e">mySlice</span>[<span style="color:#ae81ff">3</span>] = <span style="color:#ae81ff">3</span>
+
+<span style="color:#75715e">// method 2: declare a struct literal.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mySlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+
+<span style="color:#75715e">// method 3: create an empty slice and append to it
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mySlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{}
+<span style="color:#a6e22e">mySlice</span> = append(<span style="color:#a6e22e">mySlice</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</code></pre></div><p>Slices are nice because you can change their size after you create them. This is especially handy when you need to store an unknown amount of data. Slices also support slicing (duh), which lets you take slices of a given slice.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">mySlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+<span style="color:#a6e22e">piece</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mySlice</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
+</code></pre></div><pre tabindex="0"><code>[1 2]
+</code></pre><p>So already, we see a major improvement in usability. But when I first saw this, I couldn&rsquo;t help but wonder how this worked.</p>
+<h3 id="how-does-this-work-what-is-this-sorcery">How does this work? What is this sorcery?</h3>
+<p>So under the surface, a slice is a header that contains a pointer to an underlying array. If you look at the <code>reflect</code> package of go, you can see the definition of <code>SliceHeader</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SliceHeader</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Data</span> <span style="color:#66d9ef">uintptr</span>
+    <span style="color:#a6e22e">Len</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Cap</span> <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><p>So because it is an array at heart, a slice cannot outgrow its capacity. When we say &ldquo;expanding the slice&rdquo;, we don&rsquo;t actually mean to add more capacity to what we already have. Instead, it&rsquo;s this behind-the-scene logic that allows the slice to &ldquo;grow&rdquo;.</p>
+<ul>
+<li>
+<p>It will check that the current length is equal to the capacity.</p>
+</li>
+<li>
+<p>If appending over-capacity, a new slice with double the original slice&rsquo;s capacity will be created.</p>
+</li>
+<li>
+<p>The original slice will be copied over to the new slice.</p>
+</li>
+<li>
+<p>The new element will be appended at the end.</p>
+</li>
+<li>
+<p>The resulting slice will be returned.</p>
+</li>
+</ul>
+<p><img src="/grow-slices-go.png" alt=""></p>
+<p>Slicing is easy as well:</p>
+<ul>
+<li>
+<p>It will point to a new location in the <em>same</em> underlying array.</p>
+</li>
+<li>
+<p>Length and capacity will be adjusted.</p>
+</li>
+</ul>
+<p><img src="/slicing-slices-go.png" alt=""></p>
+<p>So we now understand how slices work under the hood. Cool, isn&rsquo;t it?</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>You can think of slices as a wrapper around arrays to give them superpowers. In most cases, you should try to use slices instead of arrays. However, when you know what you are doing, arrays can be a fine choice. If you need something that has to be passed by value, or be hashed or serialized, you should use arrays over slices. However, sticking with slices is the way to go in most cases.</p>
+<p>Thanks for reading! You can read this post on <a href="https://medium.com/@jpoly1219/how-slices-work-in-go-fbc772514001">Medium</a> and <a href="https://dev.to/jpoly1219/how-slices-work-in-go-47nc">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

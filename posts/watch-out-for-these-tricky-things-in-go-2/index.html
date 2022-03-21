@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Watch Out for These Tricky Things in Go 2
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/watch-out-for-these-tricky-things-in-go-2/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Watch Out for These Tricky Things in Go 2"/>
+<meta name="twitter:description" content="This is a continuation from last week&rsquo;s post, Watch out For These Tricky Things in Go. Hope you enjoy!
+An empty interface can be tricky to use. Many beginners tend to get confused by the concept of the empty interface. I was no exception and struggled with it for a while as well.
+A quick primer: an interface in Go depicts a set of methods that do similar things. Any type that implements these methods implement that interface."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Watch Out for These Tricky Things in Go 2",
+        "headline": "Watch Out for These Tricky Things in Go 2",
+        "alternativeHeadline": "",
+        "description": "
+      
+        This is a continuation from last week\u0026rsquo;s post, Watch out For These Tricky Things in Go. Hope you enjoy!\nAn empty interface can be tricky to use. Many beginners tend to get confused by the concept of the empty interface. I was no exception and struggled with it for a while as well.\nA quick primer: an interface in Go depicts a set of methods that do similar things. Any type that implements these methods implement that interface.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/watch-out-for-these-tricky-things-in-go-2\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-03-06T22:01:35.00Z",
+        "datePublished": "2022-03-06T22:01:35.00Z",
+        "dateModified": "2022-03-06T22:01:35.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/watch-out-for-these-tricky-things-in-go-2\/",
+        "wordCount" : "910",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Watch Out for These Tricky Things in Go 2</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Mar 6, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">5-minute read</span>
+          </div>
+
+        
+      </div><p>This is a continuation from last week&rsquo;s post, <em>Watch out For These Tricky Things in Go</em>. Hope you enjoy!</p>
+<h3 id="an-empty-interface-can-be-tricky-to-use">An empty interface can be tricky to use.</h3>
+<p>Many beginners tend to get confused by the concept of the empty interface. I was no exception and struggled with it for a while as well.</p>
+<p>A quick primer: an interface in Go depicts a set of methods that do similar things. Any type that implements these methods implement that interface.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#75715e">// any type that has makeSound() is a soundMaker.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">soundMaker</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">makeSound</span>()
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">car</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">sound</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">car</span>) <span style="color:#a6e22e">makeSound</span>(){
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">sound</span>)
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">person</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">voice</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">person</span>) <span style="color:#a6e22e">makeSound</span>(){
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">voice</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">car</span>{<span style="color:#e6db74">&#34;vroom&#34;</span>}
+    <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">person</span>{<span style="color:#e6db74">&#34;lalala&#34;</span>}
+
+    <span style="color:#75715e">// car and person type both have makeSound() methods,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// which means that they implement the soundMaker interface.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">makeSoundThreeTimes</span>(<span style="color:#a6e22e">c</span>)
+    <span style="color:#a6e22e">makeSoundThreeTimes</span>(<span style="color:#a6e22e">p</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">makeSoundThreeTimes</span>(<span style="color:#a6e22e">soundMaker</span> <span style="color:#a6e22e">soundMaker</span>) {
+    <span style="color:#a6e22e">soundMaker</span>.<span style="color:#a6e22e">makeSound</span>()
+    <span style="color:#a6e22e">soundMaker</span>.<span style="color:#a6e22e">makeSound</span>()
+    <span style="color:#a6e22e">soundMaker</span>.<span style="color:#a6e22e">makeSound</span>()
+}
+</code></pre></div><pre tabindex="0"><code>vroom
+vroom
+vroom
+lalala
+lalala
+lalala
+</code></pre><p>Therefore, an empty interface is implemented by all types, because there are no methods required to implement it. However, it is really easy to misunderstand this statement, because according to this, it seems like empty interfaces can act like all types, like how generics would.</p>
+<p>Take a look at this piece of code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">intSlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+    <span style="color:#a6e22e">printElements</span>(<span style="color:#a6e22e">intSlice</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">printElements</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">interface</span>{}) {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">list</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+    }
+}
+</code></pre></div><p>You would expect something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">3</span>
+</code></pre></div><p>But you get this instead:</p>
+<pre tabindex="0"><code>cannot use intSlice (type []int) as type []interface {} in argument to printElements
+</code></pre><p>Interesting, isn&rsquo;t it? Because <code>int</code> satisfies the empty interface, you&rsquo;d expect <code>[]int</code> to be passed as <code>[]interface{}</code>. So why would this error out?</p>
+<p>You need to see <code>interface{}</code> as its own type and not as an alias for or an equivalent of other types. The reason why you cannot just convert from <code>[]interface{}</code> to <code>[]int</code> is that they are represented differently in memory. You will need to write a separate code for this conversion. Fortunately, it isn&rsquo;t very difficult:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">intSlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+    <span style="color:#a6e22e">interfaceSlice</span><span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">intSlice</span> {
+        <span style="color:#a6e22e">interfaceSlice</span>= append(<span style="color:#a6e22e">interfaceSlice</span>, <span style="color:#a6e22e">v</span>)
+    }
+    <span style="color:#a6e22e">printElements</span>(<span style="color:#a6e22e">interfaceSlice</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">printElements</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">interface</span>{}) {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">list</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+    }
+}
+</code></pre></div><pre tabindex="0"><code>1
+2
+3
+</code></pre><p>Keep in mind, a list of empty interfaces is not an empty interface, therefore will not be able to be implemented by other data types.</p>
+<h3 id="appending-to-slices-yield-nil-nil-data">Appending to slices yield <code>&lt;nil&gt; &lt;nil&gt; data</code>?</h3>
+<p>Let&rsquo;s say that you want to append some items to a slice. The code would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">intSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">intSlice</span> = append(<span style="color:#a6e22e">intSlice</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intSlice</span>)
+
+    <span style="color:#a6e22e">interfaceSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">interfaceSlice</span> = append(<span style="color:#a6e22e">interfaceSlice</span>, <span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">interfaceSlice</span>)
+}
+</code></pre></div><p>You would expect this to return something like this:</p>
+<pre tabindex="0"><code>[1 2 3]
+[hello 1 true]
+</code></pre><p>But if we actually run it, this is what we get:</p>
+<pre tabindex="0"><code>[0 0 0 1 2 3]
+[&lt;nil&gt; &lt;nil&gt; &lt;nil&gt; hello 1 true]
+</code></pre><p>It might seem a bit weird, but the way this work is:</p>
+<ul>
+<li>
+<p>Go will allocate space when using the <code>make()</code> function. For this example, the size of the int slice will be 3.</p>
+</li>
+<li>
+<p>These spaces will be assigned zero-values of the chosen data type (<code>0</code> for <code>int</code>, <code>nil</code> for <code>interface{}</code>).</p>
+</li>
+<li>
+<p>So because there are already three elements inside the slice, when you try to append to it, the new elements will be appended after the already existing elements.</p>
+</li>
+</ul>
+<p>To prevent this from happening, we can do either of the following.</p>
+<p>Firstly, you can specify both length and capacity.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">intSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">intSlice</span> = append(<span style="color:#a6e22e">intSlice</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intSlice</span>)
+
+    <span style="color:#a6e22e">interfaceSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">interfaceSlice</span> = append(<span style="color:#a6e22e">interfaceSlice</span>, <span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">interfaceSlice</span>)
+}
+</code></pre></div><pre tabindex="0"><code>[1 2 3]
+[hello 1 true]
+</code></pre><p>The length determines how many elements are currently in the slice, and the capacity determines how many items it can hold. Think of a slice as a bowl that holds apples, where its length is the number of apples, and the capacity is how many apples it can hold at a time. If more apples were to be added, you would need more bowls.</p>
+<p>Secondly, you can use indexes instead.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">intSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">intSlice</span> {
+        <span style="color:#a6e22e">intSlice</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intSlice</span>)
+
+    <span style="color:#a6e22e">interfaceSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">3</span>)
+    <span style="color:#a6e22e">interfaceToAdd</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">interface</span>{}{<span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>}
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">interfaceSlice</span> {
+        <span style="color:#a6e22e">interfaceSlice</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">interfaceToAdd</span>[<span style="color:#a6e22e">i</span>]
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">interfaceSlice</span>)
+}
+</code></pre></div><pre tabindex="0"><code>[1 2 3]
+[hello 1 true]
+</code></pre><p>This is more straightforward because you index the given slice, and then assign elements to that location.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>I hope this post helped you with your Go programming journey. If you are getting started with Go, there are plenty of other resources that you may wish to look into as well. Here are some I used to learn Go.</p>
+<ul>
+<li>
+<p><a href="https://gobyexample.com">Go by Example</a></p>
+</li>
+<li>
+<p><a href="https://go.dev/tour/list">A Tour of Go</a></p>
+</li>
+<li>
+<p><a href="https://www.calhoun.io">Calhoun.io</a></p>
+</li>
+</ul>
+<p>The topics in this post are very interesting because they deal with how Go works under the hood. I am planning on writing a more in-depth guide on these data types and some quirks of Go, so definitely keep an eye out for those.</p>
+<p>Thank you for reading! You can read this on [Dev.to](<a href="https://dev.to/jpoly1219/watch-out-for-these-tricky-things-in-go-part-2-3k8e">Watch out For These Tricky Things in Go - Part 2 - DEV Community</a>) and <a href="https://medium.com/@jpoly1219/watch-out-for-these-tricky-things-in-go-part-2-6a533703a44d">Medium</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
