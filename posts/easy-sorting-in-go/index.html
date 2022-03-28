@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Easy Sorting in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/easy-sorting-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Easy Sorting in Go"/>
+<meta name="twitter:description" content="Sorting is a popular topic among developers. It is one of the most crucial algorithms in computer science because many important algorithms rely on sorted arrays. For example, a binary search algorithm is commonly regarded as one the fastest way to search for something. However, for it to work, we need to provide a sorted array.
+I am not going to delve deeply into sorting algorithms here, because it is out of the scope of this post."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Easy Sorting in Go",
+        "headline": "Easy Sorting in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Sorting is a popular topic among developers. It is one of the most crucial algorithms in computer science because many important algorithms rely on sorted arrays. For example, a binary search algorithm is commonly regarded as one the fastest way to search for something. However, for it to work, we need to provide a sorted array.\nI am not going to delve deeply into sorting algorithms here, because it is out of the scope of this post.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/easy-sorting-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-03-28T12:41:50.00Z",
+        "datePublished": "2022-03-28T12:41:50.00Z",
+        "dateModified": "2022-03-28T12:41:50.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/easy-sorting-in-go\/",
+        "wordCount" : "835",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Easy Sorting in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Mon, Mar 28, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">4-minute read</span>
+          </div>
+
+        
+      </div><p><img src="/easy-sorting-in-go.png" alt=""></p>
+<p>Sorting is a popular topic among developers. It is one of the most crucial algorithms in computer science because many important algorithms rely on sorted arrays. For example, a binary search algorithm is commonly regarded as one the fastest way to search for something. However, for it to work, we need to provide a sorted array.</p>
+<p>I am not going to delve deeply into sorting algorithms here, because it is out of the scope of this post. However, it is a very interesting topic, so you should definitely look it up. But even if sorting algorithms aren&rsquo;t interesting, you probably came across a situation where you had to sort a list of elements. Instead of implementing your own algorithm from scratch, there is a much easier way to sort things. In this post, we are going to see how we can easily sort things in Go. Enjoy!</p>
+<h3 id="using-the-sort-package-from-go-standard-library">Using the sort package from Go Standard Library</h3>
+<p>Go usually takes a minimalistic approach to utility functions, so you have to create your own method of doing things in many cases. For example, there is no built-in function to get the minimum or maximum of an array.</p>
+<p>Fortunately, Go provides this out of the box because sorting is such a crucial functionality. You can import the <code>sort</code> package, and use its functions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;sort&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">intSlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">9</span>}
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">intSlice</span>)
+
+    <span style="color:#a6e22e">f64Slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">float64</span>{<span style="color:#ae81ff">4.8</span>, <span style="color:#ae81ff">10.5</span>, <span style="color:#ae81ff">7.4</span>}
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Float64s</span>(<span style="color:#a6e22e">f64Slice</span>)
+
+    <span style="color:#a6e22e">stringSlice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;Banana&#34;</span>, <span style="color:#e6db74">&#34;Apple&#34;</span>, <span style="color:#e6db74">&#34;Cherry&#34;</span>}
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Strings</span>(<span style="color:#a6e22e">stringSlice</span>)
+
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intSlice</span>, <span style="color:#a6e22e">f64Slice</span>, <span style="color:#a6e22e">stringSlice</span>)
+}
+</code></pre></div><pre tabindex="0"><code>[3 5 9] [4.8 7.4 10.5] [Apple Banana Cherry]
+</code></pre><p>These three basic sorts will get you pretty far, but there is an interesting piece of code in this package.</p>
+<h3 id="sortinterface">sort.Interface</h3>
+<p>There is an interface that is defined as <code>sort.Interface</code>. Here is what the code looks like.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Interface</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span>
+    <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)
+}
+</code></pre></div><p>Let&rsquo;s take it apart and inspect each function.</p>
+<ul>
+<li>
+<p><code>Len()</code> just tells you the length of the array.</p>
+</li>
+<li>
+<p><code>Less()</code> takes indices <code>i</code> and <code>j</code> and checks if the i&rsquo;th element is smaller than the j&rsquo;th element.</p>
+</li>
+<li>
+<p><code>Swap()</code> swaps the order of the i&rsquo;th and the j&rsquo;th element.</p>
+</li>
+</ul>
+<p>Some people may have noticed that this is an interface that can be implemented quite easily. What does this mean?</p>
+<h3 id="implementing-your-own-sorts">Implementing your own sorts</h3>
+<p>Yes, you can create custom sorts. If none of the above three methods suit your needs, just create a type that implements <code>sort.Interface</code>, then apply <code>sort.Sort()</code> to it. Here is a quick example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;sort&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">employee</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">lastname</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">age</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">phoneNumber</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">employeeDb</span> []<span style="color:#a6e22e">employee</span>
+
+<span style="color:#75715e">// employeeDb implements sort.Interface
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">edb</span> <span style="color:#a6e22e">employeeDb</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">edb</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">edb</span> <span style="color:#a6e22e">employeeDb</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">age</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">age</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">lastname</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">lastname</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">name</span> &lt; <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">name</span>
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">lastname</span> &lt; <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">lastname</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">age</span> &lt; <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">age</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">edb</span> <span style="color:#a6e22e">employeeDb</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">edb</span>[<span style="color:#a6e22e">i</span>]
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">myDb</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">employeeDb</span>{
+        {<span style="color:#e6db74">&#34;Jacob&#34;</span>, <span style="color:#e6db74">&#34;Kim&#34;</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">1234567890</span>},
+        {<span style="color:#e6db74">&#34;Chris&#34;</span>, <span style="color:#e6db74">&#34;Hemsworth&#34;</span>, <span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">9375913934</span>},
+        {<span style="color:#e6db74">&#34;Robert&#34;</span>, <span style="color:#e6db74">&#34;Downey Jr.&#34;</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">4459183048</span>},
+        {<span style="color:#e6db74">&#34;John&#34;</span>, <span style="color:#e6db74">&#34;Doe&#34;</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">4793721933</span>},
+        {<span style="color:#e6db74">&#34;Jane&#34;</span>, <span style="color:#e6db74">&#34;Doe&#34;</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">4792091933</span>},
+    }
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">myDb</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">myDb</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+    }
+}
+</code></pre></div><pre tabindex="0"><code>{Jacob Kim 21 1234567890}
+{Jane Doe 22 4792091933}
+{John Doe 22 4793721933}
+{Chris Hemsworth 38 9375913934}
+{Robert Downey Jr. 56 4459183048}
+</code></pre><p>Phew, that was a lot of code to swallow. But we can look at the overall flow together.</p>
+<ul>
+<li>
+<p>We defined a new type <code>employee</code>, which is a struct that holds the employee&rsquo;s name, last name, age, and phone number.</p>
+</li>
+<li>
+<p>We also defined a new type <code>employeeDb</code>, which is an array of <code>employee</code>. This type implements <code>sort.Interface</code> because it has <code>Len()</code>, <code>Less()</code>, and <code>Swap</code> defined.</p>
+</li>
+<li>
+<p><code>Len()</code> just returns the length of <code>employeeDb</code>, and <code>Swap()</code> just swaps the i&rsquo;th and the j&rsquo;th element. <code>Less()</code> is a bit long but it&rsquo;s quite simple.</p>
+<ul>
+<li>We try to determine which value is greater by sorting by age first. If the age is equal, then we try to sort by the last name, then the first name.</li>
+</ul>
+</li>
+<li>
+<p>When we <code>sort.Sort()</code>, we can see that the employees are sorted by age first.</p>
+<ul>
+<li>
+<p>Since John Doe and Jane Doe are the same age, they are sorted by their last name. However, they have the same last name as well! So they are sorted by their first name.</p>
+</li>
+<li>
+<p>The rest is self-explanatory.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Pretty nifty way to sort things, I must say. Depending on how you play around with <code>Less()</code>, you can come up with a totally different way of sorting things.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>This is one of the reasons why I think Go is a cool language. You can just implement an interface to enjoy all of its power. The takeaway here is that the <code>sort</code> package provides you with basic sorts, and if they fall short, then implementing <code>sort.Interface</code> is an easy way to sort custom types by your own rules.</p>
+<p>Hope this post helped! You can read this post on Medium and my personal site as well.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
