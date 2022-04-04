@@ -164,7 +164,7 @@ The problem is that there isn&rsquo;t only one way of doing things. If you have 
 
     ,
         "url" : "https:\/\/jpoly1219.github.io\/posts\/json-processing-in-go-marshal-or-encode\/",
-        "wordCount" : "1550",
+        "wordCount" : "1548",
         "genre" : [ ],
         "keywords" : [ ]
     }
@@ -689,7 +689,7 @@ cpu: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
 }
 </code></pre></div><p>This is a simple example of what an API looks like in Go. Any requests to the <code>/</code> endpoint will trigger this code to run the <code>Homepage</code> controller, which creates an instance of <code>pageData</code> and encodes it using <code>NewEncoder(w).Encode(&amp;homepageData)</code>. <code>w</code> implements <code>io.Writer</code>, so it&rsquo;s more convenient to use <code>Encode</code> which expects to be used on <code>io.Writer</code>. You could technically convert the struct into byte slice and then use <code>Marshal</code>. But why take an extra step when you don&rsquo;t need to?</p>
 <p>The takeaway point is that you shouldn&rsquo;t be worried about performance too much, until it becomes an issue. Instead, you should just pick a solution that is the easiest to use at the given time. If there is a byte slice to work with, use <code>Marshal</code> and <code>Unmarshal</code>. If there is an <code>io.Writer</code> or an <code>io.Reader</code>, use <code>Encode</code> and <code>Decode</code>.</p>
-<p>Thank you for reading! This turned out to be an interesting topic for me, and I wanted to run some experiments. Let me know down in the comments if you like these types of posts! You can read this post on Medium and my personal site as well.</p>
+<p>Thank you for reading! This turned out to be an interesting topic for me, and I wanted to run some experiments. Let me know down in the comments if you like these types of posts! You can read this post on <a href="https://medium.com/@jpoly1219/to-unmarshal-or-to-decode-json-processing-in-go-explained-e92fab5b648f">Medium</a> and <a href="https://dev.to/jpoly1219/to-unmarshal-or-to-decode-json-processing-in-go-explained-5870">Dev.to</a> as well.</p>
 </div>
     <div class="post-footer">
       <div class="info">
