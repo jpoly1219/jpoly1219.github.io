@@ -2,35 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-<<<<<<< HEAD
+    <loc>https://jpoly1219.github.io/</loc>
+    <lastmod>2022-04-03T22:08:55+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/json-processing-in-go-marshal-or-encode/</loc>
+    <lastmod>2022-04-03T22:08:55+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/</loc>
+    <lastmod>2022-04-03T22:08:55+09:00</lastmod>
+  </url><url>
     <loc>https://jpoly1219.github.io/posts/easy-sorting-in-go/</loc>
     <lastmod>2022-03-28T12:41:50+09:00</lastmod>
   </url><url>
-=======
-<<<<<<< HEAD
     <loc>https://jpoly1219.github.io/posts/how-slices-work-in-go/</loc>
     <lastmod>2022-03-21T12:18:53+09:00</lastmod>
-  </url><url>
-    <loc>https://jpoly1219.github.io/</loc>
-    <lastmod>2022-03-21T12:18:53+09:00</lastmod>
-  </url><url>
-    <loc>https://jpoly1219.github.io/posts/</loc>
-    <lastmod>2022-03-21T12:18:53+09:00</lastmod>
-=======
->>>>>>> 7f5784b9409d6ff21a37623831fd4a0bb1caa4a3
-    <loc>https://jpoly1219.github.io/</loc>
-    <lastmod>2022-03-28T12:41:50+09:00</lastmod>
-  </url><url>
-    <loc>https://jpoly1219.github.io/posts/</loc>
-<<<<<<< HEAD
-    <lastmod>2022-03-28T12:41:50+09:00</lastmod>
-  </url><url>
-    <loc>https://jpoly1219.github.io/posts/how-slices-work-in-go/</loc>
-    <lastmod>2022-03-21T12:18:53+09:00</lastmod>
-=======
-    <lastmod>2022-03-06T22:01:35+09:00</lastmod>
->>>>>>> 7fbd9cfbcac9eefcc7471db43e9cb5aa0e3b6171
->>>>>>> 7f5784b9409d6ff21a37623831fd4a0bb1caa4a3
   </url><url>
     <loc>https://jpoly1219.github.io/posts/watch-out-for-these-tricky-things-in-go-2/</loc>
     <lastmod>2022-03-06T22:01:35+09:00</lastmod>
