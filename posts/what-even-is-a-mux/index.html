@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        What Even Is a Mux
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/what-even-is-a-mux/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What Even Is a Mux"/>
+<meta name="twitter:description" content="&ldquo;Engineers are bad at naming things.&rdquo;
+This holds true for a lot of things. Weird terms, buzzwords, ten different names for the exact same thing&hellip; the list goes on and on. It&rsquo;s a bit embarrassing to admit, but I think one of the most annoying parts of learning Go was how there were jargon and terminologies I had to get used to. You have to go through this when you don&rsquo;t know anything in the beginning and decide to dive in headfirst into a new topic."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "What Even Is a Mux",
+        "headline": "What Even Is a Mux",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u0026ldquo;Engineers are bad at naming things.\u0026rdquo;\nThis holds true for a lot of things. Weird terms, buzzwords, ten different names for the exact same thing\u0026hellip; the list goes on and on. It\u0026rsquo;s a bit embarrassing to admit, but I think one of the most annoying parts of learning Go was how there were jargon and terminologies I had to get used to. You have to go through this when you don\u0026rsquo;t know anything in the beginning and decide to dive in headfirst into a new topic.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/what-even-is-a-mux\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-04-10T15:48:48.00Z",
+        "datePublished": "2022-04-10T15:48:48.00Z",
+        "dateModified": "2022-04-10T15:48:48.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/what-even-is-a-mux\/",
+        "wordCount" : "853",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>What Even Is a Mux</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Apr 10, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">5-minute read</span>
+          </div>
+
+        
+      </div><p>&ldquo;Engineers are bad at naming things.&rdquo;</p>
+<p>This holds true for a lot of things. Weird terms, buzzwords, ten different names for the exact same thing&hellip; the list goes on and on. It&rsquo;s a bit embarrassing to admit, but I think one of the most annoying parts of learning Go was how there were jargon and terminologies I had to get used to. You have to go through this when you don&rsquo;t know anything in the beginning and decide to dive in headfirst into a new topic.</p>
+<p>What is a mux? What is a handler? What is a middleware? What is the difference between the Handle type and the Handle function? HandleFunc and HandlerFunc? Is apple an orange? To be or not to be? How do I calculate the distance to the moon when I like to swim and have seven dwarves? What am I even saying?</p>
+<p>It&rsquo;s ok. I know what it feels like to get lost in the documentation jungle. This will be part 1 of a series where I try to help beginner Go web developers. In this post, I will explain what a mux is, how it works, and how you can write your own mux.</p>
+<h3 id="what-even-is-a-mux">What even is a mux?</h3>
+<p>Mux. It&rsquo;s not a very common word, that&rsquo;s for sure. Mux is short for <em>multiplexer</em>. What&rsquo;s a multiplexer?</p>
+<blockquote>
+<p>Multiplexer. A device that enables the simultaneous transmission of several messages or signals over one communications channel. - Dictionary.com</p>
+</blockquote>
+<p>In Go, when we say mux, it usually means an HTTP request multiplexer. Its main job is to match incoming request URLs against a pre-defined set of routes and do something when there is a match. Simply put, a mux acts as a gateway into your application.</p>
+<h3 id="creating-your-custom-mux">Creating your custom mux</h3>
+<p>What might this look like in your code? Let&rsquo;s walk through this step by step.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;log&#34;</span>
+    <span style="color:#e6db74">&#34;net/http&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">homeHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;This is the home page.&#34;</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">aboutHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;This is the about page.&#34;</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">mux</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">NewServeMux</span>()
+
+    <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+    <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/about&#34;</span>, <span style="color:#a6e22e">aboutHandler</span>)
+
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#a6e22e">mux</span>))
+}
+</code></pre></div><p>This is a very simple example backend app. It handles requests to <code>/</code> and <code>/about</code> endpoints by running the corresponding <code>homeHandler</code> and <code>aboutHandler</code> handler functions. Let&rsquo;s look at the main function first.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">mux</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">NewServeMux</span>()
+</code></pre></div><p>This creates a new instance of <code>ServeMux</code>. <code>ServeMux</code> is how a mux is defined in the <code>net/http</code> code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/about&#34;</span>, <span style="color:#a6e22e">aboutHandler</span>)
+</code></pre></div><p>A <code>ServeMux</code> has a method called <code>HandleFunc</code>. This takes in two parameters: the target endpoint, and a handler. <code>HandleFunc</code> will register this handler with the target endpoint. Whenever a request hits the endpoint, our <code>ServeMux</code> will check if there is a registered handler for that endpoint.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">homeHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;This is the home page.&#34;</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">aboutHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;This is the about page.&#34;</span>))
+}
+</code></pre></div><p>These are the handlers. Handlers are what actually do something when an endpoint is reached. They have two parameters that they can work with: the response and the request. It can read any data from the request such as the request header and the body. It can also write any data to the response, whether it be a byte text, a simple HTML, or JSON data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>), <span style="color:#a6e22e">mux</span>)
+</code></pre></div><p>This line is what starts the web server. <code>ListenAndServe</code> will listen at a designated port, which is 8080 in this case. You can also choose which mux to use, and passing in a <code>nil</code> value will make it use the <code>DefaultServeMux</code>. Do note that using a default mux isn&rsquo;t recommended, as it is stored as a global variable that other packages can modify.</p>
+<h3 id="how-does-a-mux-work">How does a mux work?</h3>
+<p>So we have a high-level understanding of how a mux works. Let&rsquo;s dive a little deeper because understanding how something works under the hood is a fun thing to do.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ServeMux</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">mu</span>    <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+    <span style="color:#a6e22e">m</span>     <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">muxEntry</span>
+    <span style="color:#a6e22e">es</span>    []<span style="color:#a6e22e">muxEntry</span>
+    <span style="color:#a6e22e">hosts</span> <span style="color:#66d9ef">bool</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">muxEntry</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">h</span>       <span style="color:#a6e22e">Handler</span>
+    <span style="color:#a6e22e">pattern</span> <span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p>We can ignore <code>sync.RWMutex</code> for now, because this is a measure to prevent any issues during concurrent request handling. It is way out of scope for this tutorial.</p>
+<p>As I mentioned above, a mux is defined in Go as a <code>ServeMux</code> type, which is a struct that holds a couple of different data.</p>
+<ul>
+<li>
+<p><code>ServeMux.m</code> holds a map of URL pattern that is paired with <code>muxEntry</code>, which is a struct that holds the handler and a URL pattern.</p>
+</li>
+<li>
+<p><code>ServeMux.es</code> is an ordered list of <code>muxEntry</code> objects used for pattern matching.</p>
+</li>
+<li>
+<p><code>ServeMux.hosts</code> is used to match host-based URLs, which include the full hostname in the URL.</p>
+</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>Hopefully, this post was useful as a starting point for beginner Go web developers who want to work on backend web development. Again, this is just part 1 of the backend web development series, so keep an eye out for the next set of posts! We still haven&rsquo;t covered everything that Go offers us. In the next post, we will take a look at handlers in more detail.</p>
+<p>Thank you for reading! You can also view this post on <a href="https://medium.com/@jpoly1219/what-even-is-a-mux-c8b4d16de55">Medium</a> and <a href="https://dev.to/jpoly1219/what-even-is-a-mux-4fng">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

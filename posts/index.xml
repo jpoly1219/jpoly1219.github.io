@@ -6,7 +6,19 @@
     <description>Recent content in Posts on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Apr 2022 22:08:55 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Apr 2022 15:48:48 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What Even Is a Mux</title>
+      <link>https://jpoly1219.github.io/posts/what-even-is-a-mux/</link>
+      <pubDate>Sun, 10 Apr 2022 15:48:48 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/what-even-is-a-mux/</guid>
+      
+        <description>&amp;ldquo;Engineers are bad at naming things.&amp;rdquo;
+This holds true for a lot of things. Weird terms, buzzwords, ten different names for the exact same thing&amp;hellip; the list goes on and on. It&amp;rsquo;s a bit embarrassing to admit, but I think one of the most annoying parts of learning Go was how there were jargon and terminologies I had to get used to. You have to go through this when you don&amp;rsquo;t know anything in the beginning and decide to dive in headfirst into a new topic.</description>
+      
+    </item>
+    
     <item>
       <title>Json Processing in Go Marshal or Encode</title>
       <link>https://jpoly1219.github.io/posts/json-processing-in-go-marshal-or-encode/</link>
