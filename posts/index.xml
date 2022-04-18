@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Apr 2022 15:48:48 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Apr 2022 15:26:15 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Can You Handle This</title>
+      <link>https://jpoly1219.github.io/posts/can-you-handle-this/</link>
+      <pubDate>Sun, 17 Apr 2022 15:26:15 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/can-you-handle-this/</guid>
+      
+        <description>Welcome to part 2 of my ongoing series, &amp;ldquo;A Gentle Intro to Golang Web Development.&amp;rdquo; I hope you enjoy it!
+Last time, we took a look at muxes. We know that they act as routers that route requests based on matching endpoint patterns. Now it&amp;rsquo;s time to look at how the requests get handled.
+Handlers, what are they? Handlers are objects that &amp;ldquo;handle&amp;rdquo; HTTP requests. All handlers implement the Handler interface shown below:</description>
+      
+    </item>
+    
     <item>
       <title>What Even Is a Mux</title>
       <link>https://jpoly1219.github.io/posts/what-even-is-a-mux/</link>
