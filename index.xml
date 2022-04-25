@@ -6,7 +6,18 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Apr 2022 15:26:15 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Apr 2022 14:20:51 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Use Gorilla Mux</title>
+      <link>https://jpoly1219.github.io/posts/how-to-use-gorilla-mux/</link>
+      <pubDate>Sun, 24 Apr 2022 14:20:51 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/how-to-use-gorilla-mux/</guid>
+      
+        <description>Welcome back to my guide, A Gentle Intro to Golang Web Development. Last time, we looked at how to write handlers for our web app. Now that we know how muxes and handlers work, it is time to use a more sophisticated tool. While Go does have an amazing net/http package, there are certain features that gorilla/mux provides that make our lives easier. Without further ado, let&amp;rsquo;s get into part 3.</description>
+      
+    </item>
+    
     <item>
       <title>Can You Handle This</title>
       <link>https://jpoly1219.github.io/posts/can-you-handle-this/</link>

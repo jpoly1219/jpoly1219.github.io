@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        How to Use Gorilla Mux
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/how-to-use-gorilla-mux/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to Use Gorilla Mux"/>
+<meta name="twitter:description" content="Welcome back to my guide, A Gentle Intro to Golang Web Development. Last time, we looked at how to write handlers for our web app. Now that we know how muxes and handlers work, it is time to use a more sophisticated tool. While Go does have an amazing net/http package, there are certain features that gorilla/mux provides that make our lives easier. Without further ado, let&rsquo;s get into part 3."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "How to Use Gorilla Mux",
+        "headline": "How to Use Gorilla Mux",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome back to my guide, A Gentle Intro to Golang Web Development. Last time, we looked at how to write handlers for our web app. Now that we know how muxes and handlers work, it is time to use a more sophisticated tool. While Go does have an amazing net\/http package, there are certain features that gorilla\/mux provides that make our lives easier. Without further ado, let\u0026rsquo;s get into part 3.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/how-to-use-gorilla-mux\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-04-24T14:20:51.00Z",
+        "datePublished": "2022-04-24T14:20:51.00Z",
+        "dateModified": "2022-04-24T14:20:51.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/how-to-use-gorilla-mux\/",
+        "wordCount" : "999",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>How to Use Gorilla Mux</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Apr 24, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">5-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome back to my guide, <em>A Gentle Intro to Golang Web Development</em>. Last time, we looked at how to write handlers for our web app. Now that we know how muxes and handlers work, it is time to use a more sophisticated tool. While Go does have an amazing <code>net/http</code> package, there are certain features that <code>gorilla/mux</code> provides that make our lives easier. Without further ado, let&rsquo;s get into part 3.</p>
+<h3 id="why-should-i-even-use-this-package">Why should I even use this package?</h3>
+<p>If the standard library is so good, why should we even bother to use <code>gorilla/mux</code>? There are a couple of reasons.</p>
+<ul>
+<li>
+<p>It can extract variables from the URL path.</p>
+</li>
+<li>
+<p>It supports subrouters, which you can use to group similar routes.</p>
+</li>
+<li>
+<p>You can match routes via domains, prefixes, methods, and more.</p>
+</li>
+<li>
+<p>The learning curve isn&rsquo;t steep, thanks to the package implementing the <code>http.Handler</code> interface, making it compatible with the standard library.</p>
+</li>
+</ul>
+<p>There are more features that I haven&rsquo;t listed here, but these are the most used features. <code>gorilla/mux</code> is a mature package with extensive documentation and a wide userbase, so it will be easier to get help online when you are stuck.</p>
+<h3 id="importing-the-package">Importing the package</h3>
+<p>To use <code>gorilla/mux</code>, we need to import it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;github.com/gorilla/mux&#34;</span>
+)
+</code></pre></div><p>After importing it into your <code>main.go</code> file, we need to install it.</p>
+<pre tabindex="0"><code>go mod init example.com/mywebapp
+
+go mod tidy
+</code></pre><p>We first initialize our <code>go.mod</code> file with the first command. The URL isn&rsquo;t important yet. We aren&rsquo;t hosting this in a remote repository. If we were developing a library for other people to use, this URL would be a path to your remote repo, such as <code>github.com/username/mypackage</code>.</p>
+<p>Once a <code>go.mod</code> file has been created, we use the second line to check and update the dependencies. <code>go mod tidy</code> is usually used to prune unnecessary dependencies, but it is also useful for adding missing ones.</p>
+<p>Now that it&rsquo;s installed, we can start using the package!</p>
+<h3 id="lets-walk-through-an-example-with-me">Let&rsquo;s walk through an example with me</h3>
+<p>We will build a library (as in books) management application where users can search for books and authors throughout this series. It is similar to Kindle or Barnes &amp; Noble shops, albeit MUCH simpler.</p>
+<p>Our web app is going to support these operations:</p>
+<ul>
+<li>
+<p>Users can get data for all books.</p>
+</li>
+<li>
+<p>Users can get data for each book by their ISBNs.</p>
+</li>
+<li>
+<p>Users can add new books.</p>
+</li>
+<li>
+<p>Users can update existing book data.</p>
+</li>
+<li>
+<p>Users can delete books.</p>
+</li>
+</ul>
+<p>Of course, some of these operations would be devastating if your average customers could use them freely. Imagine me going to the Kindle ebook store and wiping half of their library. However, since authentication and authorization are out of scope for this guide, we will assume that the users of this web app are managers and admins.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;log&#34;</span>
+    <span style="color:#e6db74">&#34;net/http&#34;</span>
+
+    <span style="color:#e6db74">&#34;github.com/gorilla/mux&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">NewRouter</span>()
+
+    <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+
+    <span style="color:#a6e22e">booksSubR</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">PathPrefix</span>(<span style="color:#e6db74">&#34;/books&#34;</span>).<span style="color:#a6e22e">Subrouter</span>()
+
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/all&#34;</span>, <span style="color:#a6e22e">AllHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/{isbn}&#34;</span>, <span style="color:#a6e22e">IspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/new&#34;</span>, <span style="color:#a6e22e">NewHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/update&#34;</span>, <span style="color:#a6e22e">UpdateHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPut</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/delete/{isbn}&#34;</span>, <span style="color:#a6e22e">DeleteIspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodDelete</span>)
+
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8090&#34;</span>, <span style="color:#a6e22e">r</span>))
+}
+</code></pre></div><p>This code will look familiar if you already read my previous guides.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// using gorilla/mux
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">NewRouter</span>()
+<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+</code></pre></div><p>We first create our mux and register an endpoint. In vanilla Go, we would accomplish by doing this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// using net/http
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mux</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">NewServeMux</span>()
+<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+</code></pre></div><p>Notice how similar the code is? This is all thanks to <code>gorilla/mux</code> implementing the <code>http.Handler</code> interface, making it compatible with the <code>net/http</code> standard library.</p>
+<p>This is the part where it gets interesting.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">booksSubR</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">PathPrefix</span>(<span style="color:#e6db74">&#34;/books&#34;</span>).<span style="color:#a6e22e">Subrouter</span>()
+</code></pre></div><p>The concept of <em>matching routes</em> and <em>subrouters</em> comes into play here. The first method is <code>PathPrefix()</code>, which matches routes that start with <code>/books</code>, such as <code>/books/all</code> or <code>/books/new</code>. Now, this by itself is usable, but it would be better if we group these routes. We do the grouping by calling the <code>Subrouter()</code> method. The above code will create a subrouter that matches routes that only start with <code>/books</code>. It will not handle any other routes, such as <code>/home</code> or <code>/welcome</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/all&#34;</span>, <span style="color:#a6e22e">booksAllHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+<span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/{isbn}&#34;</span>, <span style="color:#a6e22e">booksIspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+</code></pre></div><p>This is by in large the same thing as a normal <code>HandleFunc</code>, but with extra features.</p>
+<p>The <code>Methods()</code> method at the back limits the route to only accept certain HTTP request types. In this case, we only accept <code>GET</code> requests.</p>
+<p>Now, take a look at the second line. <code>isbn</code> is what we will call a <em>URL parameter</em>. These are variables inside a path, which is extractable later in our handler functions. So if I send a request to <code>/books/000-00-00000-00-0</code>, I will be able to extract <code>000-00-00000-00-0</code> as a variable, then use it to do something.</p>
+<p>But hold on, how does the subrouter tell if <code>all</code> is an ISBN if we send a request to <code>/books/all</code>? These situations arise when we have conflicting routes like the above. Our subrouter will just match the request in order from top to bottom, so <code>/all</code> will be matched first, then the rest will be matched by <code>/{isbn}</code>.</p>
+<p>Having lots of conflicting routes isn&rsquo;t a good practice, and you should try to avoid having these. However, we can add a pattern to the URL parameter if necessary.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/{isbn:^[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}$}&#34;</span>, <span style="color:#a6e22e">booksIspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+</code></pre></div><p>This may look a little crazy, but all it does is allow variables that match the format of ISBN-13 (anything that looks like <code>000-00-00000-00-0</code>). If you know how to write regular expressions, you can use it to implement a pattern.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>We learned how to use <code>gorilla/mux</code>, and how to use some of its defining features such as pattern matching, URL parameters and subrouters. There are other router packages out there, like <code>httprouter</code> and <code>go-chi</code>. I have never tried using these, but I&rsquo;ve heard many good things. Feel free to try them out!</p>
+<p>I hope you had fun reading this post. In the next one, I will walk through connecting our web app to a database, and executing some queries. The pacing of this guide might seem too slow for some of you, but I am intentionally making this slower so that the guide is easy to follow. Please understand!</p>
+<p>You can also read this on <a href="https://medium.com/@jpoly1219/how-to-use-gorilla-mux-cbecaf8c6840">Medium </a>and <a href="https://dev.to/jpoly1219/how-to-use-gorillamux-359k">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
