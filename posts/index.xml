@@ -32,6 +32,19 @@ Handlers, what are they? Handlers are objects that &amp;ldquo;handle&amp;rdquo; 
     </item>
     
     <item>
+      <title>Connecting to Database in Go</title>
+      <link>https://jpoly1219.github.io/posts/connecting-to-database-in-go/</link>
+      <pubDate>Sun, 17 Apr 2022 13:18:45 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/connecting-to-database-in-go/</guid>
+      
+        <description>Welcome back to A Gentle Intro to Golang Web Development. Last time, we learned how to use gorilla/mux. This time, we will learn how to set up a database and connect to it. Let&amp;rsquo;s get started!
+Start with why It&amp;rsquo;s important to understand why we need a database. A database connection is necessary for most web apps because there needs to be a way to persist data reliably.
+We could create a struct and store the data there.</description>
+      
+    </item>
+    
+    <item>
       <title>What Even Is a Mux</title>
       <link>https://jpoly1219.github.io/posts/what-even-is-a-mux/</link>
       <pubDate>Sun, 10 Apr 2022 15:48:48 +0900</pubDate>

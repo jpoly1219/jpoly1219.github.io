@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Connecting to Database in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/connecting-to-database-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Connecting to Database in Go"/>
+<meta name="twitter:description" content="Welcome back to A Gentle Intro to Golang Web Development. Last time, we learned how to use gorilla/mux. This time, we will learn how to set up a database and connect to it. Let&rsquo;s get started!
+Start with why It&rsquo;s important to understand why we need a database. A database connection is necessary for most web apps because there needs to be a way to persist data reliably.
+We could create a struct and store the data there."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Connecting to Database in Go",
+        "headline": "Connecting to Database in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome back to A Gentle Intro to Golang Web Development. Last time, we learned how to use gorilla\/mux. This time, we will learn how to set up a database and connect to it. Let\u0026rsquo;s get started!\nStart with why It\u0026rsquo;s important to understand why we need a database. A database connection is necessary for most web apps because there needs to be a way to persist data reliably.\nWe could create a struct and store the data there.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/connecting-to-database-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-04-17T13:18:45.00Z",
+        "datePublished": "2022-04-17T13:18:45.00Z",
+        "dateModified": "2022-04-17T13:18:45.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/connecting-to-database-in-go\/",
+        "wordCount" : "1330",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Connecting to Database in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Apr 17, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">7-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome back to <em>A Gentle Intro to Golang Web Development</em>. Last time, we learned how to use <code>gorilla/mux</code>. This time, we will learn how to set up a database and connect to it. Let&rsquo;s get started!</p>
+<h3 id="start-with-why">Start with why</h3>
+<p>It&rsquo;s important to understand why we need a database. A database connection is necessary for most web apps because there needs to be a way to persist data reliably.</p>
+<p>We could create a struct and store the data there. Something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BookData</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">title</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">author</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">isbn</span> <span style="color:#66d9ef">string</span>
+}
+
+
+<span style="color:#a6e22e">books</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">BookData</span>{
+    {<span style="color:#e6db74">&#34;Tools of Titans&#34;</span>, <span style="color:#e6db74">&#34;Tim Ferriss&#34;</span>, <span style="color:#e6db74">&#34;978-13-28683-78-6&#34;</span>},
+    {<span style="color:#e6db74">&#34;Siddhartha&#34;</span>, <span style="color:#e6db74">&#34;Herman Hesse&#34;</span>, <span style="color:#e6db74">&#34;978-1529024043&#34;</span>},
+}
+</code></pre></div><p>Sure, this might store the book data, but in our RAM. This is a bad idea because in-memory storage is volatile. The data stored in RAM will be destroyed when you turn off your database.</p>
+<p>Imagine going on a trip to France. You see the Eiffel Tower, eat haute-cuisine from the best restaurants, and make new friends. Storing it to RAM would be trying to remember all these cherished memories in your mind. Using a database is like taking pictures and saving them to your computer.</p>
+<p>For our gamer friends (like me!), imagine your account data resetting every time there is server maintenance. Yikes.</p>
+<p>It&rsquo;s a good idea to use tools suited for storing data. <code>database/sql</code> package provides support for SQL databases. If you want to use NoSQL databases, you will most likely require third-party packages. For this tutorial, we will use PostgreSQL.</p>
+<h3 id="create-the-database">Create the database</h3>
+<p>The easy way to create a database is to use a Docker image. Docker is a tool that lets us run services inside a container. Containerizing services allows them to run in an isolated environment, making it easy to run, stop and delete.</p>
+<p>First, let&rsquo;s install Docker. I highly recommend you follow <a href="https://docs.docker.com/get-started/">this tutorial</a> to get your hands dirty with simple Docker commands. This tutorial will get Docker installed, and help you understand what Docker is and how it works.</p>
+<p>Once you&rsquo;re done with the tutorial, we can start working on our containers. Create a file named <code>docker-compose.yml</code> and edit it like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">version: <span style="color:#e6db74">&#34;3.7&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>services:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  database:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    container_name: database<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    image: postgres<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    ports:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - <span style="color:#e6db74">&#34;5432:5432&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - ./database:/var/lib/postgresql/data<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    environment:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - POSTGRES_DB<span style="color:#f92672">=</span>bookstoreDB<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - POSTGRES_USER<span style="color:#f92672">=</span>jacob<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - POSTGRES_PASSWORD<span style="color:#f92672">=</span>password<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>The file above does a few things:</p>
+<ul>
+<li>
+<p>It pulls the <code>postgres</code> image from the Docker Hub.</p>
+</li>
+<li>
+<p>The container opens port 5432 for us to connect.</p>
+</li>
+<li>
+<p>It sets the environment variables to use when connecting to the database.</p>
+</li>
+<li>
+<p>POSTGRES_USER and POSTGRES_PASSWORD  can be anything. For this tutorial, I&rsquo;m using <code>jacob</code> and <code>password</code>.</p>
+</li>
+<li>
+<p>Thanks to volume, data persists inside the container at <code>/var/lib/postgresql/data</code>.</p>
+</li>
+</ul>
+<p>We can run this by using the following command:</p>
+<pre tabindex="0"><code>docker-compose up -d
+</code></pre><p>We can stop this by using the following command:</p>
+<pre tabindex="0"><code>docker-compose down
+</code></pre><p>Once the container is running, we can connect to the database by using a tool called pgAdmin. Go ahead and install pgAdmin for your OS <a href="https://www.pgadmin.org/download/">here</a>. Once installed, open the app. To the left, right-click on <code>Servers</code>, and go to <code>Create &gt; Server</code>.</p>
+<ul>
+<li>
+<p>In the General tab, name this whatever you want. Go to the Connection tab.</p>
+</li>
+<li>
+<p>The hostname/address is <code>localhost</code>.</p>
+</li>
+<li>
+<p>Port is <code>5432</code>.</p>
+</li>
+<li>
+<p>The maintenance database is <code>bookstoreDB</code>.</p>
+</li>
+<li>
+<p>Username and password are what you set in the <code>docker-compose.yml</code> file.</p>
+</li>
+</ul>
+<p>Once you save, pgAdmin will create a new connection. Once we drop down to <code>bookstoreDB</code>, we can click on <code>Tools &gt; Query Tool</code> at the top toolbar. This opens a window where we can type and execute SQL queries.</p>
+<p>Ok, the setup process was long, but we don&rsquo;t have to touch it often afterwards. Let&rsquo;s move on to the Go code.</p>
+<h3 id="houston-do-you-copy">Houston, do you copy?</h3>
+<p>We know why we need a database and have created an instance of PostgreSQL. Now we need to make a connection from our Go program.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// main.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;database/sql&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;log&#34;</span>
+
+    <span style="color:#e6db74">&#34;github.com/gorilla/mux&#34;</span>
+    <span style="color:#a6e22e">_</span><span style="color:#e6db74">&#34;github.com/lib/pq&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">DB</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+
+<span style="color:#66d9ef">const</span> (
+    <span style="color:#a6e22e">HOST</span> = <span style="color:#e6db74">&#34;localhost&#34;</span>
+    <span style="color:#a6e22e">PORT</span> = <span style="color:#ae81ff">5432</span>
+    <span style="color:#a6e22e">USER</span> = <span style="color:#e6db74">&#34;jacob&#34;</span>
+    <span style="color:#a6e22e">PASSWORD</span> = <span style="color:#e6db74">&#34;password&#34;</span>
+    <span style="color:#a6e22e">DBNAME</span> = <span style="color:#e6db74">&#34;bookstoreDB&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">connString</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(
+        <span style="color:#e6db74">&#34;host=%s port=%d user=%s password=%s dbname=%s sslmode=disable&#34;</span>,
+        <span style="color:#a6e22e">HOST</span>, <span style="color:#a6e22e">PORT</span>, <span style="color:#a6e22e">USER</span>, <span style="color:#a6e22e">PASSWORD</span>, <span style="color:#a6e22e">DBNAME</span>,
+    )
+
+    <span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">connString</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#75715e">// mux definition and route registration (from last tutorial)
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">NewRouter</span>()
+
+    <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+
+    <span style="color:#a6e22e">booksSubR</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">PathPrefix</span>(<span style="color:#e6db74">&#34;/books&#34;</span>).<span style="color:#a6e22e">Subrouter</span>()
+
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/all&#34;</span>, <span style="color:#a6e22e">AllHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/{isbn}&#34;</span>, <span style="color:#a6e22e">IspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/new&#34;</span>, <span style="color:#a6e22e">NewHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/update&#34;</span>, <span style="color:#a6e22e">UpdateHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPut</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/delete/{isbn}&#34;</span>, <span style="color:#a6e22e">DeleteIspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodDelete</span>)
+
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8090&#34;</span>, <span style="color:#a6e22e">r</span>))
+}
+</code></pre></div><p>This is a very simple, easy-to-understand way to create a connection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;database/sql&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;log&#34;</span>
+
+    <span style="color:#e6db74">&#34;github.com/gorilla/mux&#34;</span>
+    <span style="color:#a6e22e">_</span><span style="color:#e6db74">&#34;github.com/lib/pq&#34;</span>   
+)
+</code></pre></div><p>That last import statement looks suspicious. Why is there an underscore at the beginning? Also, why even download this package when Go already provides the <code>database/sql</code> package? These are all great questions!</p>
+<ul>
+<li>
+<p><code>database/sql</code> is designed to support many SQL and SQL-like databases. It does not include drivers for all the databases out there. The package developers thought that it is more efficient to separate the drivers from the <code>database/sql</code> package. Think of it as a modular travel adapter where the power brick stays the same, but the prongs are swappable.</p>
+</li>
+<li>
+<p><code>github.com/lib/pq</code> is the driver for PostgreSQL. This package is a little different in that there is nowhere in the code where we use this driver. Therefore, we put an underscore at the front to denote that the driver is being used but not actively called by the user.</p>
+</li>
+</ul>
+<p>Make sure to run <code>go mod tidy</code> to update the dependencies list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">DB</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+</code></pre></div><ul>
+<li>
+<p>We store connection data as a global variable using <code>var DB *sql.DB</code>.</p>
+</li>
+<li>
+<p>The database is represented as a pointer to the struct <code>sql.DB</code>, because DB itself is a large struct. It is more efficient to take the pointer of it.</p>
+</li>
+</ul>
+<p>If you don&rsquo;t know what a pointer is, it&rsquo;s a variable that stores the memory address of an object.</p>
+<ul>
+<li>
+<p>An object such as a large struct with multiple attributes takes up a lot of space. Passing it around is cumbersome, because the program needs to copy a lot of data every time.</p>
+</li>
+<li>
+<p>If we use a pointer instead, we are just passing around a reference to the object, which is a lot lighter.</p>
+</li>
+<li>
+<p>We tend to create shortcuts to certain folders when we organize our files, right? We don&rsquo;t have to copy the file to our desktop. We just have to create a shortcut, which saves a lot of precious gigabytes.</p>
+</li>
+</ul>
+<p>I will write a guide on pointers some day, so that more people can get help.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">const</span> (
+    <span style="color:#a6e22e">HOST</span> = <span style="color:#e6db74">&#34;localhost&#34;</span>
+    <span style="color:#a6e22e">PORT</span> = <span style="color:#ae81ff">5432</span>
+    <span style="color:#a6e22e">USER</span> = <span style="color:#e6db74">&#34;jacob&#34;</span>
+    <span style="color:#a6e22e">PASSWORD</span> = <span style="color:#e6db74">&#34;password&#34;</span>
+    <span style="color:#a6e22e">DBNAME</span> = <span style="color:#e6db74">&#34;bookstoreDB&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">connString</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(
+        <span style="color:#e6db74">&#34;host=%s port=%d user=%s password=%s dbname=%s sslmode=disable&#34;</span>,
+        <span style="color:#a6e22e">HOST</span>, <span style="color:#a6e22e">PORT</span>, <span style="color:#a6e22e">USER</span>, <span style="color:#a6e22e">PASSWORD</span>, <span style="color:#a6e22e">DBNAME</span>,
+    )
+
+    <span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">connString</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">Close</span>()
+}
+</code></pre></div><ul>
+<li>
+<p>To connect to our database, we need to define the host, port, username, password, dbname, and SSL mode. These won&rsquo;t change, so it&rsquo;s a good idea to declare them as constants.</p>
+</li>
+<li>
+<p>The values follow the environment variables we defined in our <code>docker-compse.yml</code> file.</p>
+</li>
+<li>
+<p><code>connString</code> is a string that holds all these variables, passed to <code>sql.Open()</code> as an option.</p>
+</li>
+<li>
+<p><code>sql.Open()</code> connects our program to the database. Its return value is stored in our <code>DB</code> variable.</p>
+</li>
+<li>
+<p>We need to close our connection when the app is not running, so we use the <code>defer</code> keyword to close the connection right before the app stops.</p>
+</li>
+</ul>
+<p>Using global variables works for simple apps like this, but it is not recommended in production because of how unsafe global variables are to mutation. Simply put, we have no control over what happens to the global variable. As you move on, dependency injection will be used more often. However, this concept is out of the scope of today&rsquo;s tutorial.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Thank you for reading! I hoped to cover querying today, but that would make the tutorial too long. Plus, introducing new tools such as Docker and PostgreSQL is already lot to swallow. The next tutorial will be all about querying the database, so stay tuned!</p>
+<p>You can also read this post on <a href="https://medium.com/@jpoly1219/connecting-to-database-in-go-f98c3a7a06a8">Medium</a> and <a href="https://dev.to/jpoly1219/connecting-to-database-in-go-4m95">Dev.to</a></p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
