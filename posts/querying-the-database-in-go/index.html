@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Querying the Database in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/querying-the-database-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Querying the Database in Go"/>
+<meta name="twitter:description" content="Welcome back to my tutorial! Last time, we set up an instance of the PostgreSQL database and connected it to our backend. This time, we will use the database and learn how to query it.
+A quick intro to SQL databases Although we have set up the database connection, chances are that you still don&rsquo;t understand how a database works. Is it like a file explorer on my computer? How does it store data?"/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Querying the Database in Go",
+        "headline": "Querying the Database in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome back to my tutorial! Last time, we set up an instance of the PostgreSQL database and connected it to our backend. This time, we will use the database and learn how to query it.\nA quick intro to SQL databases Although we have set up the database connection, chances are that you still don\u0026rsquo;t understand how a database works. Is it like a file explorer on my computer? How does it store data?
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/querying-the-database-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-05-08T11:04:19.00Z",
+        "datePublished": "2022-05-08T11:04:19.00Z",
+        "dateModified": "2022-05-08T11:04:19.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/querying-the-database-in-go\/",
+        "wordCount" : "2042",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Querying the Database in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, May 8, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">10-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome back to my tutorial! Last time, we set up an instance of the PostgreSQL database and connected it to our backend. This time, we will use the database and learn how to query it.</p>
+<h3 id="a-quick-intro-to-sql-databases">A quick intro to SQL databases</h3>
+<p>Although we have set up the database connection, chances are that you still don&rsquo;t understand how a database works. Is it like a file explorer on my computer? How does it store data? What does it mean to <em>query</em> the database? I think SQL syntax gets a lot easier if we understand how a database works.</p>
+<p>PostgreSQL is an example of what is called an <em>SQL database</em>. An SQL database is a type of database that stores data in the format of a defined <em>schema</em>. Simply put, it is a glorified spreadsheet where each data is stored as a row inside a table. An SQL database will typically have several schemas (tables) that define the data&rsquo;s format.</p>
+<p>In our example, we want a table that stores book data. Our struct definition in Go looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BookData</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">title</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">author</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">isbn</span> <span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p>Each book has a title, an author, and an ISBN. The table in our database will look something like this:</p>
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Author</th>
+<th>ISBN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tools of Titans</td>
+<td>Tim Ferriss</td>
+<td>9781328683786</td>
+</tr>
+<tr>
+<td>Siddhartha</td>
+<td>Herman Hesse</td>
+<td>9781529024043</td>
+</tr>
+<tr>
+<td>Atomic Habits</td>
+<td>James Clear</td>
+<td>9780735211292</td>
+</tr>
+</tbody>
+</table>
+<p>We will redefine the schema and the struct in this guide to better suit our needs.</p>
+<h3 id="simple-sql-syntax">Simple SQL syntax</h3>
+<p>Now that we know how a database stores data, it is time to learn how to use it. Unless you use a GUI tool to simplify the operations, you will need to use a special language to manipulate the database. Even if you have a GUI tool, it is good to know how to use SQL.</p>
+<p>SQL is short for <em>Structured Query Language</em> and is the primary way to manipulate the database. The syntax reads like English, so it is very easy to understand what each line does. The act of requesting and editing data is called a <em>query</em>.</p>
+<p>Let&rsquo;s start with learning a couple of the most important commands. Also, yes, it is idiomatic to type SQL commands in all caps to distinguish them from the data. For the sake of organization and readability, you may opt to break the query statement into multiple lines.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> myDatabase;
+</code></pre></div><p>This command creates a database. We have already created the database in the last tutorial, so we can skip this step.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> myTable (
+    column1 dataType columnConstraints,
+    column2 dataType columnConstraints,
+    column3 dataType columnConstraints,
+    tableContrainsts
+);
+</code></pre></div><p>This is how you create a table like the one in the first part of this tutorial.</p>
+<ul>
+<li>
+<p>You choose the name of the table.</p>
+</li>
+<li>
+<p>You must then specify the column names, the data types, and constraints.</p>
+</li>
+</ul>
+<p>Constraints are options that you assign to each column. For example, a <code>NOT NULL</code> constraint will enforce the column to have non-null values. A <code>PRIMARY KEY</code> constraint will designate the column as unique values that can identify each row.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> column1 <span style="color:#66d9ef">FROM</span> myTable <span style="color:#66d9ef">WHERE</span> condition;
+</code></pre></div><p>This is how you select certain data from the table. The command is self-explanatory: you choose a column or set of columns from the table where a condition is met.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> myTable (column1, column2, ...)
+<span style="color:#66d9ef">VALUES</span> (value1, value2, ...);
+</code></pre></div><p>This is how you insert data into certain columns. <code>value1</code> gets inserted into <code>column1</code>, and vice versa.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">UPDATE</span> myTable
+<span style="color:#66d9ef">SET</span> column1 <span style="color:#f92672">=</span> value1, column2 <span style="color:#f92672">=</span> value2, ...
+<span style="color:#66d9ef">WHERE</span> condition;
+</code></pre></div><p>This is how you update existing values at given columns.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">DELETE</span> myTable <span style="color:#66d9ef">WHERE</span> condition;
+</code></pre></div><p>This is how you delete existing values that match the condition.</p>
+<h3 id="mise-en-place">Mise en place</h3>
+<p>Our database currently has nothing inside it. We should prep it before we can do anything in our backend. Let&rsquo;s create our table first.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> books (
+    isbn VARCHAR(<span style="color:#ae81ff">13</span>) <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+    title VARCHAR(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    author VARCHAR(<span style="color:#ae81ff">50</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+);
+</code></pre></div><p>This script creates a table named <code>books</code> that has columns <code>isbn</code>, <code>title</code>, and <code>author</code>.</p>
+<ul>
+<li>
+<p><code>VARCHAR(length)</code> is a type used by strings with maximum length. <code>VARCHAR(13)</code> will only accept strings with 13 characters or less. We will use ISBN 13 with no hyphens in the middle, so allocating only 13 characters sounds good.</p>
+</li>
+<li>
+<p><code>PRIMARY KEY</code> is a constraint applied to columns to identify a row uniquely in a table. All items in the <code>PRIMARY KEY</code> column must be unique and not be empty.</p>
+</li>
+<li>
+<p><code>NOT NULL</code> is a constraint used to ensure no data in the column is empty.</p>
+</li>
+</ul>
+<p>Ok, we created the table. We could seed the database by inserting new rows right now, but we will do this in our backend instead. If you want to add some books now, you can go ahead and use this script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> books (isbn, title, author)
+<span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;9781328683786&#34;</span>, <span style="color:#e6db74">&#34;Teen Titans&#34;</span>, <span style="color:#e6db74">&#34;Tim Ferriss&#34;</span>);
+
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> books (isbn, title, author)
+<span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;9781529024043&#34;</span>, <span style="color:#e6db74">&#34;Siddhartha&#34;</span>, <span style="color:#e6db74">&#34;Herman Hesse&#34;</span>);
+
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> books (isbn, title, author)
+<span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;9780735211292&#34;</span>, <span style="color:#e6db74">&#34;Atomic Habits&#34;</span>, <span style="color:#e6db74">&#34;James Clear&#34;</span>);
+</code></pre></div><p>Whoops, we made a typo in our first book. The title should be <strong>Tools of Titans</strong>, not <strong>Teen Titans</strong>! To fix this, we can use this query statement:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">UPDATE</span> books
+<span style="color:#66d9ef">SET</span> title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Tools of Titans&#34;</span>
+<span style="color:#66d9ef">WHERE</span> isbn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;9781328683786&#34;</span>;
+</code></pre></div><p>Pretty straightforward, right?</p>
+<h3 id="executing-queries-in-go">Executing queries in Go</h3>
+<p>Good job following the guide so far! Now we will learn how to execute these queries from our backend. Let&rsquo;s go back to our code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// main.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;database/sql&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;log&#34;</span>
+
+    <span style="color:#e6db74">&#34;github.com/gorilla/mux&#34;</span>
+    <span style="color:#a6e22e">_</span><span style="color:#e6db74">&#34;github.com/lib/pq&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">DB</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+
+<span style="color:#66d9ef">const</span> (
+    <span style="color:#a6e22e">HOST</span> = <span style="color:#e6db74">&#34;localhost&#34;</span>
+    <span style="color:#a6e22e">PORT</span> = <span style="color:#ae81ff">5432</span>
+    <span style="color:#a6e22e">USER</span> = <span style="color:#e6db74">&#34;jacob&#34;</span>
+    <span style="color:#a6e22e">PASSWORD</span> = <span style="color:#e6db74">&#34;password&#34;</span>
+    <span style="color:#a6e22e">DBNAME</span> = <span style="color:#e6db74">&#34;bookstoreDB&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">connString</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(
+        <span style="color:#e6db74">&#34;host=%s port=%d user=%s password=%s dbname=%s sslmode=disable&#34;</span>,
+        <span style="color:#a6e22e">HOST</span>, <span style="color:#a6e22e">PORT</span>, <span style="color:#a6e22e">USER</span>, <span style="color:#a6e22e">PASSWORD</span>, <span style="color:#a6e22e">DBNAME</span>,
+    )
+
+    <span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">connString</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#75715e">// mux definition and route registration (from last tutorial)
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">NewRouter</span>()
+
+    <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">homeHandler</span>)
+
+    <span style="color:#a6e22e">booksSubR</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">PathPrefix</span>(<span style="color:#e6db74">&#34;/books&#34;</span>).<span style="color:#a6e22e">Subrouter</span>()
+
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/all&#34;</span>, <span style="color:#a6e22e">AllHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/{isbn}&#34;</span>, <span style="color:#a6e22e">IspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/new&#34;</span>, <span style="color:#a6e22e">NewHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/update&#34;</span>, <span style="color:#a6e22e">UpdateHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPut</span>)
+    <span style="color:#a6e22e">booksSubR</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/delete/{isbn}&#34;</span>, <span style="color:#a6e22e">DeleteIspnHandler</span>).<span style="color:#a6e22e">Methods</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodDelete</span>)
+
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8090&#34;</span>, <span style="color:#a6e22e">r</span>))
+}
+</code></pre></div><p>We should define the handlers that fire when a corresponding endpoint is reached. To make things less cluttered, let&rsquo;s create a new file named <code>controllers.go</code> and write our controllers there. In case you are wondering, I am using the terms <em>controllers</em> and <em>handlers</em> interchangeably.</p>
+<p>Before we create <code>controllers.go</code>, we need to create a defined model that reflects the database&rsquo;s schema. These models should go inside <code>models.go</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// models.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Book</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Isbn</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;isbn&#34;`</span>
+    <span style="color:#a6e22e">Title</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;title&#34;`</span>
+    <span style="color:#a6e22e">Author</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;author&#34;`</span>
+}
+</code></pre></div><p>Now that we have <code>Book</code> defined, we can use that in our <code>controllers.go</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// controllers.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;database/sql&#34;</span>
+    <span style="color:#e6db74">&#34;net/http&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">AllHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">books</span> = make([]<span style="color:#a6e22e">Book</span>, <span style="color:#ae81ff">0</span>)
+
+    <span style="color:#a6e22e">results</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;SELECT * FROM books;&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;failed to execute query&#34;</span>, <span style="color:#a6e22e">err</span>)
+        <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">500</span>)
+        <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">Next</span>() {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">Book</span>
+
+        <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">isbn</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">author</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;failed to scan&#34;</span>, <span style="color:#a6e22e">err</span>)
+            <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">500</span>)
+            <span style="color:#66d9ef">return</span>
+        }
+
+        <span style="color:#a6e22e">books</span> = append(<span style="color:#a6e22e">books</span>, <span style="color:#a6e22e">b</span>)
+    }
+
+    <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">w</span>).<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">books</span>)
+}
+
+<span style="color:#75715e">// other handler definitions go here
+</span></code></pre></div><p>This is an example of how a controller function can query the database, parse the results as JSON, then send them back to the user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">books</span> = make([]<span style="color:#a6e22e">Book</span>, <span style="color:#ae81ff">0</span>)
+</code></pre></div><p>We create a slice of <code>Book</code> objects. This is used to store the query results.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">results</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;SELECT * FROM books;&#34;</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;failed to execute query&#34;</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">500</span>)
+    <span style="color:#66d9ef">return</span>
+}
+</code></pre></div><p>We haven&rsquo;t seen this code before. This is the snippet that executes the query.</p>
+<ul>
+<li>
+<p>We created <code>DB</code> in the <code>main</code> function. We use the <code>Query</code> method on <code>DB</code> to execute a query.</p>
+</li>
+<li>
+<p>The query statement is a string: <code>SELECT * FROM books;</code>. The asterisk denotes that we want to select all records from the table <code>books</code>.</p>
+</li>
+<li>
+<p>The method returns <code>results</code>, which is of type <code>sql.Rows</code>. This stores the result of a query, row by row. Getting this alone isn&rsquo;t enough; we need to scan the contents into another variable.</p>
+</li>
+<li>
+<p>If there is an error, we respond with an HTTP error code of 500, which denotes an issue on the server-side.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">Next</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">Book</span>
+
+    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">isbn</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">author</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;failed to scan&#34;</span>, <span style="color:#a6e22e">err</span>)
+        <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">500</span>)
+        <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#a6e22e">books</span> = append(<span style="color:#a6e22e">books</span>, <span style="color:#a6e22e">b</span>)
+}
+</code></pre></div><p>This is where we save the query results.</p>
+<ul>
+<li>
+<p><code>results.Next</code> iterates through the rows of <code>results</code>. Because we queried for all records, there are many rows that we need to iterate through.</p>
+</li>
+<li>
+<p><code>results.Scan</code> scans the row data to the target destination. Here, we are scanning to an instance of <code>Book</code> called <code>b</code>.</p>
+</li>
+<li>
+<p>Once the scanning is complete, we append <code>b</code> to the <code>books</code> slice.</p>
+</li>
+<li>
+<p>If there is an error, we respond with an HTTP error code of 500, which denotes an issue on the server-side.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">w</span>).<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">books</span>)
+</code></pre></div><p>This is simple. It encodes the <code>books</code> slice into JSON, then sends it back to the user.</p>
+<h3 id="handling-post-requests">Handling POST requests</h3>
+<p>We need to handle requests to add new books to our database. The basics are the same as in the previous example, but the querying method will be slightly different.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// controllers.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;database/sql&#34;</span>
+    <span style="color:#e6db74">&#34;net/http&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">Book</span>
+
+    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Body</span>).<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;error while decoding r.Body&#34;</span>, <span style="color:#a6e22e">err</span>)
+        <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">400</span>)
+        <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#a6e22e">queryStmt</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">        INSERT INTO books (isbn, title, author)
+</span><span style="color:#e6db74">        VALUES ($1, $2, $3)
+</span><span style="color:#e6db74">        RETURNING isbn;
+</span><span style="color:#e6db74">    `</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">isbn</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">queryStmt</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">isbn</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">author</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">isbn</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;failed to execute query&#34;</span>, <span style="color:#a6e22e">err</span>)
+        <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">500</span>)
+        <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;%s has been added to the database&#34;</span>, <span style="color:#a6e22e">isbn</span>)
+}
+</code></pre></div><p>The code looks similar to our first example, but it is slightly different.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">Book</span>
+
+<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Body</span>).<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;error while decoding r.Body&#34;</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">400</span>)
+    <span style="color:#66d9ef">return</span>
+}
+</code></pre></div><ul>
+<li>
+<p>Because the user will send a JSON object as a request body, we need to marshal it in a Go-friendly format.</p>
+</li>
+<li>
+<p>We create an instance of <code>Book</code> called <code>b</code>, and we decode the request body to it.</p>
+</li>
+<li>
+<p>If an error occurs, this means that the request body is invalid, so we return an error code of 400.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">queryStmt</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">    INSERT INTO books (isbn, title, author)
+</span><span style="color:#e6db74">    VALUES ($1, $2, $3)
+</span><span style="color:#e6db74">    RETURNING isbn;
+</span><span style="color:#e6db74">`</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">isbn</span> <span style="color:#66d9ef">string</span>
+<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">queryStmt</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">isbn</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">author</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">isbn</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;failed to execute query&#34;</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">500</span>)
+    <span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;%s has been added to the database&#34;</span>, <span style="color:#a6e22e">isbn</span>)
+</code></pre></div><p>This is how we handle <code>INSERT</code> statements or any statements that require us to dynamically create new query statements such as <code>UPDATE</code>.</p>
+<ul>
+<li>
+<p><code>queryStmt</code> is the query statement. Focus on the second line - it has <code>$1, $2, $3</code>. These are placeholders for data we will insert later. Because one person&rsquo;s <code>INSERT</code> statement is going to be different from someone else&rsquo;s, we can&rsquo;t just have a static query statement. How are we to know what book the users want to add before they even tell us?</p>
+</li>
+<li>
+<p>The <code>RETURNING isbn;</code> line at the end will return the <code>isbn</code> of the book added. This is useful data to keep, and we can use it to do whatever we please.</p>
+</li>
+<li>
+<p>Based on the query statement, we know for sure that there is only going to be one row returned after the query. This is why we use <code>sql.QueryRow</code> instead of <code>sql.Query</code>.</p>
+</li>
+<li>
+<p>In <code>DB.QueryRow</code>, we pass in our query statement, and the data to replace <code>$1, $2, $3</code>. Order matters, so in our example, <code>&amp;b.isbn</code> will replace <code>$1</code>, and vice versa. <code>&amp;b.isbn</code>, <code>&amp;b.title</code>, and <code>&amp;b.author</code> are the fields of <code>b</code> that we have decoded previously.</p>
+</li>
+<li>
+<p>If there is an error, we respond with an HTTP error code of 500, which denotes an issue on the server-side.</p>
+</li>
+</ul>
+<p>You will be able to figure out how to write other controller functions from here. Best of luck! Check out these resources to help you:</p>
+<ul>
+<li>
+<p><a href="https://pkg.go.dev/database/sql">sql package - database/sql - pkg.go.dev</a></p>
+</li>
+<li>
+<p><a href="https://www.postgresqltutorial.com">PostgreSQL Tutorial</a></p>
+</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>Congratulations on completing this part of the tutorial. We now have a very basic REST API up and running. Run the code, fire up your favorite client (mine is cURL and Postman), and start testing! Feel free to add more controllers and expand. There are more advanced topics in building APIs, but for learning purposes, this will be enough. I will get to more advanced topics soon, so stay tuned!</p>
+<p>You can also read this post on <a href="https://medium.com/@jpoly1219/querying-the-database-in-a-go-web-app-21883d38fb82">Medium</a> and <a href="https://dev.to/jpoly1219/querying-the-database-in-a-go-web-app-dm">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

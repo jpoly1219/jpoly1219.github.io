@@ -6,7 +6,19 @@
     <description>Recent content in Posts on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Apr 2022 14:20:51 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 May 2022 11:04:19 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Querying the Database in Go</title>
+      <link>https://jpoly1219.github.io/posts/querying-the-database-in-go/</link>
+      <pubDate>Sun, 08 May 2022 11:04:19 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/querying-the-database-in-go/</guid>
+      
+        <description>Welcome back to my tutorial! Last time, we set up an instance of the PostgreSQL database and connected it to our backend. This time, we will use the database and learn how to query it.
+A quick intro to SQL databases Although we have set up the database connection, chances are that you still don&amp;rsquo;t understand how a database works. Is it like a file explorer on my computer? How does it store data?</description>
+      
+    </item>
+    
     <item>
       <title>How to Use Gorilla Mux</title>
       <link>https://jpoly1219.github.io/posts/how-to-use-gorilla-mux/</link>
