@@ -6,7 +6,18 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 May 2022 11:04:19 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 May 2022 17:58:19 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linked List in Go</title>
+      <link>https://jpoly1219.github.io/posts/linked-list-in-go/</link>
+      <pubDate>Sun, 15 May 2022 17:58:19 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/linked-list-in-go/</guid>
+      
+        <description>Welcome to my new series: Introduction to Data Structures in Go! We will start this series with a post about linked lists. If you are a student majoring in computer science, you probably have run into these in your class. Not only are linked lists a part of the CS curriculum, but are also a very popular topic in coding interviews, so it is desirable to have a solid grasp on this topic.</description>
+      
+    </item>
+    
     <item>
       <title>Querying the Database in Go</title>
       <link>https://jpoly1219.github.io/posts/querying-the-database-in-go/</link>

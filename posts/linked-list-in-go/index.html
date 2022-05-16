@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Linked List in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/linked-list-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linked List in Go"/>
+<meta name="twitter:description" content="Welcome to my new series: Introduction to Data Structures in Go! We will start this series with a post about linked lists. If you are a student majoring in computer science, you probably have run into these in your class. Not only are linked lists a part of the CS curriculum, but are also a very popular topic in coding interviews, so it is desirable to have a solid grasp on this topic."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Linked List in Go",
+        "headline": "Linked List in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome to my new series: Introduction to Data Structures in Go! We will start this series with a post about linked lists. If you are a student majoring in computer science, you probably have run into these in your class. Not only are linked lists a part of the CS curriculum, but are also a very popular topic in coding interviews, so it is desirable to have a solid grasp on this topic.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/linked-list-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-05-15T17:58:19.00Z",
+        "datePublished": "2022-05-15T17:58:19.00Z",
+        "dateModified": "2022-05-15T17:58:19.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/linked-list-in-go\/",
+        "wordCount" : "1805",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Linked List in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, May 15, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">9-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome to my new series: Introduction to Data Structures in Go! We will start this series with a post about <em>linked lists</em>. If you are a student majoring in computer science, you probably have run into these in your class. Not only are linked lists a part of the CS curriculum, but are also a very popular topic in coding interviews, so it is desirable to have a solid grasp on this topic. Let&rsquo;s get started!</p>
+<h3 id="what-is-a-linked-list">What is a linked list?</h3>
+<p>A linked list is a data structure used to store many data. The basic structure consists of multiple <em>nodes</em> that are linked to each other by pointers. A node typically consists of stored data and a pointer to the next node.</p>
+<p><img src="/linked-list-in-go-1%20(3).png" alt=""></p>
+<p>We step into the list by following the pointer to the first node, also known as the <em>head</em>. Don&rsquo;t get confused - there are only three nodes in the diagram above. The first item <em>HEAD</em> is merely a pointer to the first node. The last node points to <em>NULL</em>, which signals the end of the list.</p>
+<p>Linked lists are used to, well, store data. However, they are also the backbone of more complex data structures such as stacks and queues. The idea of linking each node with pointers also carries over to other data structures such as trees and graphs.</p>
+<h3 id="linked-list-vs-arrays">Linked list vs. Arrays</h3>
+<p>You may be wondering, &ldquo;Why do we even have to learn this data structure? Don&rsquo;t we have arrays? Aren&rsquo;t we just reinventing the wheel here?&rdquo; There is a case to be made for arrays, but arrays and linked lists are structurally different.</p>
+<p>Arrays are initialized before the program is compiled. It needs a certain block of memory allocated to it.</p>
+<p><img src="/linked-list-in-go-1%20(1).png" alt=""></p>
+<p>Arrays are great when you have to find elements. Each item in the array has an index, and we can find the nth element quickly by accessing it using <code>myArr[n]</code>.</p>
+<p>The problem here is that arrays cannot be re-sized on run-time. This means that we cannot change its size after we run the program. If our array is given four blocks of memory, that means that we can&rsquo;t store more than four items. One way to overcome this issue is to create a new array twice as big as our original array and copy all the elements over.</p>
+<p><img src="/linked-list-in-go-1%20(2).png" alt=""></p>
+<p>Go slices are implemented this way. The problem with this approach is that copying large amounts of data is inefficient, and we still have a lot of empty space left over.</p>
+<p>Linked lists aim to solve this problem by connecting nodes that are scattered across our memory via pointers. This way, we don&rsquo;t need to know the size of our list in advance. If we want to add a new node, we just have to create one and link it.</p>
+<p>While there is no wasted memory here, the issue is that each data point requires more memory than arrays, because it has to store the pointer to the next node as well. Plus, in order to search for an element at index <em>n</em>, we need to traverse through the list until we reach the nth position. Each node only knows about the existence of the next node, so we can&rsquo;t access the nth element right from the get-go.</p>
+<h3 id="go-implementation">Go implementation</h3>
+<p>Let&rsquo;s look at how we can create a linked list in Go.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+</code></pre></div><p>This is how a node is defined. Each node holds data and a pointer to the next node. We will store <code>int</code> data for this guide, but you can easily switch this to other types. We can even use <code>interface{}</code> to store data of any type we want.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinkedList</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">length</span> <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><p>This is how a linked list is defined. The most important part of this is the head, which stores the pointer to our first node. Other attributes are optional but can be very helpful. We are adding the <code>length</code> attribute that stores the length of our linked list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">list</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">LinkedList</span>{<span style="color:#66d9ef">nil</span>, <span style="color:#ae81ff">0</span>}
+}
+</code></pre></div><p>We can initialize our linked list this way. The initial length is zero because there are no nodes in our list yet. The head points to <code>nil</code> because there are no nodes to point to.</p>
+<p>Now we can define struct methods to insert and delete nodes.</p>
+<h3 id="insertion">Insertion</h3>
+<p>We can think of three main cases here: inserting at the head, the tail, and an arbitrary position.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) <span style="color:#a6e22e">insertAtHead</span>(<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">temp1</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">data</span>, <span style="color:#66d9ef">nil</span>}
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> = <span style="color:#a6e22e">temp1</span>
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">temp2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> = <span style="color:#a6e22e">temp1</span>
+        <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">temp2</span>
+    }
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>This struct method is defined using a pointer to our <code>LinkedList</code> object because we need to make changes to it.</p>
+<p>We first create a node and save a pointer to it as <code>temp1</code>. This node stores our given data and initially points to <code>nil</code>.</p>
+<p>There are two cases we need to look out for. The first case is when the list is empty. In this case, we just set <code>head</code> to point to the node we just created.</p>
+<p>The second case is when the list is not empty. This means that <code>head</code> is already pointing to some node. We need to adjust that so that the head points to our new node and the new node points to the node that the head used to point to.</p>
+<ul>
+<li>
+<p>We first save a copy of <code>head</code> as <code>temp2</code>.</p>
+</li>
+<li>
+<p>Then we set the <code>head</code> to point to <code>temp1</code>.</p>
+</li>
+<li>
+<p>Finally, we set <code>temp1</code> to point to <code>temp2</code>.</p>
+</li>
+</ul>
+<p>I drew a diagram below to help you understand the logic.</p>
+<p><img src="/linked-list-in-go-2.png" alt=""></p>
+<p>In the end, we increment the length by one.</p>
+<p>How about inserting nodes at the tail (end)?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) <span style="color:#a6e22e">insertAtTail</span>(<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">temp1</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">data</span>, <span style="color:#66d9ef">nil</span>}
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> = <span style="color:#a6e22e">temp1</span>
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">temp2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">temp2</span> = <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span>
+        }
+        <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">temp1</span>
+    }
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>This is pretty simple as well. We create a new node and save the pointer to it as <code>temp1</code>. Here, we also have to handle the case where the list is empty. The steps are the same as above.</p>
+<p>Now the interesting part: in order to insert an element at the back of the list, we need to traverse through the entire list until we reach the last element. Without this step, there is no way to access the last element.</p>
+<ul>
+<li>
+<p>We first create a copy of <code>head</code> as <code>temp2</code>.</p>
+</li>
+<li>
+<p>We iterate through the list by setting <code>temp2</code> as <code>temp2.next</code>. We continue this until <code>temp2.next</code> is <code>nil</code>, which means that <code>temp2</code> is pointing to the last node.</p>
+</li>
+<li>
+<p>Simply, have the last node point to the same node that <code>temp1</code> is pointing to.</p>
+</li>
+</ul>
+<p>Here&rsquo;s a diagram that explains how it all works. We are going to use a lot of diagrams because they can help our understanding immensely.</p>
+<p><img src="/linked-list-in-go-3.png" alt=""></p>
+<p>Finally, let&rsquo;s look at how we can insert data at an arbitrary location.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) <span style="color:#a6e22e">insert</span>(<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">insertAtHead</span>(<span style="color:#a6e22e">data</span>)
+    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">insertAtTail</span>(<span style="color:#a6e22e">data</span>)
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">temp1</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">data</span>, <span style="color:#66d9ef">nil</span>}
+        <span style="color:#a6e22e">temp2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+            <span style="color:#a6e22e">temp2</span> = <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span>
+        }
+        <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span>
+        <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">temp1</span>
+    }
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>The logic here is pretty similar to the above two functions.</p>
+<ul>
+<li>
+<p>When we want to insert at the beginning or the end of the list, we can call <code>insertAtHead()</code> or <code>insertAtTail()</code> instead.</p>
+</li>
+<li>
+<p>To insert data at the nth position, we need to traverse through the list to reach the <em>n-1</em>th position.</p>
+</li>
+<li>
+<p>Once we reach the n-1th position, we set <code>temp1.next</code>, the pointer to our new node, to point to the n+1th position. We then set <code>temp2</code> to point to our new node.</p>
+</li>
+</ul>
+<p>You know the drill by now. :)</p>
+<p><img src="/linked-list-in-go-4.png" alt=""></p>
+<h3 id="deleting-items">Deleting items</h3>
+<p>Now that we understand how the whole pointer manipulation shenanigan works, we can more easily understand how deletion works. We will split this into three cases as well: deleting items at the head, the tail, and an arbitrary position.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) <span style="color:#a6e22e">deleteAtHead</span>() {
+    <span style="color:#a6e22e">temp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">next</span>
+
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>This is how you delete the first item in the list. We just need to change the <code>head</code> so that it points to a second node. You might think that the first node stays in the memory unless we explicitly clear it, but we don&rsquo;t. Go&rsquo;s built-in garbage collector will clear this for us.</p>
+<p><img src="/linked-list-in-go-5.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) <span style="color:#a6e22e">deleteAtTail</span>() {
+    <span style="color:#a6e22e">temp1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">temp2</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">temp2</span> = <span style="color:#a6e22e">temp1</span>
+        <span style="color:#a6e22e">temp1</span> = <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span>
+    }
+    <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span> = <span style="color:#66d9ef">nil</span>
+
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>This is how you delete the last item in the list. The logic is familiar:</p>
+<ul>
+<li>
+<p>We iterate through the list until we reach the last node. This time, however, we keep track of the node right before <code>temp1</code> as well.</p>
+</li>
+<li>
+<p>We set <code>temp2</code> to point to <code>nil</code> instead of <code>temp1</code>. The last node will be cleared by the garbage collector.</p>
+</li>
+</ul>
+<p><img src="/linked-list-in-go-6.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) delete(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">deleteAtHead</span>()
+    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">deleteAtTail</span>()
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">temp1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+            <span style="color:#a6e22e">temp1</span> = <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span>
+        }
+        <span style="color:#a6e22e">temp2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span>
+        <span style="color:#a6e22e">temp1</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">temp2</span>.<span style="color:#a6e22e">next</span>
+    }
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>Finally, let&rsquo;s look at how to delete an item at an arbitrary position.</p>
+<ul>
+<li>
+<p>If deleting the first or last item, we can use <code>deleteAtHead()</code> and <code>deleteAtTail()</code> instead.</p>
+</li>
+<li>
+<p>The logic is very similar to <code>deleteAtTail()</code>. We traverse through the list until we reach the n-1st node. We set <code>temp2</code> to point to the nth node.</p>
+</li>
+<li>
+<p>We set <code>temp1.next</code> to point to <code>temp2.next</code>, which effectively removes the link between the n-1th and nth elements.</p>
+</li>
+</ul>
+<p><img src="/linked-list-in-go-7.png" alt=""></p>
+<p>Congratulations! We now know how to create a linked list, insert a node, and delete a node. Let&rsquo;s go a step further.</p>
+<h3 id="reversing-a-linked-list">Reversing a linked list</h3>
+<p>It is useful to be able to reverse our list. Let&rsquo;s look at how we can do this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkedList</span>) <span style="color:#a6e22e">Reverse</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">curr</span>, <span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">curr</span> = <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span>
+    <span style="color:#a6e22e">prev</span> = <span style="color:#66d9ef">nil</span>
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">curr</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">curr</span>.<span style="color:#a6e22e">next</span>
+        <span style="color:#a6e22e">curr</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">prev</span>
+        <span style="color:#a6e22e">prev</span> = <span style="color:#a6e22e">curr</span>
+        <span style="color:#a6e22e">curr</span> = <span style="color:#a6e22e">next</span>
+    }
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">head</span> = <span style="color:#a6e22e">prev</span>
+}
+</code></pre></div><p>It&rsquo;s faster to look at the diagram than for me to explain the steps in plain words.</p>
+<p><img src="/linked-list-in-go-8.png" alt=""></p>
+<h3 id="conclusion">Conclusion</h3>
+<p>A linked list is a useful data structure that is easy to implement. To beginners, linked lists could be challenging because it is the first time where pointers are used extensively. I hope this guide helped you understand how a linked list works. I wish you the best of luck in your studies!</p>
+<p>You can also read this post on <a href="https://medium.com/@jpoly1219/linked-list-in-go-c663eb684291">Medium</a> and <a href="https://dev.to/jpoly1219/linked-lists-in-go-3g63">Dev.to</a></p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
