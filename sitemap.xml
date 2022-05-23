@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jpoly1219.github.io/</loc>
-    <lastmod>2022-05-15T17:58:19+09:00</lastmod>
-  </url><url>
-    <loc>https://jpoly1219.github.io/posts/linked-list-in-go/</loc>
-    <lastmod>2022-05-15T17:58:19+09:00</lastmod>
+    <lastmod>2022-05-22T14:28:38+09:00</lastmod>
   </url><url>
     <loc>https://jpoly1219.github.io/posts/</loc>
+    <lastmod>2022-05-22T14:28:38+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/stacks-in-go/</loc>
+    <lastmod>2022-05-22T14:28:38+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/linked-list-in-go/</loc>
     <lastmod>2022-05-15T17:58:19+09:00</lastmod>
   </url><url>
     <loc>https://jpoly1219.github.io/posts/querying-the-database-in-go/</loc>

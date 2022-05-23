@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Stacks in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/stacks-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Stacks in Go"/>
+<meta name="twitter:description" content="Welcome back to Introduction to Data Structures in Go! Today, we will look at stacks. Stacks are pretty intuitive to understand and have many different uses. It will also come up a lot in coding interviews because its properties can lead to many cool applications.
+What is a stack? Stacks are data structures that follow the LIFO principle. That is, anything that goes in last will come out first. Imagine a stack of plates."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Stacks in Go",
+        "headline": "Stacks in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome back to Introduction to Data Structures in Go! Today, we will look at stacks. Stacks are pretty intuitive to understand and have many different uses. It will also come up a lot in coding interviews because its properties can lead to many cool applications.\nWhat is a stack? Stacks are data structures that follow the LIFO principle. That is, anything that goes in last will come out first. Imagine a stack of plates.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/stacks-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-05-22T14:28:38.00Z",
+        "datePublished": "2022-05-22T14:28:38.00Z",
+        "dateModified": "2022-05-22T14:28:38.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/stacks-in-go\/",
+        "wordCount" : "1351",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Stacks in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, May 22, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">7-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome back to <em>Introduction to Data Structures in Go</em>! Today, we will look at stacks. Stacks are pretty intuitive to understand and have many different uses. It will also come up a lot in coding interviews because its properties can lead to many cool applications.</p>
+<h3 id="what-is-a-stack">What is a stack?</h3>
+<p>Stacks are data structures that follow the LIFO principle. That is, anything that goes in last will come out first. Imagine a stack of plates. We will stack the plates from bottom to top, then use the top plates first.</p>
+<h3 id="write-it-in-go">Write it in Go</h3>
+<p>The implementation is very simple. We will use slices to implement stacks.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stack</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">items</span> []<span style="color:#66d9ef">int</span>
+}
+</code></pre></div><p>We will first define a <code>Stack</code> type with <code>items</code> as its attribute. Our stack is responsible for holding integers, but you can change the data type to whatever you want it to be.</p>
+<p>The two most important methods of stacks are <code>push</code> and <code>pop</code>. Pushing an item into a stack will add the item to the topmost position, and popping from a stack will remove the topmost item.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span> = append(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>, <span style="color:#a6e22e">data</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Pop</span>() {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">IsEmpty</span>() {
+        <span style="color:#66d9ef">return</span>
+    }
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>[:len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+}
+</code></pre></div><p>These methods act on pointers to our <code>Stack</code> type, because we need to actively make changes to it.</p>
+<p><code>Push</code> is simple enough - we just need to append our data to <code>s.items</code>.</p>
+<p><code>Pop</code> is simple as well. We first take care of a case where the stack is empty, where the method won&rsquo;t do anything. In other cases, we can take a slice from  <code>s.items</code> that includes all but the last element.</p>
+<p>We will define three more useful utility methods.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Top</span>() (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">IsEmpty</span>() {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;stack is empty&#34;</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>[len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">IsEmpty</span>() <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Print</span>() {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">item</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+}
+</code></pre></div><p><code>Top</code> returns the topmost item in the stack. When the stack is empty, it will return a zero-value and an error stating that the stack is empty.</p>
+<p><code>IsEmpty</code> returns true if the stack is empty, and false if otherwise.</p>
+<p><code>Print</code> iterates through the stack and prints the items.</p>
+<h3 id="this-is-good-and-all-but-where-would-i-use-this">This is good and all, but where would I use this?</h3>
+<p>So far, this just seems like slices with extra steps. Where is this even used?</p>
+<p>Stacks are used for these purposes:</p>
+<ul>
+<li>
+<p>Implementing undo operations.</p>
+</li>
+<li>
+<p>Reversing a string or an array.</p>
+</li>
+<li>
+<p>Call stack in your memory.</p>
+</li>
+<li>
+<p>Navigating forward and backward in browsers and file explorers.</p>
+</li>
+<li>
+<p>Converting expressions from and between infix, prefix, and postfix notations.</p>
+</li>
+<li>
+<p>Checking whether parentheses are closed properly.</p>
+</li>
+</ul>
+<p>These are all interesting uses, and we can go over the more interesting ones in detail.</p>
+<h4 id="undo-operation">Undo operation</h4>
+<p>We just need to store the details of the last operation we have done in a stack. When we want to undo it, we just need to pop the stack to revert to the last saved state.</p>
+<h4 id="reversing-a-string-or-an-array">Reversing a string or an array</h4>
+<p>We iterate over characters in a string or elements in an array and store those in a stack. After we are done, we just need to read the top element of the stack and pop it until the stack is empty.</p>
+<h4 id="call-stack">Call stack</h4>
+<p>The stack in the name <em>stackoverflow.com</em> refers to the call stack of a program. When you run a program, a certain amount of memory is allocated to be used as the program&rsquo;s call stack. This is a stack that stores what functions have been called. Each function call stored inside the stack will also hold values of local variables that have been generated inside the function&rsquo;s scope.</p>
+<p>FYI, stack overflow is an error that you get when you call more functions than the call stack can hold. This happens commonly when you fail to escape a recursive function. This can also lead to potential attacks such as buffer overflow attacks, where malicious users with high-level privileges can intentionally overflow the stack, causing whatever important data inside to leak out.</p>
+<h4 id="infix-prefix-and-postfix-notations">Infix, prefix, and postfix notations</h4>
+<p>This is a bit complex. So normally, we would write expressions like this:</p>
+<pre tabindex="0"><code>a + b
+</code></pre><p>This is what&rsquo;s known as an <em>infix</em> notation. This is because the operator is in between the operands. You can probably guess what the other two are like based on this.</p>
+<pre tabindex="0"><code>Infix: &lt;operand&gt;&lt;operator&gt;&lt;operand&gt;
+Prefix: &lt;operator&gt;&lt;operand&gt;&lt;operand&gt;
+Postfix: &lt;operand&gt;&lt;operand&gt;&lt;operator&gt;
+</code></pre><p>For example, the expression shown above can be written like this as well:</p>
+<pre tabindex="0"><code>Infix: a+b
+Prefix: +ab
+Postfix: ab+
+</code></pre><p>Why on earth would we write something like this? Well, while the infix notation is pleasing to the human eyes, it does little to bring joy to the eyes of a computer. Just like how higher-level languages are human-friendly and lower-level languages are machine-friendly, prefix and postfix notations are easier for computers to process.</p>
+<p>Simple expressions are easy enough to parse using infix notations, but this is not scalable. For example, take a look at this expression.</p>
+<pre tabindex="0"><code>{(a*b) + (c*d)} - e
+</code></pre><p>When there are a lot of parentheses and operators, you can see how quickly the difficulty increases. Not only do we need to process the operations, but also need to keep track of the order of operations.</p>
+<pre tabindex="0"><code>Infix: {(a*b) + (c*d)} - e
+Postfix: ab*cd*+e-
+</code></pre><p>Postfix notation is much easier to follow because we only need to scan the expression from left to right to get our result. We can use stacks to convert infix notations into postfix notations. How did we do this? The details will be covered in the next post because it is a bit lengthy.</p>
+<h4 id="checking-for-parentheses-closing-properly">Checking for parentheses closing properly</h4>
+<p>When a parenthesis is closed properly, we call that <em>balanced</em>.</p>
+<pre tabindex="0"><code>Balanced: (a+b), {(a*b) + (c*d)}
+Unbalanced: (a+b, []int{0, 1, 2), [)](
+</code></pre><p>Manually checking every parenthesis would be tedious. Instead, we can use stacks to check for balance easily.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StringStack</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">items</span> []<span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">checkBalance</span>(<span style="color:#a6e22e">exp</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">StringStack</span>{}
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">char</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">exp</span> {
+        <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">char</span> {
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;(&#39;</span>:
+            <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Push</span>(string(<span style="color:#a6e22e">char</span>))
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;{&#39;</span>:
+            <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Push</span>(string(<span style="color:#a6e22e">char</span>))
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;[&#39;</span>:
+            <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Push</span>(string(<span style="color:#a6e22e">char</span>))
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;)&#39;</span>:
+            <span style="color:#a6e22e">top</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>()
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">top</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;(&#34;</span> {
+                <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Pop</span>()
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+            }
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;}&#39;</span>:
+            <span style="color:#a6e22e">top</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>()
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">top</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;{&#34;</span> {
+                <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Pop</span>()
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+            }
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;]&#39;</span>:
+            <span style="color:#a6e22e">top</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>()
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">top</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;[&#34;</span> {
+                <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Pop</span>()
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+            }
+        }
+    }
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">IsEmpty</span>() {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+</code></pre></div><p>This code looks pretty ugly, but it gets the job done. The code is long because we are handling three different types of parentheses <code>()</code>, <code>{}</code>, and <code>[]</code>. Let&rsquo;s see how the logic works.</p>
+<ul>
+<li>
+<p>We create an instance of <code>StringStack</code> called <code>s</code>.</p>
+</li>
+<li>
+<p>Iterate through the input string. Each character will be represented as a rune, which is a special way to depict a Unicode character code point. Runes are easily converted to strings.</p>
+</li>
+<li>
+<p>If a character is an opening parenthesis, we add it to the stack.</p>
+</li>
+<li>
+<p>If a character is a closing parenthesis, we check the topmost element in the stack to see if it matches. For <code>)</code>, <code>s.Top()</code> should return <code>(</code> to balance each other out. If the parentheses are matching, we pop from the stack. If not, the parentheses are not balanced, and we should therefore return <code>false</code>.</p>
+</li>
+<li>
+<p>Keep going until we are done iterating through the string. If there are any elements left in the stack, this means that some parentheses aren&rsquo;t closed properly, therefore making the parentheses unbalanced. However, if the stack is empty, we return <code>true</code> because it is balanced.</p>
+</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>We went over a basic implementation of a stack and its methods in Go. We also covered some of the most popular uses of stacks in the real world. For newcomers, I hope this post helped you understand what stacks are. For seasoned veterans, I hope this post served as a refresher. Regardless, I hope you had fun reading this post. Thank you!</p>
+<p>You can also read this post on <a href="https://medium.com/@jpoly1219/stacks-in-go-f57f4cb87b5f">Medium</a> and <a href="https://dev.to/jpoly1219/stacks-in-go-54k">Dev.to</a></p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
