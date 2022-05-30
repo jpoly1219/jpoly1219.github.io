@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Infix to Postfix in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/infix-to-postfix-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Infix to Postfix in Go"/>
+<meta name="twitter:description" content="Welcome back to Introduction to Data Structures in Go! As I have promised, we will look at a special application of stacks. Specifically, we will explore how to convert infix expressions to their postfix equivalents. Postfix notation may not seem intuitive at first, but after following this post, it will become much clearer.
+A brief primer &ldquo;Jacob, it&rsquo;s been a whole week since your last post. I don&rsquo;t remember what these are."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Infix to Postfix in Go",
+        "headline": "Infix to Postfix in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome back to Introduction to Data Structures in Go! As I have promised, we will look at a special application of stacks. Specifically, we will explore how to convert infix expressions to their postfix equivalents. Postfix notation may not seem intuitive at first, but after following this post, it will become much clearer.\nA brief primer \u0026ldquo;Jacob, it\u0026rsquo;s been a whole week since your last post. I don\u0026rsquo;t remember what these are.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/infix-to-postfix-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-05-29T14:08:22.00Z",
+        "datePublished": "2022-05-29T14:08:22.00Z",
+        "dateModified": "2022-05-29T14:08:22.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/infix-to-postfix-in-go\/",
+        "wordCount" : "2539",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Infix to Postfix in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, May 29, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">12-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome back to <em>Introduction to Data Structures in Go</em>! As I have promised, we will look at a special application of stacks. Specifically, we will explore how to convert infix expressions to their postfix equivalents. Postfix notation may not seem intuitive at first, but after following this post, it will become much clearer.</p>
+<h3 id="a-brief-primer">A brief primer</h3>
+<p>&ldquo;Jacob, it&rsquo;s been a whole week since your last post. I don&rsquo;t remember what these are.&rdquo; Right, let&rsquo;s start with an explanation of what these are.</p>
+<p>We learned that expressions were a combination of terms and operators in our math classes, typically written in this format.</p>
+<pre tabindex="0"><code>a + b
+</code></pre><p>This is what&rsquo;s known as an <em>infix</em> notation. This is because the operator is <strong>in</strong> between the operands.</p>
+<p>There are two other notations that we use to evaluate expressions. They are <em>prefix</em> and <em>postfix</em> notations. Here is a comparison of the three expressions.</p>
+<pre tabindex="0"><code>Infix: &lt;operand&gt;&lt;operator&gt;&lt;operand&gt;
+Prefix: &lt;operator&gt;&lt;operand&gt;&lt;operand&gt;
+Postfix: &lt;operand&gt;&lt;operand&gt;&lt;operator&gt;
+</code></pre><p>The above expression, <code>a + b</code>, can be written like this as well:</p>
+<pre tabindex="0"><code>Infix: a+b
+Prefix: +ab
+Postfix: ab+
+</code></pre><p>We use infix notations because it is easy for us to understand. But what is usually easy for us humans is difficult for computers. Imagine writing a program to evaluate an expression. Simple expressions such as <code>a + b</code> is easy enough. However, imagine if the expressions get more complicated.</p>
+<pre tabindex="0"><code>{(a*b) + (c*d)} - e
+</code></pre><p>When there are a lot of parentheses and operators, you can see how quickly the difficulty increases. Not only do we need to process the operations, but also need to keep track of the order of operations. Because there are nested parentheses, we would have to jump back and forth to evaluate the expressions inside the parentheses first. Keeping track of where we are would be a nightmare.</p>
+<p>Now take a look at this.</p>
+<pre tabindex="0"><code>ab*cd*+e-
+</code></pre><p>Postfix notation is much easier to follow because we only need to scan the expression from left to right to get our result.</p>
+<h3 id="how-do-we-evaluate-a-postfix-expression">How do we evaluate a postfix expression?</h3>
+<p>Let&rsquo;s look at this expression:</p>
+<pre tabindex="0"><code>ab*cd*+e-
+a = 2
+b = 5
+c = 3
+d = 1
+e = 4
+</code></pre><p>We first scan from left to right. We will stop when we see an operator.</p>
+<pre tabindex="0"><code>2 5 * 3 1 * + 4 -
+    ^
+</code></pre><p>Once we see an operator, we go back two steps. Each time we go back, we keep track of the numbers. Then, we evaluate the expression. In this case, we stop at the multiplication operator <code>*</code> and go back two steps. We keep track of the numbers, which are <code>2</code> and <code>5</code>. To evaluate, all we need to do is <code>2 * 5</code>, which yields <code>10</code>. The order in which you apply operations is important. For example, if our operator is <code>-</code> instead of <code>*</code>, then <code>2 - 5</code> should yield <code>-3</code>, but doing <code>5 - 2</code> instead will yield <code>3</code>.</p>
+<pre tabindex="0"><code>2 5 * 3 1 * + 4 -
+    ^
+Numbers: 5, 2
+Evaluation: 2 * 5 = 10
+
+Result:
+10 3 1 * + 4 -
+</code></pre><p>Great! All we need to do now is to repeat the above steps until we are done.</p>
+<pre tabindex="0"><code>10 3 1 * + 4 -
+       ^
+Numbers: 1, 3
+Evaluation: 3 * 1 = 3
+
+Result:
+10 3 + 4 -
+</code></pre><pre tabindex="0"><code>10 3 + 4 -
+     ^
+Numbers: 3, 10
+Evaluation: 3 + 10 = 13
+
+Result:
+13 4 -
+</code></pre><pre tabindex="0"><code>13 4 -
+     ^
+Numbers: 4, 13
+Evaluation: 13 - 4 = 9
+
+Result:
+9
+</code></pre><p>We end up with <code>9</code>. To double-check, let&rsquo;s calculate the infix expression.</p>
+<pre tabindex="0"><code>Evaluate {(a*b) + (c*d)} - e, given these conditions:
+a = 2, b = 5, c = 3, d = 1, e = 4
+
+{(2 * 5) + (3 * 1)} - 4 
+= {10 + 3} - 4 
+= 13 - 4 
+= 9
+</code></pre><p>Voila! We have successfully evaluated the postfix expression.</p>
+<p>Notice how the <code>Numbers</code> we were keeping track of act like a stack? When we see an operator, we backtrack two times and push those numbers into the <code>Numbers</code> stack. Then, we pop those numbers and apply the operation.</p>
+<h3 id="converting-it-the-manual-way">Converting it the manual way</h3>
+<p>We can use stacks to convert infix notations into postfix equivalents. Before we even discuss how to write it in Go, it is important to understand the logic behind the process.</p>
+<p>Let&rsquo;s say that we need to convert this expression:</p>
+<pre tabindex="0"><code>a+b*c
+</code></pre><p>What we should do is to keep track of operators, similar to how we kept track of the operands in the previous example.</p>
+<p>First, we scan from left to right. When we see an operand, we write it to the side. When we see an operator, we add this to our list of operators.</p>
+<pre tabindex="0"><code>a + b * c
+^
+Operators:
+Result: a
+</code></pre><pre tabindex="0"><code>a + b * c
+  ^
+Operators: +
+Result: a
+</code></pre><pre tabindex="0"><code>a + b * c
+    ^
+Operators: +
+Result: ab
+</code></pre><pre tabindex="0"><code>a + b * c
+      ^
+Operators: +, *
+Result: ab
+</code></pre><p>Here&rsquo;s the important part.</p>
+<ul>
+<li>
+<p>When an operator is added, we need to check if the operator we are pointing to takes higher precedence than the operator at the top of our list using order of operations. Here, the operator we are pointing to, <code>*</code>, takes precedence over the one at the top of our list, <code>-</code>. Multiplication takes precedence over subtraction.</p>
+</li>
+<li>
+<p>If it does take precedence, we just add the pointed operator to our list of operators.</p>
+</li>
+<li>
+<p>If it doesn&rsquo;t take precedence, however, we pop the list and append the operator in our list to the result string. We continue this until the operator we are pointing to takes precedence over the operator at the top of our list. After all this, we append the operator to the list.</p>
+</li>
+</ul>
+<p>Let&rsquo;s continue.</p>
+<pre tabindex="0"><code>a + b * c
+        ^
+Operators: +, *
+Result: abc
+</code></pre><p>Once we reach the end, we pop the list of operators and append the items to our result string, like so:</p>
+<pre tabindex="0"><code>Result: abc*+
+</code></pre><p>Let&rsquo;s go over another example.</p>
+<pre tabindex="0"><code>a * b + c
+^
+Operators:
+Result: a
+---
+
+a * b + c
+  ^
+Operators: *
+Results: a
+
+---
+
+a * b + c
+    ^
+Operators: *
+Results: ab
+
+---
+
+a * b + c
+      ^
+Operators: * // check for precedence before you add +!
+Results: ab
+</code></pre><p>Here, we end up with the second case scenario. Since <code>+</code> doesn&rsquo;t take precedence over <code>*</code>, we need to pop the list of operators until <code>+</code> takes precedence. In this case, we need to pop it until nothing remains on the list.</p>
+<pre tabindex="0"><code>a * b + c
+      ^
+Operators: + // + is pushed in after * is popped out
+Results: ab* // * is popped and appended into the result string
+</code></pre><p>The rest is simple.</p>
+<pre tabindex="0"><code>a * b + c
+        ^
+Operators: +
+Results: ab*c
+
+---
+
+Results: ab*c+
+</code></pre><p>Let&rsquo;s look at a final example. This time, we will convert an expression with parentheses.</p>
+<pre tabindex="0"><code>{(a*b) + (c*d)} - e
+</code></pre><p>Don&rsquo;t worry, we only need to add one more rule.</p>
+<ul>
+<li>
+<p>If it&rsquo;s an opening parenthesis, we add it to our list of operators.</p>
+</li>
+<li>
+<p>If it&rsquo;s a closing parenthesis, we pop our list until a corresponding parenthesis is popped.</p>
+</li>
+<li>
+<p>We don&rsquo;t need to append parentheses to our result string. Postfix notations don&rsquo;t require one.</p>
+</li>
+</ul>
+<p>Let&rsquo;s go over step by step!</p>
+<pre tabindex="0"><code>{ ( a * b ) * c - d } - e
+    ^
+Operators: {, (
+Result: a
+
+---
+
+{ ( a * b ) * c - d } - e
+      ^
+Operators: {, (, *
+Result: a
+
+---
+
+{ ( a * b ) * c - d } - e
+        ^
+Operators: {, (, *
+Result: ab
+
+---
+
+{ ( a * b ) * c - d } - e
+          ^
+Operators: { // pop until the corresponding parenthesis is popped
+Result: ab* // * is appended
+
+---
+
+{ ( a * b ) * c - d } - e
+            ^
+Opeartors: {, *
+Result: ab*
+
+---
+
+{ ( a * b ) * c - d } - e
+              ^
+Operators: {, *
+Result: ab*c
+
+---
+
+{ ( a * b ) * c - d } - e
+                ^
+Operators: {, - // - doesn't take precedence over *
+Result: ab*c* // * is popped and appended
+
+---
+
+{ ( a * b ) * c - d } - e
+                  ^
+Operators: {, -
+Result: ab*c*d
+
+---
+
+{ ( a * b ) * c - d } - e
+                    ^
+Operators: 
+Result: ab*c*d-
+
+---
+
+{ ( a * b ) * c - d } - e
+                      ^
+Operators: -
+Result: ab*c*d-
+
+---
+
+{ ( a * b ) * c - d } - e
+                        ^
+Operators: -
+Result: ab*c*d-e
+
+---
+
+Result: ab*c*d-e-
+</code></pre><p>It looks complex only because we went over this slowly, step by step. The logic itself is pretty straightforward.</p>
+<p>Again, the list of operators acts like a stack, because we are constantly pushing and popping from it.</p>
+<h3 id="go-write-it-in-go">Go write it in go</h3>
+<p>Great! Now that we understand how the high-level logic works, we can start implementing this in Go.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stack</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">items</span> []<span style="color:#66d9ef">float64</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">float64</span>) {
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span> = append(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>, <span style="color:#a6e22e">data</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Pop</span>() {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">IsEmpty</span>() {
+        <span style="color:#66d9ef">return</span>
+    }
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>[:len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Top</span>() (<span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">IsEmpty</span>() {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;stack is empty&#34;</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>[len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">IsEmpty</span>() <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Print</span>() {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">items</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">item</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+    }
+}
+</code></pre></div><p>We will use the stack implementation from the last post. This stack can hold <code>float64</code> types.</p>
+<p>Let&rsquo;s go over how to evaluate a postfix expression first.</p>
+<h4 id="evaluating-postfix-expressions">Evaluating postfix expressions</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">evaluatePostfix</span>(<span style="color:#a6e22e">exp</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#a6e22e">operands</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">Stack</span>)
+    <span style="color:#a6e22e">chars</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">exp</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">char</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">chars</span> {
+        <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">isOperator</span>(<span style="color:#a6e22e">char</span>) {
+            <span style="color:#a6e22e">op</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseFloat</span>(<span style="color:#a6e22e">char</span>, <span style="color:#ae81ff">64</span>)
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">err</span>
+            }
+            <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">op</span>)
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#a6e22e">operand2</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Top</span>()
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">err</span>
+            }
+            <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Pop</span>()
+
+            <span style="color:#a6e22e">operand1</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Top</span>()
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">err</span>
+            }
+            <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Pop</span>()
+
+            <span style="color:#a6e22e">calculated</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">calculate</span>(<span style="color:#a6e22e">char</span>, <span style="color:#a6e22e">operand1</span>, <span style="color:#a6e22e">operand2</span>)
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">err</span>
+            }
+
+            <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">calculated</span>)
+        }
+    }
+    <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">operands</span>.<span style="color:#a6e22e">Top</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">err</span>
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>We first split the expression into individual characters by space. The expression should be a combination of operands and operators each separated by a space. We can now iterate through the resulting slice of characters.</p>
+<p>For each character, we want to check if it is an operand or an operator by using the <code>isOperator</code> helper function. If a character is an operand, we push it to the stack.</p>
+<p>If the character is an operator, we pop the two topmost items in the stack, saving them as <code>operand2</code> and <code>operand1</code>. We then evaluate the expression using the <code>calculate</code> helper function. Once the calculation is done, we push this to the stack.</p>
+<p>After iterating through the expression, we get the topmost item from the stack, which is our final result.</p>
+<p>Here are the definitions for the helper functions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isOperator</span>(<span style="color:#a6e22e">char</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">char</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;+&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;-&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;*&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;/&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">default</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculate</span>(<span style="color:#a6e22e">operator</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">operand1</span>, <span style="color:#a6e22e">operand2</span> <span style="color:#66d9ef">float64</span>) (<span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>
+    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">operator</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;+&#34;</span>:
+        <span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">operand1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">operand2</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;-&#34;</span>:
+        <span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">operand1</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">operand2</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;*&#34;</span>:
+        <span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">operand1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">operand2</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;/&#34;</span>:
+        <span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">operand1</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">operand2</span>
+    <span style="color:#66d9ef">default</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;invalid operator&#34;</span>)
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>Now we can take a look at how to write the infix-to-postfix conversion function.</p>
+<h4 id="convert-infix-to-postfix">Convert infix to postfix</h4>
+<p>We will change our stack so that it stores <code>string</code> types instead of <code>float64</code> types.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">infixToPostfix</span>(<span style="color:#a6e22e">exp</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#a6e22e">operators</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">StringStack</span>)
+    <span style="color:#a6e22e">chars</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Fields</span>(<span style="color:#a6e22e">exp</span>)
+    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;&#34;</span>
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">char</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">chars</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isOpeningParenthesis</span>(<span style="color:#a6e22e">char</span>) {
+            <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">char</span>)
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isClosingParenthesis</span>(<span style="color:#a6e22e">char</span>) {
+            <span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">IsEmpty</span>() <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">isMatchingParenthesis</span>(<span style="color:#a6e22e">ignoreError</span>(<span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Top</span>()), <span style="color:#a6e22e">char</span>) {
+                <span style="color:#a6e22e">top</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Top</span>()
+                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+                }
+                <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">top</span>
+                <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Pop</span>()
+            }
+            <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Pop</span>()
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">isOperator</span>(<span style="color:#a6e22e">char</span>) {
+            <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">char</span>
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isOperator</span>(<span style="color:#a6e22e">char</span>) {
+            <span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">IsEmpty</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">hasHigherPrecedence</span>(<span style="color:#a6e22e">ignoreError</span>(<span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Top</span>()), <span style="color:#a6e22e">char</span>) <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">isOpeningParenthesis</span>(<span style="color:#a6e22e">ignoreError</span>(<span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Top</span>())) {
+                <span style="color:#a6e22e">top</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Top</span>()
+                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+                }
+                <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">top</span>
+                <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Pop</span>()
+            }
+            <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">char</span>)
+        }
+    }
+
+    <span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">IsEmpty</span>() {
+        <span style="color:#a6e22e">top</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Top</span>()
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+        }
+        <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">top</span>
+
+        <span style="color:#a6e22e">operators</span>.<span style="color:#a6e22e">Pop</span>()
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>The beginning is similar. We create a string slice that holds all the split characters. What&rsquo;s new here is that we need to deal with four cases.</p>
+<ul>
+<li>
+<p>When the character is an opening parenthesis, we push it to the stack.</p>
+</li>
+<li>
+<p>When the character is a closing parenthesis, we pop all the operators until a matching opening parenthesis is popped.</p>
+</li>
+<li>
+<p>When the character is an operand, we append it to the result string.</p>
+</li>
+<li>
+<p>When the character is an operator, we check for precedence. If the topmost operator in the stack has higher precedence than the character, we pop until an opening parenthesis is found. We then push the character into the stack.</p>
+</li>
+</ul>
+<p>In the end, we flush whatever is left in the stack to the result string.</p>
+<p>Here are the definitions for the helper functions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isOpeningParenthesis</span>(<span style="color:#a6e22e">char</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">char</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;(&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;{&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;[&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">default</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isClosingParenthesis</span>(<span style="color:#a6e22e">char</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">char</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;)&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;}&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;]&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">default</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isMatchingParenthesis</span>(<span style="color:#a6e22e">opening</span>, <span style="color:#a6e22e">closing</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">opening</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;(&#34;</span>:
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">closing</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;)&#34;</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+        }
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;{&#34;</span>:
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">closing</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;}&#34;</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+        }
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;[&#34;</span>:
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">closing</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;]&#34;</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+        }
+    <span style="color:#66d9ef">default</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hasHigherPrecedence</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">source</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">target</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;*&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;/&#34;</span>) <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">source</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;-&#34;</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ignoreError</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">val</span>
+}
+</code></pre></div><p>Note that ignoring errors isn&rsquo;t a good practice. I used it to deal with annoying error returns because I couldn&rsquo;t pass <code>operators.Top()</code> to <code>hasHigherPrecedence</code> or <code>isMatchingParenthesis</code> due to it returning two values, one of which is an error. If you must ignore errors like this, you could also define a struct method like <code>stack.TopNoError()</code> where it will return the topmost value without any error variables.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Thank you for reading! That was a lengthy post, but I&rsquo;m proud of you for bearing with me. You usually won&rsquo;t run into situations where you must explicitly convert an infix expression to a postfix one, because the compiler will handle it for you. Nevertheless, it is a great way to learn how stacks work, and I think it&rsquo;s a really interesting topic to know as well. I will come back next week with a write-up on queues. See you then!</p>
+<p>You can also read this post on <a href="https://medium.com/@jpoly1219/stacks-part-2-infix-to-postfix-in-go-610da8776be">Medium</a> and <a href="https://dev.to/jpoly1219/stacks-part-2-infix-to-postfix-in-go-2oam">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

@@ -6,7 +6,19 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 22 May 2022 14:28:38 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 May 2022 14:08:22 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Infix to Postfix in Go</title>
+      <link>https://jpoly1219.github.io/posts/infix-to-postfix-in-go/</link>
+      <pubDate>Sun, 29 May 2022 14:08:22 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/infix-to-postfix-in-go/</guid>
+      
+        <description>Welcome back to Introduction to Data Structures in Go! As I have promised, we will look at a special application of stacks. Specifically, we will explore how to convert infix expressions to their postfix equivalents. Postfix notation may not seem intuitive at first, but after following this post, it will become much clearer.
+A brief primer &amp;ldquo;Jacob, it&amp;rsquo;s been a whole week since your last post. I don&amp;rsquo;t remember what these are.</description>
+      
+    </item>
+    
     <item>
       <title>Stacks in Go</title>
       <link>https://jpoly1219.github.io/posts/stacks-in-go/</link>
