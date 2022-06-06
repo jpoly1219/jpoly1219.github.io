@@ -6,7 +6,19 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 May 2022 14:08:22 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jun 2022 15:03:43 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Queues in Go</title>
+      <link>https://jpoly1219.github.io/posts/queues-in-go/</link>
+      <pubDate>Sun, 05 Jun 2022 15:03:43 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/queues-in-go/</guid>
+      
+        <description>Welcome back to Introduction to Data Structures in Go! In this post, we will be looking at queues. We hear the term &amp;ldquo;queue&amp;rdquo; thrown around a lot in real life. The queue for the movie tickets is long. Man, it&amp;rsquo;s taking forever to queue up for this League match. Queues are a familiar concept for most of us.
+Queues as data structures Queues are a special list, just like stacks. Unlike stacks, however, queues are known for being FIFO data structures.</description>
+      
+    </item>
+    
     <item>
       <title>Infix to Postfix in Go</title>
       <link>https://jpoly1219.github.io/posts/infix-to-postfix-in-go/</link>
