@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Writing Tests in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/writing-tests-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Writing Tests in Go"/>
+<meta name="twitter:description" content="In today&rsquo;s post, we will be looking into how to write tests in Go. Test-driven development, also known as TDD, is a paradigm in which developers are encouraged to test their code as they go.
+What is a test and why should I care? A test is a piece of code written to verify that your code behaves as it should. At first, this may sound quite tedious.
+ Meh. I know my code through and through."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Writing Tests in Go",
+        "headline": "Writing Tests in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        In today\u0026rsquo;s post, we will be looking into how to write tests in Go. Test-driven development, also known as TDD, is a paradigm in which developers are encouraged to test their code as they go.\nWhat is a test and why should I care? A test is a piece of code written to verify that your code behaves as it should. At first, this may sound quite tedious.\n Meh. I know my code through and through.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/writing-tests-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-06-12T16:54:43.00Z",
+        "datePublished": "2022-06-12T16:54:43.00Z",
+        "dateModified": "2022-06-12T16:54:43.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/writing-tests-in-go\/",
+        "wordCount" : "1494",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Writing Tests in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Jun 12, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">8-minute read</span>
+          </div>
+
+        
+      </div><p>In today&rsquo;s post, we will be looking into how to write tests in Go. Test-driven development, also known as TDD, is a paradigm in which developers are encouraged to test their code as they go.</p>
+<h3 id="what-is-a-test-and-why-should-i-care">What is a test and why should I care?</h3>
+<p><img src="/writing-tests-in-go.png" alt=""></p>
+<p>A test is a piece of code written to verify that your code behaves as it should. At first, this may sound quite tedious.</p>
+<blockquote>
+<p>Meh. I know my code through and through. I know what I&rsquo;m doing. Tests are such a waste of time.</p>
+<p>&ndash; <!-- raw HTML omitted -->Famous last words by yours truly :')<!-- raw HTML omitted --></p>
+</blockquote>
+<p>I used to think that writing tests were a waste of time as well. I wrote the code, so I should know best if it works or not, right? I can always just print debug and fix the bugs, right? There is no way that my function will bug out when it is called from somewhere else, right? &hellip;Right?</p>
+<p>There are a couple of reasons why writing tests are important. When you advance through your career or your school program, chances are that you will be working with other people. When you are working on a project together, you may be responsible for writing a piece of code that must be used by other people. We call this a <em>library</em>. When other people depend on your code working as it should, it is crucial to make sure that you deal with edge cases, or else they need to wait around until you fix it. This can be very time-consuming, and can mostly be prevented by testing your code on the way. Tests are like tools that you didn&rsquo;t know you need when coding solo, but happens to be a lifesaver in team projects.</p>
+<p>A second reason to write tests is that it often leads to cleaner code. When we refer to tests, we usually mean <em>unit tests</em>, which means that we are testing each individual component of the code. In order to write these tests, you need to write your code in a way that is modular. For example, instead of one gigantic, bloated function, we can take that apart into atomic functions that do one thing well. Then each of those functions can be tested individually to ensure that they work properly.</p>
+<p>A third reason is more subjective. I think TDD helps me visualize things better. In TDD, you are encouraged to write your tests first before actually implementing the functionality. In my case, by writing the test first, I am more sure of what my module should accept as input and what to spit out as output. I can also think of edge cases beforehand so that I don&rsquo;t need to go and fix my implementation afterward.</p>
+<h3 id="writing-tests-in-go">Writing tests in Go</h3>
+<p>It is pretty easy to write tests in Go. Go includes the <code>testing</code> package in its standard library, which I think is a very thoughtful decision from the developers of the language. You don&rsquo;t really need a separate testing framework or libraries like other languages, which I appreciate.</p>
+<p>Go tests are stored in <code>*_test.go</code> files. The asterisk stands for your <code>.go</code> file with functions that you&rsquo;d like to test. For example, let&rsquo;s say that I have a <code>areas.go</code> file that contains functions that calculate areas of different shapes. The tests for those functions will be in <code>areas_test.go</code>.</p>
+<p>Let&rsquo;s begin with a high-level overview of our code. As I mentioned previously, <code>areas.go</code> will store three functions that calculate areas: <code>findTriangleArea</code>, <code>findSquareArea</code>, and <code>findCircleArea</code>. We will write the implementations later. We should write the input and output first, or else Go will complain when we are writing our tests.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">areas</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findTriangleArea</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">height</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findSquareArea</span>()
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findCircleArea</span>()
+</code></pre></div><p>We can now start writing our tests. Remember, we want to write the tests before the functions. Create a file named <code>areas_test.go</code> and type the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">areas</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;testing&#34;</span>
+)
+</code></pre></div><p>We start by importing these packages.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFindTriangleArea</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2.0</span>
+    <span style="color:#a6e22e">height</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3.0</span>
+    <span style="color:#a6e22e">expectedArea</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3.0</span>
+    <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findTriangleArea</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">height</span>)
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedArea</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedArea</span>, <span style="color:#a6e22e">actualArea</span>)
+    }
+}
+</code></pre></div><p>This is the test function for <code>findTriangleArea</code>. All Go test functions have names that are in the format of <code>TestXxx(t *testing.T)</code>, where <code>Xxx</code> is the name of the function that you want to test. The first character of your test must be capitalized. <code>testing.T</code> is a variable that is responsible for keeping track of the state of your test. <code>T</code> can be used to call specific methods such as <code>Errorf</code> or <code>Fatalf</code> to terminate tests, return errors, log results, and more.</p>
+<p>Inside the function, we see the main logic of the test. Simply put, a test checks to see if the expected value and the actual value match. In our case, we call <code>findTriangleArea</code> with a base of 2.0 and a height of 3.0. We expect to see an output of 3.0 because a triangle&rsquo;s area is found by <code>(base * height) / 2</code>. If the call to <code>findTriangleArea</code> returns a non-nil error, or if the returned area does not match the expected area, we will output an error and stop the test.</p>
+<p><code>t.Fatalf</code> is like <code>fmt.Sprintf</code> in the sense that we can format the output to our liking. I like to output the expected value, the actual value we got, and any errors if it&rsquo;s there.</p>
+<p>Let&rsquo;s run the test. To run a test in Go, we go to the terminal, and <code>cd</code> into the directory where the test file is. Then, we run <code>go test -v</code>. You will get an output like this:</p>
+<pre tabindex="0"><code>$ go test -v
+=== RUN   TestFindTriangleArea
+    areas_test.go:15: expected 3, got 0
+--- FAIL: TestFindTriangleArea (0.00s)
+FAIL
+exit status 1
+FAIL    example.com/areas     0.002s
+</code></pre><p>Now we can write out the implementation of <code>findTriangleArea</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findTriangleArea</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">height</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">area</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">base</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">height</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">area</span>
+}
+</code></pre></div><p>Simple, right? I&rsquo;ll write one for other functions as well. Here&rsquo;s our final result.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// areas.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">areas</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;math&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findTriangleArea</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">height</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">area</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">base</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">height</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">area</span>, <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findSquareArea</span>(<span style="color:#a6e22e">side</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">area</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">side</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">side</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">area</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findCircleArea</span>(<span style="color:#a6e22e">radius</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">area</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">radius</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">radius</span>
+
+    <span style="color:#75715e">// round to the 3rd decimal place
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">roundedArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Round</span>(<span style="color:#a6e22e">area</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1000</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">roundedArea</span>
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">areas</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;testing&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFindTriangleArea</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2.0</span>
+    <span style="color:#a6e22e">height</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3.0</span>
+    <span style="color:#a6e22e">expectedArea</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3.0</span>
+    <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findTriangleArea</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">height</span>)
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedArea</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedArea</span>, <span style="color:#a6e22e">actualArea</span>)
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFindSquareArea</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">side</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2.0</span>
+    <span style="color:#a6e22e">expectedArea</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">4.0</span>
+    <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findSquareArea</span>(<span style="color:#a6e22e">side</span>)
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedArea</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedArea</span>, <span style="color:#a6e22e">actualArea</span>)
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFindCircleArea</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">radius</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2.0</span>
+    <span style="color:#a6e22e">expectedArea</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">12.566</span>
+    <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findTriangleArea</span>(<span style="color:#a6e22e">radius</span>)
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedArea</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedArea</span>, <span style="color:#a6e22e">actualArea</span>)
+    }
+}
+</code></pre></div><p>If we now run <code>go test -v</code>, we will get the following result:</p>
+<pre tabindex="0"><code>$ go test -v
+=== RUN   TestFindTriangleArea
+--- PASS: TestFindTriangleArea (0.00s)
+=== RUN   TestFindSquareArea
+--- PASS: TestFindSquareArea (0.00s)
+=== RUN   TestFindCircleArea
+--- PASS: TestFindCircleArea (0.00s)
+PASS
+ok    example.com/areas     0.001s
+</code></pre><p>Awesome! All our test passes.</p>
+<h3 id="testing-for-multiple-cases">Testing for multiple cases</h3>
+<p>This is all sunshine and rainbows, but what if we want to test for multiple cases? There are probably more than one cases that you want to run the test on. You&rsquo;d be right.</p>
+<p>Intuitively, we could just write something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFindSquareArea</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">side</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2.0</span>
+    <span style="color:#a6e22e">expectedArea</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">4.0</span>
+    <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findSquareArea</span>(<span style="color:#a6e22e">side</span>)
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedArea</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedArea</span>, <span style="color:#a6e22e">actualArea</span>)
+    }
+
+    <span style="color:#a6e22e">side</span> = <span style="color:#ae81ff">3.0</span>
+    <span style="color:#a6e22e">expectedArea</span> = <span style="color:#ae81ff">4.0</span>
+    <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findSquareArea</span>(<span style="color:#a6e22e">side</span>)
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actualArea</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedArea</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedArea</span>, <span style="color:#a6e22e">actualArea</span>)
+    }
+
+    <span style="color:#75715e">// repeat...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Because this code will get ugly real fast, let&rsquo;s try something else.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFindSquareArea</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">findSquareAreaTest</span> <span style="color:#66d9ef">struct</span> {
+        <span style="color:#a6e22e">side</span> <span style="color:#66d9ef">float64</span>
+        <span style="color:#a6e22e">expected</span> <span style="color:#66d9ef">float64</span>
+    }
+
+    <span style="color:#a6e22e">findSquareAreaTests</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">findSquareAreaTest</span>{
+        {<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">4.0</span>},
+        {<span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">9.0</span>},
+        {<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">16.0</span>},
+        {<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>},
+    }
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">test</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">findSquareAreaTests</span> {
+        <span style="color:#a6e22e">output</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findSquareArea</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">side</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">output</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expected</span> {
+            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected %v, got %v&#34;</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expected</span>, <span style="color:#a6e22e">output</span>)
+        }
+    }
+}
+</code></pre></div><p>This looks much better. We declared a struct <code>findSquareAreaTest</code> that holds the <code>side</code> value and the <code>expected</code> value. Then, we create a slice of that struct, which holds all of our test cases. We just need to use a for loop to iterate through each test case. This type of approach is called <em>table-driven testing</em> because we are using a table that holds many test cases.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Thank you for reading this post. I hope you found it useful. There are certainly more advanced testing strategies than what I&rsquo;ve listed here. I highly recommend you check out the <a href="https://pkg.go.dev/testing">documentation for the <code>testing</code> package</a> to dive deeper. However, this post will get you started with test-driven development. Try applying it in your own personal project! I&rsquo;ll see you next time with more interesting topics. Bye!</p>
+<p>You can also read this post on Medium and Dev.to.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
