@@ -6,7 +6,23 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jun 2022 16:54:43 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Jun 2022 10:41:24 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debugging Go Code With Delve</title>
+      <link>https://jpoly1219.github.io/posts/debugging-go-code-with-delve/</link>
+      <pubDate>Sun, 19 Jun 2022 10:41:24 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/debugging-go-code-with-delve/</guid>
+      
+        <description>&amp;ldquo;Genius is 1% talent and 99% hard work.&amp;rdquo;
+&amp;ldquo;e = mc^2&amp;rdquo;
+&amp;ndash; Albert Einstein In the field of software development, the quotes can be changed slightly:
+ &amp;ldquo;Software development is 1% programming and 99% debugging.&amp;rdquo;
+&amp;ldquo;errors = more code ^ 2&amp;rdquo;
+&amp;ndash; Some senior developer, probably Debugging is something all developers must go through, and it does not care about your expertise. It&amp;rsquo;s a frustrating process. To err is human, and errors will absolutely creep into your program.</description>
+      
+    </item>
+    
     <item>
       <title>Writing Tests in Go</title>
       <link>https://jpoly1219.github.io/posts/writing-tests-in-go/</link>

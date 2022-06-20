@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Debugging Go Code With Delve
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/debugging-go-code-with-delve/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Debugging Go Code With Delve"/>
+<meta name="twitter:description" content="&ldquo;Genius is 1% talent and 99% hard work.&rdquo;
+&ldquo;e = mc^2&rdquo;
+&ndash; Albert Einstein In the field of software development, the quotes can be changed slightly:
+ &ldquo;Software development is 1% programming and 99% debugging.&rdquo;
+&ldquo;errors = more code ^ 2&rdquo;
+&ndash; Some senior developer, probably Debugging is something all developers must go through, and it does not care about your expertise. It&rsquo;s a frustrating process. To err is human, and errors will absolutely creep into your program."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Debugging Go Code With Delve",
+        "headline": "Debugging Go Code With Delve",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u0026ldquo;Genius is 1% talent and 99% hard work.\u0026rdquo;\n\u0026ldquo;e = mc^2\u0026rdquo;\n\u0026ndash; Albert Einstein In the field of software development, the quotes can be changed slightly:\n \u0026ldquo;Software development is 1% programming and 99% debugging.\u0026rdquo;\n\u0026ldquo;errors = more code ^ 2\u0026rdquo;\n\u0026ndash; Some senior developer, probably Debugging is something all developers must go through, and it does not care about your expertise. It\u0026rsquo;s a frustrating process. To err is human, and errors will absolutely creep into your program.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/debugging-go-code-with-delve\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-06-19T10:41:24.00Z",
+        "datePublished": "2022-06-19T10:41:24.00Z",
+        "dateModified": "2022-06-19T10:41:24.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/debugging-go-code-with-delve\/",
+        "wordCount" : "3355",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Debugging Go Code With Delve</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Jun 19, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">16-minute read</span>
+          </div>
+
+        
+      </div><blockquote>
+<p>&ldquo;Genius is 1% talent and 99% hard work.&rdquo;</p>
+<p>&ldquo;e = mc^2&rdquo;</p>
+<p>&ndash; <!-- raw HTML omitted -->Albert Einstein<!-- raw HTML omitted --></p>
+</blockquote>
+<p>In the field of software development, the quotes can be changed slightly:</p>
+<blockquote>
+<p>&ldquo;Software development is 1% programming and 99% debugging.&rdquo;</p>
+<p>&ldquo;errors = more code ^ 2&rdquo;</p>
+<p>&ndash; <!-- raw HTML omitted -->Some senior developer, probably<!-- raw HTML omitted --></p>
+</blockquote>
+<p>Debugging is something all developers must go through, and it does not care about your expertise. It&rsquo;s a frustrating process. To err is human, and errors will absolutely creep into your program. I don&rsquo;t know why, but errors are your spawns just like your code, so you are responsible for handling them.</p>
+<h3 id="we-all-love-to-print-debug">We all love to print debug&hellip;</h3>
+<p>If you are a computer science undergrad, then you probably had a bad experience with a project that doesn&rsquo;t seem to work the way you want it to. This would also apply to other developers as well. My code doesn&rsquo;t work, and I don&rsquo;t understand why.</p>
+<p>I don&rsquo;t know why this is the case, but there is a universal tendency for developers to gravitate towards print debugging. At the part of the code where you assume the error to be, you would print the input and output variables.</p>
+<p>Print debugging is often faster for fixing simple bugs. The most important part of debugging is to check whether you are feeding the right input to a function and whether the function is spitting out the desired output. Print statements can handle this easily. However, there are some nasty bugs that tend to manifest in one function but originate from a distant function. There are also cases where you may want to check the call stack, track the lifespan of a variable, etc.</p>
+<p>Trust me, you will run into a situation where you feel like you are wasting a lot of time typing print statements. Your code will look ugly, and you will get lost in your own code. Those are the times when you wish you knew how to use a debugger.</p>
+<p>If you aren&rsquo;t convinced, try thinking of it like this. It&rsquo;s good to know how to use debuggers. I think that using print debugging because you don&rsquo;t know how to use a debugger is bad practice. Like any skill, not knowing shouldn&rsquo;t be the main reason why you aren&rsquo;t using/learning it. That&rsquo;s like ordering takeout because you don&rsquo;t know how to cook. Or not working out because you don&rsquo;t know how to use the gym equipment. Or not studying because you don&rsquo;t understand a concept&hellip; you get the point.</p>
+<h3 id="using-the-delve-debugger">Using the Delve Debugger</h3>
+<p>There is a popular debugger called <strong>gdb</strong> that can debug Go code. However, the Go documentation does not recommend it and instead points you towards a better alternative: <strong>Delve</strong>.</p>
+<p>Delve is like a toolbox that has a lot of tools to help you squash those nasty bugs. You don&rsquo;t have to catch a cockroach with your bare hands when you can use a bait station. Delve provides you with bug sprays, bait stations, torches, etc. Delve is used to catch Go bugs specifically, and it is quite easy to use.</p>
+<p>First, let&rsquo;s install it. If you are running Go v1.16 or later (which you probably should), you can use the following line:</p>
+<pre tabindex="0"><code>$ go install github.com/go-delve/delve/cmd/dlv@latest
+</code></pre><p>Make sure you installed it by running this:</p>
+<pre tabindex="0"><code>$ dlv version
+</code></pre><p>Delve is used to debug the main package and tests. Unfortunately, it is rather limited in terms of debugging packages other than <code>main</code>, because Delve needs a working executable of the program, which requires a <code>main</code> package. Like me, if you are writing a library that does not have a <code>main</code> package, you need to write tests for your code, then debug that instead.</p>
+<h3 id="going-over-the-commands-i-use-most-often-with-an-example-code">Going over the commands I use most often, with an example code</h3>
+<p>This is the code we will use for this example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;math&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">n1</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">float64</span>{<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.5</span>}
+    <span style="color:#a6e22e">n2</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">float64</span>{<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">NaN</span>(), <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.5</span>}
+
+    <span style="color:#a6e22e">mean1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">calcMean</span>(<span style="color:#a6e22e">n1</span>)
+    <span style="color:#a6e22e">mean2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">calcMean</span>(<span style="color:#a6e22e">n2</span>)
+
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;mean1:&#34;</span>, <span style="color:#a6e22e">mean1</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;mean2:&#34;</span>, <span style="color:#a6e22e">mean2</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calcMean</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">mean</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+        <span style="color:#a6e22e">mean</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">num</span>
+    }
+    <span style="color:#a6e22e">mean</span> <span style="color:#f92672">/=</span> float64(len(<span style="color:#a6e22e">nums</span>))
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mean</span>
+}
+</code></pre></div><p>The code is really simple! The <code>main</code> function defined two slices <code>n1</code> and <code>n2</code> and calls <code>calcMean</code> to calculate each mean value. This code looks fine, and the compiler isn&rsquo;t complaining. If there were any syntactical error, we won&rsquo;t even be able to compile our code. However, this code actually has one small issue. Can you guess what it might be?</p>
+<p>Well, let&rsquo;s run the code and see what happens.</p>
+<pre tabindex="0"><code>$ go run main.go
+mean1: 0.3
+mean2: NaN
+</code></pre><p>Interesting. <code>mean1</code> seems alright, but <code>mean2</code> looks a bit weird. We want a number, not a <code>NaN</code> value. Why is this happening? Let&rsquo;s use the debugger to figure out what&rsquo;s actually going on.</p>
+<p><code>cd</code> into the directory that includes your <code>main.go</code> file, then run this:</p>
+<pre tabindex="0"><code>$ dlv debug
+</code></pre><p>If you are debugging tests, you can <code>cd</code> into the directory that holds your <code>*_test.go</code> files, then run this:</p>
+<pre tabindex="0"><code>$ dlv test
+</code></pre><p>As far as I know, there isn&rsquo;t a GUI frontend for Delve, so you need to use the command line to use Delve. This is fine because Delve has a friendly CLI that you can actually understand.</p>
+<pre tabindex="0"><code>$ dlv debug
+Type 'help' for list of commands.
+(dlv) 
+</code></pre><p>You will see that we have entered the Delve interface. Now we can run Delve-specific commands that will help us fix this bug.</p>
+<pre tabindex="0"><code>(dlv) break main.go:8
+Breakpoint 1 set at 0x496732 for main.main() ./main.go:8
+</code></pre><p>The first command is <code>break</code>. It creates a <em>breakpoint</em> in your code. A breakpoint is a point in your code that you can stop the execution of. In this case, I set a breakpoint at line 8 in the file <code>main.go</code>. It is useful to set breakpoints before a suspicious code. Usually, it is a function that accepts an input and returns an output. To go to the breakpoint, we can use the following command:</p>
+<pre tabindex="0"><code>(dlv) continue
+&gt; main.main() ./main.go:8 (hits goroutine(1):1 total:1) (PC: 0x496732)
+     3: import (
+     4:         &quot;fmt&quot;
+     5:         &quot;math&quot;
+     6: )
+     7:
+=&gt;   8: func main() {
+     9:         n1 := []float64{0.1, 0.2, 0.3, 0.4, 0.5}
+    10:         n2 := []float64{math.NaN(), 0.2, 0.3, 0.4, 0.5}
+    11:
+    12:         mean1 := calcMean(n1)
+    13:         mean2 := calcMean(n2)
+</code></pre><p><code>continue</code> will, well, continue traversing the code until the next breakpoint is reached. If there are no breakpoints set, <code>continue</code> will just run through the entire program, finishing the run. Here, continue will take us to line 8. Note that a breakpoint won&rsquo;t actually run the specified line. Let&rsquo;s go line by line now.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.main() ./main.go:9 (PC: 0x496749)
+     4:         &quot;fmt&quot;
+     5:         &quot;math&quot;
+     6: )
+     7:
+     8: func main() {
+=&gt;   9:         n1 := []float64{0.1, 0.2, 0.3, 0.4, 0.5}
+    10:         n2 := []float64{math.NaN(), 0.2, 0.3, 0.4, 0.5}
+    11:
+    12:         mean1 := calcMean(n1)
+    13:         mean2 := calcMean(n2)
+    14:
+(dlv) next
+&gt; main.main() ./main.go:10 (PC: 0x4967fa)
+     5:         &quot;math&quot;
+     6: )
+     7:
+     8: func main() {
+     9:         n1 := []float64{0.1, 0.2, 0.3, 0.4, 0.5}
+=&gt;  10:         n2 := []float64{math.NaN(), 0.2, 0.3, 0.4, 0.5}
+    11:
+    12:         mean1 := calcMean(n1)
+    13:         mean2 := calcMean(n2)
+    14:
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+</code></pre><p>We use the <code>next</code> command to go to the next line. Here, we traverse through lines 9 and 10, where we define <code>n1</code> and <code>n2</code>. Let&rsquo;s see how these slices are represented in our debugger.</p>
+<pre tabindex="0"><code>(dlv) print n1
+[]float64 len: 5, cap: 5, [0.1,0.2,0.3,0.4,0.5]
+(dlv) print n2
+Command failed: could not find symbol value for n2
+</code></pre><p>We use the <code>print</code> command to see the details of a variable. We see something odd there, however. <code>print n1</code> works, but <code>print n2</code> doesn&rsquo;t. This is because when we are in a certain line, that line doesn&rsquo;t get executed until we move on to the next line. <code>n1</code> is defined in line 9, while <code>n2</code> is defined in line 10. We are currently at line 10, which means that line 9 has been executed, but line 10 has not yet been. To fix this, we just need to go to the next line.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.main() ./main.go:12 (PC: 0x4968a5)
+     7:
+     8: func main() {
+     9:         n1 := []float64{0.1, 0.2, 0.3, 0.4, 0.5}
+    10:         n2 := []float64{math.NaN(), 0.2, 0.3, 0.4, 0.5}
+    11:
+=&gt;  12:         mean1 := calcMean(n1)
+    13:         mean2 := calcMean(n2)
+    14:
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+(dlv) print n1
+[]float64 len: 5, cap: 5, [0.1,0.2,0.3,0.4,0.5]
+(dlv) print n2
+[]float64 len: 5, cap: 5, [NaN,0.2,0.3,0.4,0.5]
+</code></pre><p>You can see how <code>print n2</code> works as expected now.</p>
+<p>We are at line 12 at the moment, and this is where using a debugger can differentiate itself from print debugging. Delve has a feature where you can <em>step in</em> to a function. As its name suggests, stepping into the function allows us to go to the function and examine that function step by step. I&rsquo;ll show you what it means:</p>
+<pre tabindex="0"><code>(dlv) step
+&gt; main.calcMean() ./main.go:19 (PC: 0x496ac0)
+    14:
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+=&gt;  19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+</code></pre><p>Use <code>step</code> to step into a function. We can see how our scope changed from the <code>main</code> function to <code>calcMean</code> function.</p>
+<pre tabindex="0"><code>(dlv) args
+nums = []float64 len: 5, cap: 5, [...]
+~r0 = 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004074232364696
+</code></pre><p>Using <code>args</code> will show us the function parameters. <code>nums</code> is the input for <code>calcMean</code>. <code>~r0</code> denotes the return value of the function. <code>r</code> stands for return, and <code>0</code> stands for the 0th return value. If we have multiple return values, we will have something like <code>r0, r1, r2...</code>. The <code>~</code> represents an unnamed value. We know that <code>calcMean</code> will return a <code>float64</code>, but we didn&rsquo;t specify a name for it.</p>
+<p>We can check function input by using the <code>print</code> command as well.</p>
+<pre tabindex="0"><code>(dlv) print nums
+[]float64 len: 5, cap: 5, [0.1,0.2,0.3,0.4,0.5]
+</code></pre><p>So we know that there is nothing wrong with the input. Let&rsquo;s keep going. We want to keep track of the value of the <code>mean</code> variable. To do that, use the <code>display</code> command.</p>
+<pre tabindex="0"><code>(dlv) display -a mean
+0: mean = error could not find symbol value for mean
+(dlv) next
+&gt; main.calcMean() ./main.go:20 (PC: 0x496ae5)
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+=&gt;  20:         mean := 0.0
+    21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+0: mean = error could not find symbol value for mean
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496aeb)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 0
+</code></pre><p>Using the <code>-a</code> flag will add variables to our display list. If we move on to the next line, you can see how the value of <code>mean</code> shows at the bottom.</p>
+<p>There is a small error that says how we <code>could not find symbol value</code>. This is because <code>mean</code> is not defined yet. You can see how this error goes away when we are at line 21 and <code>mean</code> has been defined.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 0
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 0.1
+(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 0.1
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 0.30000000000000004
+(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 0.30000000000000004
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 0.6000000000000001
+(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 0.6000000000000001
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 1
+(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 1
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 1.5
+(dlv) next
+&gt; main.calcMean() ./main.go:24 (PC: 0x496b65)
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+=&gt;  24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 1.5
+</code></pre><p>I apologize for the long output, but I really wanted to show you how <code>mean</code> changes for every iteration. You can see that the mean is adding up.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.calcMean() ./main.go:26 (PC: 0x496b87)
+    21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+=&gt;  26:         return mean
+    27: }
+0: mean = 0.3
+</code></pre><p><code>mean</code> is equal to 0.3 after the division, so the function works as expected for input of <code>n1</code>. Let&rsquo;s see what happens when we input <code>n2</code>.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.main() ./main.go:12 (PC: 0x4968c5)
+Values returned:
+        ~r0: 0.3
+
+     7:
+     8: func main() {
+     9:         n1 := []float64{0.1, 0.2, 0.3, 0.4, 0.5}
+    10:         n2 := []float64{math.NaN(), 0.2, 0.3, 0.4, 0.5}
+    11:
+=&gt;  12:         mean1 := calcMean(n1)
+    13:         mean2 := calcMean(n2)
+    14:
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+0: mean = error could not find symbol value for mean
+(dlv) display -d 0
+(dlv)
+</code></pre><p>We get out of the scope when we hit the return line. We need to remove <code>mean</code> from the display list because we are not tracking it anymore. Run <code>display -d</code> and follow it with an id of the variable in the list. In our case, it is 0.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.main() ./main.go:13 (PC: 0x4968cb)
+     8: func main() {
+     9:         n1 := []float64{0.1, 0.2, 0.3, 0.4, 0.5}
+    10:         n2 := []float64{math.NaN(), 0.2, 0.3, 0.4, 0.5}
+    11:
+    12:         mean1 := calcMean(n1)
+=&gt;  13:         mean2 := calcMean(n2)
+    14:
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+(dlv) step
+&gt; main.calcMean() ./main.go:19 (PC: 0x496ac0)
+    14:
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+=&gt;  19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+(dlv) print nums
+[]float64 len: 5, cap: 5, [NaN,0.2,0.3,0.4,0.5]
+</code></pre><p>Again, we step into the <code>calcMean</code> function. We print <code>nums</code> and check that the input is as expected.</p>
+<pre tabindex="0"><code>dlv) display -a mean
+0: mean = error could not find symbol value for mean
+(dlv) next
+&gt; main.calcMean() ./main.go:20 (PC: 0x496ae5)
+    15:         fmt.Println(&quot;mean1:&quot;, mean1)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+=&gt;  20:         mean := 0.0
+    21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+0: mean = error could not find symbol value for mean
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496aeb)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = 0
+</code></pre><p>We use the <code>display</code> command to keep track of <code>mean</code>.</p>
+<pre tabindex="0"><code>(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = 0
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = NaN
+</code></pre><pre tabindex="0"><code>(dlv) next
+&gt; main.calcMean() ./main.go:22 (PC: 0x496b44)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+    21:         for _, num := range nums {
+=&gt;  22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+    27: }
+0: mean = NaN
+(dlv) next
+&gt; main.calcMean() ./main.go:21 (PC: 0x496b56)
+    16:         fmt.Println(&quot;mean2:&quot;, mean2)
+    17: }
+    18:
+    19: func calcMean(nums []float64) float64 {
+    20:         mean := 0.0
+=&gt;  21:         for _, num := range nums {
+    22:                 mean += num
+    23:         }
+    24:         mean /= float64(len(nums))
+    25:
+    26:         return mean
+0: mean = NaN
+</code></pre><p>And that, ladies and gentlemen, is where the bug is. Note how <code>mean</code> becomes <code>NaN</code> as soon as we add the first element of <code>nums</code>. And from that point on, <code>mean</code> stays <code>NaN</code> no matter what we add to it. This is, obviously, an undesirable behavior. We want to ignore NaN values and calculate the mean without them.</p>
+<p>Exit the debugger by using <code>exit</code>.</p>
+<p>Let&rsquo;s go back to our code and update the <code>calcMean</code> code to the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calcMean</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">mean</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>
+    <span style="color:#a6e22e">nanCount</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(<span style="color:#a6e22e">num</span>) {
+            <span style="color:#a6e22e">nanCount</span><span style="color:#f92672">++</span>
+            <span style="color:#66d9ef">continue</span>
+        }
+        <span style="color:#a6e22e">mean</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">num</span>
+    }
+    <span style="color:#a6e22e">mean</span> <span style="color:#f92672">/=</span> float64(len(<span style="color:#a6e22e">nums</span>) <span style="color:#f92672">-</span> <span style="color:#a6e22e">nanCount</span>)
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mean</span>
+}
+</code></pre></div><p>If we encounter a NaN value, we increase <code>nanCount</code> by 1, and skip to the next iteration by using <code>continue</code>. When calculating the mean, we divide the sum of <code>nums</code> by the length of <code>nums</code> minus the number of NaNs.</p>
+<p>Let&rsquo;s see how our code runs now.</p>
+<pre tabindex="0"><code>$ go run main.go
+mean1: 0.3
+mean2: 0.35
+</code></pre><p>Nice! We successfully debugged our code.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>We learned how to use Delve to debug our code like a pro. Of course, the above example could&rsquo;ve been easily debugged by adding a print statement inside the loop in <code>calcMean</code>. However, when you encounter nasty bugs in your journey, you will thank yourself for reading this post and knowing how to use a debugger. Delve provides many more commands, which you can check out in their <a href="https://github.com/go-delve/delve/tree/master/Documentation/cli">documentation</a>. Last time, we learned how to write tests to prevent bugs. When bugs do appear, we now know how to use a debugger to squash them.</p>
+<p>Thank you for reading! You can also read this post on <a href="https://medium.com/@jpoly1219/debugging-go-code-with-delve-22fe9de7e380">Medium</a> and <a href="https://dev.to/jpoly1219/debugging-go-code-with-delve-2l67">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
