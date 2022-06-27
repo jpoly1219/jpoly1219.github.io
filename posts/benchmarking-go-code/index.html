@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Benchmarking Go Code
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/benchmarking-go-code/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Benchmarking Go Code"/>
+<meta name="twitter:description" content="If you have been programming in Go for some time, you probably really like the tooling that comes with it. The language itself is packed to the brim with useful tooling such as go test, go fmt, go build, etc. We have gone over testing before. Today, we will be looking at how we can benchmark our Go code.
+Why you should run benchmarks Ever wondered how fast and efficient your code runs?"/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Benchmarking Go Code",
+        "headline": "Benchmarking Go Code",
+        "alternativeHeadline": "",
+        "description": "
+      
+        If you have been programming in Go for some time, you probably really like the tooling that comes with it. The language itself is packed to the brim with useful tooling such as go test, go fmt, go build, etc. We have gone over testing before. Today, we will be looking at how we can benchmark our Go code.\nWhy you should run benchmarks Ever wondered how fast and efficient your code runs?
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/benchmarking-go-code\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-06-26T13:53:28.00Z",
+        "datePublished": "2022-06-26T13:53:28.00Z",
+        "dateModified": "2022-06-26T13:53:28.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/benchmarking-go-code\/",
+        "wordCount" : "1294",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Benchmarking Go Code</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Jun 26, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">7-minute read</span>
+          </div>
+
+        
+      </div><p>If you have been programming in Go for some time, you probably really like the tooling that comes with it. The language itself is packed to the brim with useful tooling such as <code>go test</code>, <code>go fmt</code>, <code>go build</code>, etc. We have gone over testing before. Today, we will be looking at how we can benchmark our Go code.</p>
+<h3 id="why-you-should-run-benchmarks">Why you should run benchmarks</h3>
+<p>Ever wondered how fast and efficient your code runs? Benchmarks are the most straightforward way to check the performance of your code. The benchmark tool provided by Go focuses on these aspects:</p>
+<ul>
+<li>
+<p>Time taken per operation</p>
+</li>
+<li>
+<p>Memory allocated per operation</p>
+</li>
+</ul>
+<p>Benchmarks aren&rsquo;t a must, but they can be a good way to check for bottlenecks. Also, running numbers is fun. If you are a content creator, you probably check your feed daily, keeping track of how many new views your recent posts got. Benchmarks give me a similar sense of joy.</p>
+<h3 id="insertion-sort-vs-merge-sort">Insertion Sort vs. Merge Sort</h3>
+<p>We will use the following code for this tutorial.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">list</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>}
+    <span style="color:#a6e22e">iList</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">insertionSort</span>(<span style="color:#a6e22e">list</span>)
+    <span style="color:#a6e22e">mList</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mergeSort</span>(<span style="color:#a6e22e">list</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">iList</span>, <span style="color:#a6e22e">mList</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">insertionSort</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">list</span> {
+        <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">num</span> &lt; <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">j</span>] {
+            <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">j</span>]
+            <span style="color:#a6e22e">j</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+        }
+        <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">num</span>
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">list</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">mergeSort</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">list</span>) &gt; <span style="color:#ae81ff">1</span> {
+        <span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">list</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+        <span style="color:#a6e22e">left</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>[:<span style="color:#a6e22e">mid</span>]
+        <span style="color:#a6e22e">right</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">mid</span>:]
+
+        <span style="color:#a6e22e">mergeSort</span>(<span style="color:#a6e22e">left</span>)
+        <span style="color:#a6e22e">mergeSort</span>(<span style="color:#a6e22e">right</span>)
+
+        <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">left</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">right</span>) {
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span>[<span style="color:#a6e22e">i</span>] &lt; <span style="color:#a6e22e">right</span>[<span style="color:#a6e22e">j</span>] {
+                <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">left</span>[<span style="color:#a6e22e">i</span>]
+                <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">right</span>[<span style="color:#a6e22e">j</span>]
+                <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
+            }
+            <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>
+        }
+
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">left</span>) {
+            <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">left</span>[<span style="color:#a6e22e">i</span>]
+            <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+            <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>
+        }
+
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">right</span>) {
+            <span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">right</span>[<span style="color:#a6e22e">j</span>]
+            <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
+            <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>
+        }
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">list</span>
+}
+</code></pre></div><p>The above is an implementation of two popular sorting algorithms: insertion sort and merge sort.</p>
+<p>An insertion sort is a simple sorting algorithm that works like this:</p>
+<ul>
+<li>
+<p>Iterate through the list from the beginning.</p>
+</li>
+<li>
+<p>If the current number is smaller than the previous number, move it to the front until it becomes bigger than the previous number.</p>
+</li>
+</ul>
+<p>Merge sort takes a different approach:</p>
+<ul>
+<li>
+<p>Divide the list in half, so that you end up with a left list and a right list. Do this recursively on the left list and the right list.</p>
+</li>
+<li>
+<p>When you can&rsquo;t divide anymore, merge the left list and right list in ascending order.</p>
+</li>
+<li>
+<p>Merge the lists until you end up with the sorted original list.</p>
+</li>
+</ul>
+<p>These diagrams will help you understand the two sorts better.</p>
+<ul>
+<li>Insertion Sort:</li>
+</ul>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/insertion_sort-recursion.png" alt=""></p>
+<p><a href="https://media.geeksforgeeks.org/wp-content/uploads/insertion_sort-recursion.png">https://media.geeksforgeeks.org/wp-content/uploads/insertion_sort-recursion.png</a></p>
+<ul>
+<li>Merge Sort:</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Merge_sort_algorithm_diagram.svg/1064px-Merge_sort_algorithm_diagram.svg.png" alt=""></p>
+<p><a href="https://en.wikipedia.org/wiki/Merge_sort#/media/File:Merge_sort_algorithm_diagram.svg">https://en.wikipedia.org/wiki/Merge_sort#/media/File:Merge_sort_algorithm_diagram.svg</a></p>
+<h3 id="benchmarking-the-code">Benchmarking the code</h3>
+<p>Let&rsquo;s write our benchmark code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;math/rand&#34;</span>
+    <span style="color:#e6db74">&#34;testing&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkInsertionSort</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+    <span style="color:#a6e22e">inputSize</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">100000</span>}
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">size</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">inputSize</span> {
+        <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;input_size_%d&#34;</span>, <span style="color:#a6e22e">size</span>), <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+            <span style="color:#a6e22e">testList</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">size</span>)
+            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+                <span style="color:#a6e22e">testList</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">size</span>)
+            }
+            <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+
+            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+                <span style="color:#a6e22e">insertionSort</span>(<span style="color:#a6e22e">testList</span>)
+            }
+        })
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkMergeSort</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+    <span style="color:#a6e22e">inputSize</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">100000</span>}
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">size</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">inputSize</span> {
+        <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;input_size_%d&#34;</span>, <span style="color:#a6e22e">size</span>), <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+            <span style="color:#a6e22e">testList</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">size</span>)
+            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+                <span style="color:#a6e22e">testList</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">size</span>)
+            }
+            <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+
+            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+                <span style="color:#a6e22e">mergeSort</span>(<span style="color:#a6e22e">testList</span>)
+            }
+        })
+    }
+}
+</code></pre></div><p>All benchmark codes are named in the format of <code>BenchnmarkXxx</code>, where <code>Xxx</code> is the name of the function being benchmarked starting with a capital letter.</p>
+<p>We are going to test the two sorting algorithms using different input sizes. These are defined inside <code>inputSize</code>. For each input size, we launch a <code>b.Run</code> which fires off a single benchmark. <code>b.Run</code> accepts two parameters: first is the name of the benchmark and the second is the actual benchmark function to run. <code>fmt.Sprintf(&quot;input_size_%d&quot;, size)</code> is a good way to dynamically name our benchmarks, as it will name our benchmarks like so: <code>input_size_10</code>, <code>input_size_100</code>, and so on.</p>
+<p>You could make one benchmark function for each input size, but the code will become unnecessarily long, so using <code>b.Run</code> is the idiomatic approach.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">testList</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">size</span>)
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+    <span style="color:#a6e22e">testList</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">size</span>)
+}
+<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+</code></pre></div><p>This portion populates our test data. We create a slice of size <code>size</code>, and populate it with random integers. We call <code>b.ResetTimer</code> in the end to reset our benchmark timer. <code>b.Run</code> starts the timer at the time of launching it, so it will by default include the time taken for initializing data. This is misleading, and we reset the timer before running the benchmark.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+    <span style="color:#a6e22e">mergeSort</span>(<span style="color:#a6e22e">testList</span>)
+}
+</code></pre></div><p>This is the loop that runs our <code>mergeSort</code> function. The loop runs <code>b.N</code> time, which is an arbitrary number calculated to yield stable and reliable results. It&rsquo;s like running a lab multiple times to find the average data of different data points to make the results more precise.</p>
+<p>Let&rsquo;s run the benchmark now.</p>
+<pre tabindex="0"><code>$ go test -bench=. -benchmem
+goos: linux
+goarch: amd64
+pkg: example.com/benchmarking
+cpu: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+BenchmarkInsertionSort/input_size_10-8          127217533                9.369 ns/op           0 B/op          0 allocs/op
+BenchmarkInsertionSort/input_size_100-8         13812344                89.95 ns/op            0 B/op          0 allocs/op
+BenchmarkInsertionSort/input_size_1000-8         1508656               743.6 ns/op             0 B/op          0 allocs/op
+BenchmarkInsertionSort/input_size_10000-8         158587              7365 ns/op               0 B/op          0 allocs/op
+BenchmarkInsertionSort/input_size_100000-8             1        1296239500 ns/op               0 B/op          0 allocs/op
+BenchmarkMergeSort/input_size_10-8              14895802                76.45 ns/op            0 B/op          0 allocs/op
+BenchmarkMergeSort/input_size_100-8              1000000              1045 ns/op               0 B/op          0 allocs/op
+BenchmarkMergeSort/input_size_1000-8               89268             14178 ns/op               0 B/op          0 allocs/op
+BenchmarkMergeSort/input_size_10000-8               7522            156233 ns/op               0 B/op          0 allocs/op
+BenchmarkMergeSort/input_size_100000-8               678           1743882 ns/op               0 B/op          0 allocs/op
+PASS
+ok      example.com/benchmarking        15.215s
+</code></pre><p>We run <code>go test</code> like how we would run tests. Then we pass these two flags:</p>
+<ul>
+<li>
+<p><code>-bench</code> specifies which benchmark function to run. To run all of them, pass <code>-bench=.</code>.</p>
+</li>
+<li>
+<p><code>-benchmem</code> shows you how much memory is allocated per operation, and how many allocations occur.</p>
+</li>
+</ul>
+<p>To the left, you can see the names of the benchmark functions. The <code>-8</code> at the end means that we are using 8 cores of our CPU.</p>
+<p>Next to that is a huge number that decreases as our input size increases. These are your <code>b.N</code>, or how many times the benchmark has run your function. We call this the number of operations.</p>
+<p>To the right of that, you can see the average time taken per operation. This means that for every run of the function, approximately x nanoseconds passed.</p>
+<p>The last two columns show the average amount of memory bytes used for each operation, and the number of allocations per operation.</p>
+<p>You can see that for smaller input sizes of 10,000 and below, the insertion sort is more efficient. However, from that point onwards, merge sort is much more efficient.</p>
+<p>Both are memory efficient because they both do not require much allocation of memory. In Go, taking slices doesn&rsquo;t cost memory. More on that [here](<a href="https://stackoverflow.com/questions/29196475/slices-in-golang-do-not-allocate-any-memory#:~:text=Because%20slices%20are%20multiword%20structures,and%20length%20pairs%20in%20C.">pointers - Slices in golang do not allocate any memory? - Stack Overflow</a>).</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Benchmarks are a useful tool to check if your code is running efficiently. This leaves us with one question: this means that we don&rsquo;t need to benchmark our code if we write a well-optimized code from the get-go, right? In a perfect world, this is true. However, I&rsquo;d advise against it, as countless other people have.</p>
+<blockquote>
+<p>Premature optimization is the root of all evil.</p>
+<p>&ndash;<!-- raw HTML omitted -->Donald Knuth, the legendary computer scientist, and mathematician<!-- raw HTML omitted --></p>
+</blockquote>
+<p>Focus on writing readable, working code. Then run a benchmark if you start running into bottlenecks. Maintainability is more important than performance in many cases, especially when modern computers are so fast.</p>
+<p>Thank you for reading! You can also read this post on <a href="https://medium.com/@jpoly1219/benchmarking-go-code-7c780e29a7f">Medium</a> and <a href="https://dev.to/jpoly1219/benchmarking-go-code-1k23">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

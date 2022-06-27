@@ -6,7 +6,19 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Jun 2022 10:41:24 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Jun 2022 13:53:28 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Benchmarking Go Code</title>
+      <link>https://jpoly1219.github.io/posts/benchmarking-go-code/</link>
+      <pubDate>Sun, 26 Jun 2022 13:53:28 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/benchmarking-go-code/</guid>
+      
+        <description>If you have been programming in Go for some time, you probably really like the tooling that comes with it. The language itself is packed to the brim with useful tooling such as go test, go fmt, go build, etc. We have gone over testing before. Today, we will be looking at how we can benchmark our Go code.
+Why you should run benchmarks Ever wondered how fast and efficient your code runs?</description>
+      
+    </item>
+    
     <item>
       <title>Debugging Go Code With Delve</title>
       <link>https://jpoly1219.github.io/posts/debugging-go-code-with-delve/</link>
