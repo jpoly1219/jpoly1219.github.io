@@ -6,7 +6,18 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Jun 2022 13:53:28 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2022 17:04:27 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trees in Go</title>
+      <link>https://jpoly1219.github.io/posts/trees-in-go/</link>
+      <pubDate>Sun, 03 Jul 2022 17:04:27 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/trees-in-go/</guid>
+      
+        <description>Welcome back to Introduction to Data Structures in Go! In this post, we will be looking at trees. So far, we have looked at linear data structures. There was one beginning node and one end node. Data traveled in one direction: either left to right or right to left. Trees are nonlinear, which adds a layer of complexity. Trees are widely used in the programming world for many different purposes, so it is a good idea to get a firm grasp on the topic.</description>
+      
+    </item>
+    
     <item>
       <title>Benchmarking Go Code</title>
       <link>https://jpoly1219.github.io/posts/benchmarking-go-code/</link>

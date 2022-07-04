@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Trees in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/trees-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Trees in Go"/>
+<meta name="twitter:description" content="Welcome back to Introduction to Data Structures in Go! In this post, we will be looking at trees. So far, we have looked at linear data structures. There was one beginning node and one end node. Data traveled in one direction: either left to right or right to left. Trees are nonlinear, which adds a layer of complexity. Trees are widely used in the programming world for many different purposes, so it is a good idea to get a firm grasp on the topic."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Trees in Go",
+        "headline": "Trees in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Welcome back to Introduction to Data Structures in Go! In this post, we will be looking at trees. So far, we have looked at linear data structures. There was one beginning node and one end node. Data traveled in one direction: either left to right or right to left. Trees are nonlinear, which adds a layer of complexity. Trees are widely used in the programming world for many different purposes, so it is a good idea to get a firm grasp on the topic.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/trees-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-07-03T17:04:27.00Z",
+        "datePublished": "2022-07-03T17:04:27.00Z",
+        "dateModified": "2022-07-03T17:04:27.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/trees-in-go\/",
+        "wordCount" : "2223",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Trees in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Jul 3, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">11-minute read</span>
+          </div>
+
+        
+      </div><p>Welcome back to Introduction to Data Structures in Go! In this post, we will be looking at trees. So far, we have looked at linear data structures. There was one beginning node and one end node. Data traveled in one direction: either left to right or right to left. Trees are nonlinear, which adds a layer of complexity. Trees are widely used in the programming world for many different purposes, so it is a good idea to get a firm grasp on the topic. You will have no issues with it after reading this post.</p>
+<p>Do note that understanding how recursion works will help you immensely when working with trees.</p>
+<h3 id="what-are-trees">What are trees?</h3>
+<p>Do you remember what a linked list looked like? Linked lists consisted of several nodes pointing to each other.</p>
+<pre tabindex="0"><code>HEAD -&gt; Node A -&gt; Node B -&gt; Node C -&gt; nil
+</code></pre><p>A node looked like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+</code></pre></div><p>Now imagine a special linked list where there are more than one connections that a node could make. For example, let&rsquo;s say that every node can point to a left node and a right node.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">left</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">right</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+</code></pre></div><p>Or even many nodes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">adjacent</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+</code></pre></div><p>These nodes become the building blocks of a tree data structure. Trees add more complexity to our typical linked list in the sense that each node can have multiple relations to other nodes. It&rsquo;s not a one-directional relationship like that of arrays, stacks, and queues, which is why it is considered a nonlinear data structure. You can tell that just by looking at a sample diagram:</p>
+<p><img src="https://static.javatpoint.com/ds/images/tree.png" alt=""></p>
+<p>Image credits to <a href="https://static.javatpoint.com/ds/images/tree.png">https://static.javatpoint.com/ds/images/tree.png</a></p>
+<p>It looks like an upside-down tree, right?</p>
+<h3 id="properties-of-a-tree">Properties of a tree</h3>
+<p>Let&rsquo;s use the above example for this.</p>
+<ul>
+<li>
+<p>A tree consists of a root node and zero or more subtrees connected to it.</p>
+<ul>
+<li>
+<p>A root node is the topmost node of the tree. In the above diagram, John is the root node.</p>
+</li>
+<li>
+<p>A subtree is just a tree within a larger tree. You can see how the root node John is connected to two subtrees that each have Steve and Rohan as their root nodes.</p>
+</li>
+<li>
+<p>A tree with only one node is still considered a tree.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>The most important relationship is the parent-children relationship. The parent node is a direct predecessor of a child node. A child node is a direct successor of a parent node.</p>
+<ul>
+<li>In the above diagram, John is the parent node of Steve and Rohan. Lee, Bob, and Ella are the child nodes of Steve.</li>
+</ul>
+</li>
+<li>
+<p>Sibling nodes are nodes that share a parent node. Steve and Rohan are sibling nodes.</p>
+</li>
+<li>
+<p>Leaf nodes are nodes that do not have any children. Lee, Bob, Ella, Sal, Bill, and Raj are all leaf nodes.</p>
+</li>
+<li>
+<p>Ancestor-descendent relationships are like parent-children relationships but on a larger scale. If there exists a way to traverse from B to A, then A is an ancestor of B and B is a descendent of A. Emma is the ancestor of Bill and Tom, and Bill and Tom are descendants of Emma.</p>
+</li>
+<li>
+<p>The depth of a node is the number of edges between the root and itself. The depth of Tom is 3.</p>
+</li>
+<li>
+<p>The height of a node is the number of edges between itself and the farthest leaf node within its subtree. The level of a node is the number of edges between itself and the root node.</p>
+<ul>
+<li>The height of Rohan is 3, and its level is 1.</li>
+</ul>
+</li>
+<li>
+<p>The height of a tree is the height of the root node. The height of the tree in the diagram is the height of John, which is 4.</p>
+</li>
+<li>
+<p>If there are n nodes, then there are n-1 edges.</p>
+</li>
+</ul>
+<p>It&rsquo;s a lot of information, but a lot of these are pretty intuitive.</p>
+<h3 id="what-is-a-binary-tree">What is a binary tree?</h3>
+<p>Now that we know what a tree is, we can look at the most popular type of tree: the binary tree. A binary tree is a tree where each node can have at most two children. Binary trees are very popular in the programming world because it is the backbone of the binary search tree, which provides one of the fastest ways to search through a list of data. It is also easy to implement because there are only two child nodes at maximum.</p>
+<h3 id="what-is-a-binary-search-tree">What is a binary search tree?</h3>
+<p>A binary search tree is a special type of binary tree. The left child must have a value less than the parent, and the right child must have a value greater than the parent. Binary search trees, abbreviated as BSTs, are used for, well, searching. When we search for an item in a list, we can either iterate through the entire list and stop when we find the item, or perform a binary search: split the list in half, pick the half where the item would be, split again, and vice versa. While a linear search would take O(n) time, a binary search would take O(log n) time, which makes it more efficient. A BST is a representation of such a search algorithm.</p>
+<p>Here is a sample binary search tree.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/1024px-Binary_search_tree.svg.png" alt=""></p>
+<p>Image credits to <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/1024px-Binary_search_tree.svg.png">https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/1024px-Binary_search_tree.svg.png</a></p>
+<h3 id="traversing-the-binary-search-tree">Traversing the binary search tree</h3>
+<p>Because a binary search tree is a nonlinear data structure, there are many ways to traverse it. We will go over the two most popular methods: inorder traversal and level order traversal.</p>
+<h4 id="inorder-traversal">Inorder traversal</h4>
+<p>Inorder traversal is a depth-first, recursive method that traverses the tree in a left node &gt; root node &gt; right node order. A depth-first approach will poke the deepest leaf nodes in a subtree before moving on to the next subtree. In the example BST above, a full inorder traversal would output this:</p>
+<pre tabindex="0"><code>1 3 4 6 7 8 10 13 14
+</code></pre><p>For a binary search tree, an inorder traversal will always print the nodes in increasing order.</p>
+<h4 id="level-order-traversal">Level order traversal</h4>
+<p>Level order traversal takes a breadth-first approach.  A breadth-first approach, unlike a depth-first approach, will iterate through the tree level-by-level. A full level order traversal would output this:</p>
+<pre tabindex="0"><code>8 3 10 1 6 14 4 7 13
+</code></pre><h3 id="creating-a-binary-search-tree-in-go">Creating a binary search tree in Go</h3>
+<p>Let&rsquo;s try creating a BST in Go.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">data</span>  <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">left</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">right</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BST</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Insert</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">val</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">val</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>}
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">val</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>}
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span> = <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> &gt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span> = <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">node</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Search</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">found</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">val</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">found</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">val</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> &lt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> &gt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span>
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span>)
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+        <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>)
+    }
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Levelorder</span>() {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#a6e22e">nodeList</span> <span style="color:#f92672">:=</span> make([](<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>), <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">nodeList</span> = append(<span style="color:#a6e22e">nodeList</span>, <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>)
+
+    <span style="color:#66d9ef">for</span> !(len(<span style="color:#a6e22e">nodeList</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#a6e22e">current</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">nodeList</span>[<span style="color:#ae81ff">0</span>]
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">data</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">nodeList</span> = append(<span style="color:#a6e22e">nodeList</span>, <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">left</span>)
+        }
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">right</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">nodeList</span> = append(<span style="color:#a6e22e">nodeList</span>, <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">right</span>)
+        }
+        <span style="color:#a6e22e">nodeList</span> = <span style="color:#a6e22e">nodeList</span>[<span style="color:#ae81ff">1</span>:]
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">bst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">BST</span>{}
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">10</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">5</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">15</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">20</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">17</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">4</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">6</span>)
+
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Levelorder</span>()
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Search</span>(<span style="color:#ae81ff">5</span>))
+}
+</code></pre></div><p>Let&rsquo;s go over each part of the code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">data</span>  <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">left</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">right</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BST</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+</code></pre></div><p>These are the definitions of <code>Node</code> and <code>BST</code>. I like to create a struct for the whole BST instead of just working with a pointer to the root node. In many C and C++ tutorials, you will see the approach of keeping only the pointer to the head or root node. I like to think of a BST as a whole entity, so that&rsquo;s why I&rsquo;m defining the <code>BST</code> struct. It just makes more sense to me.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Insert</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">val</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">val</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>}
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">val</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>}
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span> = <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> &gt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span> = <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">InsertRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">node</span>
+}
+</code></pre></div><p>This is how we will insert a new node. We split the logic into two parts: the <code>Insert</code> function and the <code>InsertRec</code> function that calls itself. The reason why we do this is that <code>InsertRec</code> returns a <code>*Node</code>, but we don&rsquo;t have a use for this in the <code>Insert</code> function.</p>
+<p>The <code>InsertRec</code> function might seem convoluted, but we can take it apart. We pass in a pointer to a node, along with the value we want to add. When there are no nodes in our BST, our <code>bst.root</code> will be <code>nil</code>, so it will be set to <code>val</code>. For other cases, we follow a set of conditionals:</p>
+<ul>
+<li>
+<p>If <code>val</code> is smaller than <code>node.data</code>, then we call <code>InsertRec</code> on <code>node.left</code>. This will make sure that we go depth-first and reach the leftmost node.</p>
+</li>
+<li>
+<p>We know that when we reach the leftmost leaf node, going any more left will result in <code>nil</code>. This is where we return <code>&amp;Node{val, nil, nil}</code>.</p>
+</li>
+<li>
+<p>A similar thing happens when <code>val</code> is greater than <code>node.data</code>.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Search</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">found</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">val</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">found</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">val</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> &lt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span> &gt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">SearchRec</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">val</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+</code></pre></div><p>This is the search function. It wouldn&rsquo;t make sense to not write a search function for a binary search tree. Searching takes a similar approach to insertion in the sense that it also separates its logic into <code>Search</code> and the recursive <code>SearchRec</code>. The logic is also very similar. The only difference is that <code>SearchRec</code> returns a bool and directly compares <code>node.data</code> to <code>val</code>. You also want to do the <code>nil</code> comparisons first, or else you may run into nil pointer dereference panics.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span>
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">left</span>)
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">data</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+        <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">right</span>)
+    }
+}
+</code></pre></div><p>The inorder traversal function also uses&hellip; recursion. It burrows deep into the tree&rsquo;s leftmost node first until you can&rsquo;t go any further deeper. Then it prints <code>node.data</code>, then moves on to the right node. You do this from the bottom up until all the nodes are traversed through.</p>
+<p>You may have noticed that there are a lot of recursions. Recursion is a confusing topic for many of us, but a lot of methods on trees use recursion. This is because a tree looks a bit like a fractal, where each child node spawns another subtree. Because the shape repeats a lot, it makes sense to use recursive functions on the subtrees. I highly recommend you start with a smaller tree and actually draw out each step to fully understand how recursive functions work. It&rsquo;s really cool, and a good way to learn recursion.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">bst</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BST</span>) <span style="color:#a6e22e">Levelorder</span>() {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span>
+    }
+
+    <span style="color:#a6e22e">nodeList</span> <span style="color:#f92672">:=</span> make([](<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>), <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">nodeList</span> = append(<span style="color:#a6e22e">nodeList</span>, <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>)
+
+    <span style="color:#66d9ef">for</span> !(len(<span style="color:#a6e22e">nodeList</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#a6e22e">current</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">nodeList</span>[<span style="color:#ae81ff">0</span>]
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">data</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">nodeList</span> = append(<span style="color:#a6e22e">nodeList</span>, <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">left</span>)
+        }
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">right</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">nodeList</span> = append(<span style="color:#a6e22e">nodeList</span>, <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">right</span>)
+        }
+        <span style="color:#a6e22e">nodeList</span> = <span style="color:#a6e22e">nodeList</span>[<span style="color:#ae81ff">1</span>:]
+    }
+}
+</code></pre></div><p>Level order traversal is not recursive, because we aren&rsquo;t repeating a certain algorithm over smaller subtrees. Instead, we use a queue to keep track of the nodes we haven&rsquo;t gone through yet. We create a <code>nodeList</code> and push our root node inside. From this point on, until no nodes are left in the <code>nodeList</code>, we print the current node&rsquo;s value, add <code>node.left</code> and <code>node.right</code> into the <code>nodeList</code>, and pop the current node out of the list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">bst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">BST</span>{}
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">10</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">5</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">15</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">20</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">17</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">4</span>)
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">6</span>)
+
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Inorder</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">root</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+    <span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Levelorder</span>()
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">bst</span>.<span style="color:#a6e22e">Search</span>(<span style="color:#ae81ff">5</span>))
+}
+</code></pre></div><p>If we run this code, we get the following output:</p>
+<pre tabindex="0"><code>4 5 6 10 15 17 20 
+10 5 15 4 6 20 17 
+true
+false
+</code></pre><h3 id="conclusion">Conclusion</h3>
+<p>We haven&rsquo;t gone over all concepts of trees, because there are so many applications and concepts. We went over the basic properties and methods using binary search trees. There is so much more to cover, so do expect to see posts on those in the future! You will use trees in many areas. If you are studying networking, you may have heard of the spanning tree protocol that prevents broadcast storms. The spanning tree is a tree consisting of nodes that represent the nodes in your network. Your file system can be represented as trees, as they are hierarchies of files and folders.</p>
+<p>Thank you for reading! You can also read this post on <a href="https://medium.com/@jpoly1219/trees-in-go-9b6ff346dcfc">Medium</a> and <a href="https://dev.to/jpoly1219/trees-in-go-14ff">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
