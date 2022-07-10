@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Using Goroutines Is Slower
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/using-goroutines-is-slower/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Goroutines Is Slower"/>
+<meta name="twitter:description" content="Ah, goroutines. One of the most defining features of the Go programming language. Once you understand the syntax of goroutines and the theory behind concurrency, you feel as if you just gained a superpower. A hammer, if you will. We get so excited to make everything concurrent. I am definitely guilty. I mean, why not, right? Concurrency solves the issue of blocking code, so making everything as concurrent as possible will speed things up, right?"/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Using Goroutines Is Slower",
+        "headline": "Using Goroutines Is Slower",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Ah, goroutines. One of the most defining features of the Go programming language. Once you understand the syntax of goroutines and the theory behind concurrency, you feel as if you just gained a superpower. A hammer, if you will. We get so excited to make everything concurrent. I am definitely guilty. I mean, why not, right? Concurrency solves the issue of blocking code, so making everything as concurrent as possible will speed things up, right?
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/using-goroutines-is-slower\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-07-10T15:36:45.00Z",
+        "datePublished": "2022-07-10T15:36:45.00Z",
+        "dateModified": "2022-07-10T15:36:45.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/using-goroutines-is-slower\/",
+        "wordCount" : "1673",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Using Goroutines Is Slower</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Jul 10, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">8-minute read</span>
+          </div>
+
+        
+      </div><p>Ah, goroutines. One of the most defining features of the Go programming language. Once you understand the syntax of goroutines and the theory behind concurrency, you feel as if you just gained a superpower. A hammer, if you will. We get so excited to make everything concurrent. I am definitely guilty. I mean, why not, right? Concurrency solves the issue of blocking code, so making everything as concurrent as possible will speed things up, right?</p>
+<p>Sometimes, too much is too much, and not everything is a nail that you can hammer.</p>
+<h3 id="but-first-an-introduction-to-concurrency-in-go">But first, an introduction to concurrency in Go</h3>
+<p>Reading this post, you probably have at least some experience writing concurrent Go code. But just in case, I will explain concurrency and goroutines quickly.</p>
+<p>As we get better at programming and build bigger projects, we inevitably run into an obstacle. There is a job that takes at least a couple of seconds. Maybe that job is sending an email to your users. Maybe it is reading and parsing CSV or JSON. Maybe it&rsquo;s just a stupidly complicated calculation. It&rsquo;s a bit better if your program is meant to serve one or two users at a time. However, imagine having to send a million emails or having to parse a million JSON stream objects. Your service will be blocked by these slow operations, and people will have a horrible experience using it.</p>
+<p>How do we solve this? A person thought about this question for some time and decided to think about it more after he cooked dinner. He wanted a nice, juicy grilled chicken. He started marinating the chicken and put it in the fridge to let it sit for 30 minutes. While the chicken was sitting in the fridge, he started chopping some lettuce and onions for his salad&hellip; then it came to him. This is what he needed to do! Just let the blocking code run first, and run other bits of the code in the meantime! He can just check on the chicken once it&rsquo;s done marinating, and grill it later!</p>
+<p>The above story is a gross oversimplification of how concurrent programs work. Go uses goroutines to delegate these tasks. The main goroutine is responsible for running the <code>main</code> function, and the worker goroutines each handle parts of the code to run concurrently.</p>
+<p>Now, concurrency is a bit different from parallelism, a similar concept. However, parallelism is like having two chefs cooking different things at the same time, while concurrency is like having one chef juggling different tasks. Yes, this might be confusing. I think the confusion stems from us treating each goroutine like separate objects. We call them <em>worker goroutines</em> to simplify them, but they aren&rsquo;t actually separate workers working together. They are merely <em>separate processes</em> that are fired off by a single chef. They are <em>goroutines</em>, not <em>goworkers</em> (Get it? Coroutines and coworkers? Yeah? &hellip;Ok I&rsquo;ll stop).</p>
+<h3 id="its-super-effective">It&rsquo;s super effective!</h3>
+<p>We will use this snippet below for our experiment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;encoding/csv&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;os&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>][][]<span style="color:#66d9ef">string</span>{
+        <span style="color:#e6db74">&#34;AgeDataset-V1.csv&#34;</span>: <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;neo_v2.csv&#34;</span>:        <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;nba.csv&#34;</span>:           <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;airquality.csv&#34;</span>:    <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;titanic.csv&#34;</span>:       <span style="color:#66d9ef">nil</span>,
+    }
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">db</span> {
+        <span style="color:#a6e22e">db</span>[<span style="color:#a6e22e">file</span>] = <span style="color:#a6e22e">ReadCsv</span>(<span style="color:#a6e22e">file</span>)
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ReadCsv</span>(<span style="color:#a6e22e">filepath</span> <span style="color:#66d9ef">string</span>) [][]<span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">filepath</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">csvr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">csv</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">f</span>)
+    <span style="color:#a6e22e">rows</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">csvr</span>.<span style="color:#a6e22e">ReadAll</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rows</span>
+}
+</code></pre></div><p><code>ReadCsv</code> is a very simple code used to read CSV files. It accepts the file&rsquo;s path and returns the data inside the file in a format of <code>[][]string</code>. The <code>main</code> function contains a <code>db</code> object which is a map that matches the file path to the data inside. This <code>main</code> function is serial because the for loop won&rsquo;t move onto the next iteration until the operation inside the loop is done.</p>
+<p>Here is a concurrent version of the <code>main</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>][][]<span style="color:#66d9ef">string</span>{
+        <span style="color:#e6db74">&#34;AgeDataset-V1.csv&#34;</span>: <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;neo_v2.csv&#34;</span>:        <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;nba.csv&#34;</span>:           <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;airquality.csv&#34;</span>:    <span style="color:#66d9ef">nil</span>,
+        <span style="color:#e6db74">&#34;titanic.csv&#34;</span>:       <span style="color:#66d9ef">nil</span>,
+    }
+
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+
+    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">5</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">db</span> {
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">file</span> <span style="color:#66d9ef">string</span>) {
+            <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+            <span style="color:#a6e22e">db</span>[<span style="color:#a6e22e">file</span>] = <span style="color:#a6e22e">ReadCsv</span>(<span style="color:#a6e22e">file</span>)
+        }(<span style="color:#a6e22e">file</span>)
+    }
+    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+}
+</code></pre></div><p>We first create <code>wg</code>, a waitgroup that keeps check of how many goroutines are still working. For each file, we fire off a goroutine that runs <code>ReadCsv</code> and subtracts 1 from <code>wg</code> once it&rsquo;s done. We wait at the end until every goroutine is done.</p>
+<p>Our benchmark code is very simple:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkMain</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">main</span>()
+    }
+}
+</code></pre></div><p>Here are the benchmark results:</p>
+<pre tabindex="0"><code>// serial
+$ go test -bench=Main -benchtime=10s
+goos: linux
+goarch: amd64
+pkg: example.com/slowconc
+cpu: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+BenchmarkMain-8               18         609132683 ns/op
+PASS
+ok      example.com/slowconc    11.633s
+
+// concurrent
+$ go test -bench=Main -benchtime=10s
+goos: linux
+goarch: amd64
+pkg: example.com/slowconc
+cpu: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+BenchmarkMain-8               20         559101265 ns/op
+PASS
+ok      example.com/slowconc    11.781s
+</code></pre><p>You can see that the concurrent code ran about 50ms faster than the serial code. We are happy in these cases: concurrency does make our code run faster. Let&rsquo;s see what happens when this doesn&rsquo;t happen.</p>
+<h3 id="its-not-very-effective">It&rsquo;s not very effective&hellip;</h3>
+<p>Let&rsquo;s see when using goroutines backfires.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindSum</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">number</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">list</span> {
+        <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">number</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindSumConc</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rwm</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(len(<span style="color:#a6e22e">list</span>))
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">number</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">list</span> {
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">number</span> <span style="color:#66d9ef">int</span>) {
+            <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+            <span style="color:#a6e22e">rwm</span>.<span style="color:#a6e22e">Lock</span>()
+            <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">rwm</span>.<span style="color:#a6e22e">Unlock</span>()
+            <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">number</span>
+        }(<span style="color:#a6e22e">number</span>)
+    }
+    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>
+}
+</code></pre></div><p>These are the two functions we will use to run our second experiment. Both of these return a sum of integers in a list. The concurrent version uses a mutex to prevent data race. This means that when one goroutine is writing to <code>sum</code>, no other goroutines can write to it.</p>
+<p>We will use this benchmark code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkFindSum</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+    <span style="color:#a6e22e">list</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">1000000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">list</span> = append(<span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">1000000</span>))
+    }
+    <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">FindSum</span>(<span style="color:#a6e22e">list</span>)
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkFindSumConc</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+    <span style="color:#a6e22e">list</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">1000000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">list</span> = append(<span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">1000000</span>))
+    }
+    <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">FindSumConc</span>(<span style="color:#a6e22e">list</span>)
+    }
+}
+</code></pre></div><p>Here are the results:</p>
+<pre tabindex="0"><code>$ go test -bench=FindSum -benchtime=10s
+goos: linux
+goarch: amd64
+pkg: example.com/slowconc
+cpu: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+BenchmarkFindSum-8                 50497            243623 ns/op
+BenchmarkFindSumConc-8                45         266713213 ns/op
+PASS
+ok      example.com/slowconc    27.144s
+</code></pre><p>Surprising, isn&rsquo;t it? You&rsquo;d assume that the concurrent version runs faster. After all, there are a million integers to add. But no, the concurrent version is about 1000 times slower.</p>
+<h3 id="why-is-this-the-case">Why is this the case?</h3>
+<p>Simply put, it is because of the nature of the two problems. There are two main types of bottlenecks that a software developer encounters:</p>
+<ul>
+<li>
+<p><strong>CPU-bound jobs.</strong> These are jobs that are reliant on your CPU&rsquo;s speed. Jobs like complex calculation, breaking encryption, and finding the nth digit of pi are CPU-bound.</p>
+</li>
+<li>
+<p><strong>IO-bound jobs.</strong> These are jobs that are reliant on read speeds and write speeds. Jobs like reading data from files, and requesting a resource over a network are IO-bound.</p>
+</li>
+</ul>
+<p>In our example, our first example of reading CSV files is IO-bound, because the goroutines have to call the operating system for reading files and wait until the data can be used. Our second example of calculating the sum is CPU-bound because we are constantly calculating until we are done with the last integer in the list.</p>
+<p>There is a concept we need to understand when dealing with concurrency. When there are multiple goroutines running, our scheduler that manages the goroutines needs to decide which goroutine to run. Remember, concurrency isn&rsquo;t running several jobs simultaneously; it&rsquo;s about juggling between tasks. This act of juggling is called a <strong>context switch.</strong></p>
+<p>Here&rsquo;s an issue; when we context switch from one goroutine to another, the goroutine that got swapped out is technically paused for the time being. More exactly, they go into either of the two states: waiting or runnable. A waiting state means that the goroutine is waiting on a response from the system or the network. A runnable state means that the goroutine wants attention so that it can run whatever it was doing.</p>
+<p>Let&rsquo;s think about this. When the goroutine is in a waiting state, the scheduler doesn&rsquo;t have to spend time worrying about it for now, because the goroutine has to wait for a response anyways. The momentary pause is therefore mostly fine. However, if the goroutine is in a running state, this means that the calculation is paused until the scheduler swaps it in. A momentary pause here would be devastating to performance.</p>
+<p>If you need to throw and catch ten balls, it&rsquo;s an IO-bound task. You throw one ball, then move on to the next ball. You&rsquo;re not slowing down your progress when you switch, because when you throw a ball, that ball will need time to fly up and come back down anyways. You are basically throwing the rest of the balls during a downtime.</p>
+<p>If you need to empty ten baskets of balls, however, it&rsquo;s a CPU-bound task. The only way to make this faster is to throw away the balls faster. Switching from one basket to the other stops any emptying from happening in other baskets. So here, switching doesn&rsquo;t help you finish any faster. If anything, the act of switching to another basket will add latency and slow you down.</p>
+<p>IO-bound jobs benefit much more from concurrent designs than CPU-bound ones. We can see this in our benchmark results as well.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Hopefully, this post wasn&rsquo;t too confusing. I remember getting absolutely lost when trying to study concurrency. If you ever wondered why your concurrent code runs slow, check if your job is CPU-bound or IO-bound. If it&rsquo;s CPU-bound, you may need to utilize parallelism instead. Or more simply, do some optimization and improve your algorithm&rsquo;s time complexity.</p>
+<p>Thanks for reading! You can read this post on <a href="https://medium.com/@jpoly1219/using-goroutines-is-slower-ba99c2fadce9">Medium</a> and <a href="https://dev.to/jpoly1219/using-goroutines-is-slower-3b53">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

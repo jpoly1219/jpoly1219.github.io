@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jpoly1219.github.io/</loc>
-    <lastmod>2022-07-03T17:04:27+09:00</lastmod>
+    <lastmod>2022-07-10T15:36:45+09:00</lastmod>
   </url><url>
     <loc>https://jpoly1219.github.io/posts/</loc>
-    <lastmod>2022-07-03T17:04:27+09:00</lastmod>
+    <lastmod>2022-07-10T15:36:45+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/using-goroutines-is-slower/</loc>
+    <lastmod>2022-07-10T15:36:45+09:00</lastmod>
   </url><url>
     <loc>https://jpoly1219.github.io/posts/trees-in-go/</loc>
     <lastmod>2022-07-03T17:04:27+09:00</lastmod>
