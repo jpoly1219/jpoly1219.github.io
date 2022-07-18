@@ -6,7 +6,19 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Jul 2022 15:36:45 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jul 2022 15:58:15 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Interfaces in Go</title>
+      <link>https://jpoly1219.github.io/posts/interfaces-in-go/</link>
+      <pubDate>Sun, 17 Jul 2022 15:58:15 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/interfaces-in-go/</guid>
+      
+        <description>If you are going to use Go extensively, you need to understand how to use interfaces. Interfaces aren&amp;rsquo;t specifically a Go thing, but Go is one of the more extensive users of the feature. Interfaces allow you to write reusable code.
+What are interfaces? Interfaces are a way to group objects into their common behaviors. An interface is defined by its name and the methods the objects need to define. Any object that has those methods defined &amp;ldquo;implements&amp;rdquo; the interface.</description>
+      
+    </item>
+    
     <item>
       <title>Using Goroutines Is Slower</title>
       <link>https://jpoly1219.github.io/posts/using-goroutines-is-slower/</link>

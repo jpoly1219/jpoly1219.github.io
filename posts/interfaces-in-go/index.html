@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Interfaces in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/interfaces-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Interfaces in Go"/>
+<meta name="twitter:description" content="If you are going to use Go extensively, you need to understand how to use interfaces. Interfaces aren&rsquo;t specifically a Go thing, but Go is one of the more extensive users of the feature. Interfaces allow you to write reusable code.
+What are interfaces? Interfaces are a way to group objects into their common behaviors. An interface is defined by its name and the methods the objects need to define. Any object that has those methods defined &ldquo;implements&rdquo; the interface."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Interfaces in Go",
+        "headline": "Interfaces in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        If you are going to use Go extensively, you need to understand how to use interfaces. Interfaces aren\u0026rsquo;t specifically a Go thing, but Go is one of the more extensive users of the feature. Interfaces allow you to write reusable code.\nWhat are interfaces? Interfaces are a way to group objects into their common behaviors. An interface is defined by its name and the methods the objects need to define. Any object that has those methods defined \u0026ldquo;implements\u0026rdquo; the interface.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/interfaces-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-07-17T15:58:15.00Z",
+        "datePublished": "2022-07-17T15:58:15.00Z",
+        "dateModified": "2022-07-17T15:58:15.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/interfaces-in-go\/",
+        "wordCount" : "1143",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Interfaces in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Jul 17, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">6-minute read</span>
+          </div>
+
+        
+      </div><p>If you are going to use Go extensively, you need to understand how to use interfaces. Interfaces aren&rsquo;t specifically a Go thing, but Go is one of the more extensive users of the feature. Interfaces allow you to write reusable code.</p>
+<h3 id="what-are-interfaces">What are interfaces?</h3>
+<p>Interfaces are a way to group objects into their common behaviors. An interface is defined by its name and the methods the objects need to define. Any object that has those methods defined &ldquo;implements&rdquo; the interface.</p>
+<p>For example, let&rsquo;s say that three students A, B, and C can all cook. They are trying to serve me good food. However, since A, B, and C are all trained under different chefs, they cook different things. Nonetheless, they are all chefs who can cook. We can say that A, B, and C implement the &ldquo;chef&rdquo; interface because they can all cook in different ways.</p>
+<p>Let&rsquo;s see how this can be implemented in Go.</p>
+<h3 id="how-does-one-use-it-in-go">How does one use it in Go?</h3>
+<p>Here&rsquo;s the code for the above example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;math/rand&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">cook</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">cookFood</span>()
+    <span style="color:#a6e22e">getName</span>() <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">chef</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">name</span>    <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">cuisine</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">chef</span>) <span style="color:#a6e22e">cookFood</span>() {
+    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s the professional chef is cooking %s food&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">cuisine</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">result</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">chef</span>) <span style="color:#a6e22e">getName</span>() <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">name</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">homeCook</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">homeCook</span>) <span style="color:#a6e22e">cookFood</span>() {
+    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s the home cook is cooking food&#34;</span>, <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">name</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">result</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">homeCook</span>) <span style="color:#a6e22e">getName</span>() <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">name</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">serve</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">cook</span>) {
+    <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">cookFood</span>()
+    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s: dinner is served!&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">getName</span>())
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">result</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">chef1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">chef</span>{<span style="color:#e6db74">&#34;Brian&#34;</span>, <span style="color:#e6db74">&#34;Korean&#34;</span>}
+    <span style="color:#a6e22e">chef2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">chef</span>{<span style="color:#e6db74">&#34;Vincenzo&#34;</span>, <span style="color:#e6db74">&#34;Italian&#34;</span>}
+    <span style="color:#a6e22e">homeCook1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">homeCook</span>{<span style="color:#e6db74">&#34;Amara&#34;</span>}
+    <span style="color:#a6e22e">homeCook2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">homeCook</span>{<span style="color:#e6db74">&#34;Dana&#34;</span>}
+
+    <span style="color:#a6e22e">cooks</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">cook</span>{<span style="color:#a6e22e">chef1</span>, <span style="color:#a6e22e">chef2</span>, <span style="color:#a6e22e">homeCook1</span>, <span style="color:#a6e22e">homeCook2</span>}
+
+    <span style="color:#a6e22e">numCustomers</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">100</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">numCustomers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">serve</span>(<span style="color:#a6e22e">cooks</span>[<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(len(<span style="color:#a6e22e">cooks</span>))])
+    }
+}
+</code></pre></div><p>We defined an interface named <code>cook</code>. We want anyone who can <code>cookFood</code> and <code>getName</code> to be able to identify themselves as a <code>cook</code>.</p>
+<p>Below, we define two structs <code>chef</code> and <code>homeCook</code>. Both have the <code>name</code> field, but only the <code>chef</code> has a <code>cuisine</code> field to define what cuisine he or she specializes in.</p>
+<p>For both <code>chef</code> and <code>homeCook</code> structs to implement the <code>cook</code> interface, they need to both define <code>cookFood</code> and <code>getName</code> methods. The details of the implementations are straightforward - just a simple print statement.</p>
+<p>Now let&rsquo;s look at the <code>main</code> function. We define two <code>chef</code> objects <code>chef1</code> and <code>chef2</code>. We also define two <code>homeCook</code> objects <code>homeCook1</code> and <code>homeCook2</code>. Those four objects are stored in our <code>cooks</code> slice with the type <code>cook</code>, our interface. Normally you wouldn&rsquo;t be able to store objects of different types in a single slice, but using an interface allows us to do this.</p>
+<p>We call the <code>serve</code> function inside the for loop, which accepts a <code>cook</code>. This normally doesn&rsquo;t work - we would need to define two <code>serve</code> functions, one for <code>chef</code> type and one for <code>homeCook</code> type. However, using an interface helps us avoid this repetition.</p>
+<p>It can be hard to appreciate interfaces when your codebase is small. Small projects tend not to need a lot of structure, so you may be able to get by without using one. However, interfaces allow for really clean, predictable code as your project grows.</p>
+<h3 id="how-does-it-work-under-the-hood">How does it work under the hood?</h3>
+<p>Not only are interfaces incredibly useful in designing your code, but they are also really cool in their implementation. Interfaces can be described as two conjoined blocks of pointers: one points at the type definition, and the other points at its underlying value. Confusing, right? Take a look at this line from the example above.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">chef1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">chef</span>{<span style="color:#e6db74">&#34;Brian&#34;</span>, <span style="color:#e6db74">&#34;Korean&#34;</span>}
+</code></pre></div><p><code>chef1</code> implements the <code>cook</code> interface. If we dissect <code>chef1</code> in interface form, the first pointer will point to the type definition of the <code>chef</code> struct, and the second pointer will point to the actual value of <code>chef1</code>.</p>
+<h3 id="what-are-empty-interfaces">What are empty interfaces?</h3>
+<p>Now we can think about a more advanced, or rather, a more simple concept: the empty interface. We stated above that an interface groups objects by certain behaviors. What would an empty interface look like? It would have no methods for any type to implement. This means that an object of any type can implement the interface. It&rsquo;s like grouping living humans into a category called &ldquo;organism&rdquo;. Age, height, race, and sex doesn&rsquo;t matter - humans are all organisms.</p>
+<p>Take a look at this snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;hello&#34;</span>
+    <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">100</span>
+    <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3.14</span>
+
+    <span style="color:#a6e22e">objects</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">interface</span>{}{<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>}
+}
+</code></pre></div><p>This code will compile because <code>objects</code> is a slice that stores any object that implements the empty interface.</p>
+<h3 id="tips">Tips</h3>
+<p>To finish the post, I wanted to share with you some of the tips I have accrued over my short Go development journey.</p>
+<ul>
+<li>
+<p>Keep in mind that while empty interfaces provide lots of flexibility, you have the responsibility to care for different possible types. For example, let&rsquo;s say that you are unmarshalling a JSON object. Sometimes, you don&rsquo;t know the exact structure of the incoming JSON. Go will cleverly use the type <code>map[string]interface{}</code> to unmarshal the JSON object. JSON keys will be stored as <code>string</code>, and the values will be stored as <code>interface{}</code>. When manipulating the value, you must account for every single possible type, or else your code will flop spectacularly. This is the tax you have to pay when working with empty interfaces.</p>
+</li>
+<li>
+<p>Name your interfaces consistently. It helps me a lot when I name my interfaces as <code>--er</code>. For example, <code>copier</code>, <code>reader</code>, <code>parser</code>, etc. There is a notable exception to this in the standard library, which is the <code>builtin.Error</code> interface. I guess this is ok because it still rhymes with other interfaces that end with <code>--er</code>.</p>
+</li>
+<li>
+<p>Keeping interface and struct/struct methods definition on a separate file helps readability. This isn&rsquo;t everyone&rsquo;s cup of tea, but I found this to help in many situations.</p>
+</li>
+<li>
+<p>You don&rsquo;t have to re-invent the wheel. If you need an interface, see if the standard library already provides it. Some of the most common ones that you can implement are <code>fmt.Stringer</code>, <code>io.Reader</code>, <code>io.Writer</code>, <code>builtin.Error</code>, <code>http.ResponseWriter</code>, <code>sort.Interface</code>, etc.</p>
+</li>
+<li>
+<p>An interface is a powerful hammer, but not every problem is a nail. You don&rsquo;t need an interface for everything. Sometimes the overhead and the effort of creating one isn&rsquo;t worth it. Try building your app without one, and you will run into a situation where you want to have an interface.</p>
+</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>I hope this post helped you clear up some of your uncertainties about interfaces in Go. Interfaces are an essential part of the Go programming language, and you will undoubtedly run into them in your journey. When the time comes, I believe that you can handle it well. Keep up the good work gophers, and I&rsquo;ll see you next week with a new post.</p>
+<p>This post is also available on Medium and <a href="https://dev.to/jpoly1219/interfaces-in-go-169i">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
