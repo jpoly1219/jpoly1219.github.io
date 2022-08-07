@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    
+      Jacob Kim
+        |
+        Reading and Writing Different Files in Go
+
+
+      
+
+
+    
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+              Computer science student. Web developer. Gopher.
+        Welcome to my personal dev blog :D
+    
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.24f9f28bfaca2cdc5a222bb5e42d30c701d7ffb0b31d30dfc4afc0e044dfbf24.css"
+    integrity="sha256-JPnyi/rKLNxaIiu15C0wxwHX/7CzHTDfxK/A4ETfvyQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css"
+    integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://jpoly1219.github.io/posts/reading-and-writing-different-files-in-go/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reading and Writing Different Files in Go"/>
+<meta name="twitter:description" content="Reading and writing files is an important feature of your program. Not all data is stored in the same memory space as your program, and sometimes you will need to share data with other programs or view it later with a different program. Storing your data in a file is a good way to achieve these goals. Today, we will look at how you can read from and write to commonly used file types."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Reading and Writing Different Files in Go",
+        "headline": "Reading and Writing Different Files in Go",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Reading and writing files is an important feature of your program. Not all data is stored in the same memory space as your program, and sometimes you will need to share data with other programs or view it later with a different program. Storing your data in a file is a good way to achieve these goals. Today, we will look at how you can read from and write to commonly used file types.
+
+
+      
+
+
+    ",
+        "inLanguage": "en-us",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/jpoly1219.github.io\/posts\/reading-and-writing-different-files-in-go\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Jacob Kim"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-08-07T09:05:39.00Z",
+        "datePublished": "2022-08-07T09:05:39.00Z",
+        "dateModified": "2022-08-07T09:05:39.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Jacob Kim",
+            "url": "https://jpoly1219.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/jpoly1219.github.io\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/jpoly1219.github.io\/posts\/reading-and-writing-different-files-in-go\/",
+        "wordCount" : "1601",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    animated fadeInDown
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+          
+          <li>
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/posts/"
+              
+              title=""
+              >Posts</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+
+        
+          
+          <li>
+            <a
+              
+              href="/portfolio/"
+              
+              title=""
+              >Portfolio</a
+            >
+          </li>
+
+        
+      </div>
+      <ul>
+        
+        
+          <li>
+            <a class="theme-switch" title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </li>
+
+        
+      </ul>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <aside><div
+  class="sidebar
+    animated fadeInDown
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/profile.png" alt="profile picture" />
+        <h3 title=""><a href="/">Hi, I&#39;m Jacob</a></h3>
+        <div class="description">
+          <p>        Computer science student. Web developer. Gopher.<br />        Welcome to my personal dev blog :D<br />    </p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      animated fadeInDown
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Reading and Writing Different Files in Go</h1>
+        
+          <div class="info">
+            <em class="fas fa-calendar-day"></em>
+            <span class="date"
+              >
+                Sun, Aug 7, 2022
+
+
+              </span
+            >
+            <em class="fas fa-stopwatch"></em>
+            <span class="reading-time">8-minute read</span>
+          </div>
+
+        
+      </div><p>Reading and writing files is an important feature of your program. Not all data is stored in the same memory space as your program, and sometimes you will need to share data with other programs or view it later with a different program. Storing your data in a file is a good way to achieve these goals. Today, we will look at how you can read from and write to commonly used file types.</p>
+<h3 id="ioreader-iowriter">io.Reader, io.Writer</h3>
+<p>Have you ever wondered how Go can read and write so many different things? It&rsquo;s all thanks to these powerful interfaces. <code>io.Reader</code> describes anything that <code>Read</code>&rsquo;s, and <code>io.Writer</code> describes anything that <code>Write</code>&rsquo;s. Because this behavior can be replicated easily, anything that implements the <code>io.Reader</code> and <code>io.Writer</code> interfaces can be used for I/O operations. This means that you can plug and play different inputs and outputs. You could read from a CSV file and output it to JSON, or you could read from a <code>stdin</code> and write to CSV.</p>
+<h3 id="csv">CSV</h3>
+<p>A CSV file consists of rows of data, where each value is separated by a comma (hence the name comma separated values). CSV isn&rsquo;t the fastest format to read and write out there, but it is very versatile and can be understood by many other tools.</p>
+<h4 id="reading">Reading</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;encoding/csv&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;os&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;see-es-vee.csv&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">csv</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">f</span>)
+
+    <span style="color:#a6e22e">records</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ReadAll</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">records</span>)
+}
+</code></pre></div><pre tabindex="0"><code>[[id fruit color taste] [0 apple red sweet] [1 banana yellow sweet] [2 lemon yellow sour] [3 grapefruit red sour]]
+</code></pre><p>Here is a very simple way to read data from a CSV file.</p>
+<ul>
+<li>
+<p>We first open our file <code>see-es-vee.csv</code> and save that instance as <code>f</code>.</p>
+</li>
+<li>
+<p>We want to close <code>f</code> once we are done. This is a good way to save memory. Although this is a short program and closing isn&rsquo;t all that necessary, it is good to get in the habit of doing so.</p>
+</li>
+<li>
+<p><code>f</code> is of type <code>*os.File</code>, which implements the <code>io.Reader</code> interface. Therefore, we can pass <code>f</code> to <code>csv.NewReader</code>.</p>
+</li>
+<li>
+<p>This returns a <code>csv.Reader</code> object <code>r</code>. <code>csv.Reader</code> is a type of <code>io.Reader</code> that specializes in reading CSV files.</p>
+</li>
+<li>
+<p>Each line of a CSV file is called a <em>record</em>. So we can think of a CSV file as a <em>slice of records</em>. <code>r.ReadAll</code> returns this slice of records.</p>
+</li>
+<li>
+<p>If we print <code>records</code>, we can see a 2D slice of rows.</p>
+</li>
+</ul>
+<p>This is great, but what if we want to apply some operations to each record as we read? Fortunately, we can take a more granular approach.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;see-es-vee.csv&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">csv</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">f</span>)
+
+    <span style="color:#66d9ef">for</span> {
+        <span style="color:#a6e22e">record</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Read</span>()
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+            <span style="color:#66d9ef">break</span>
+        }
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+        }
+
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">record</span>)
+    }
+}
+</code></pre></div><p>Looks similar to the above, right? The part until creating <code>r</code> is the same. Let&rsquo;s see what happens next.</p>
+<ul>
+<li>
+<p>We enter an infinite for loop, because we want to read the file line by line, and Go has no idea how long the file is.</p>
+</li>
+<li>
+<p>We read each record using <code>r.Read</code>.</p>
+</li>
+<li>
+<p>How do we know if we reached the end of the file? <code>r.Read</code> returns a special error called <code>io.EOF</code>. EOF stands for <em>end of file</em>. We catch this error first and tell our program to break out of the for loop once we reach the end.</p>
+</li>
+<li>
+<p>For any other errors, you can just handle them the way you would normally do.</p>
+</li>
+<li>
+<p>After we handle errors, we can do whatever we want with the record that has been extracted. Some ideas that I can think of are capitalization, rounding, comparing it to an arbitrary value, etc.</p>
+</li>
+</ul>
+<p>Now let&rsquo;s look at how to write to a CSV file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;encoding/csv&#34;</span>
+    <span style="color:#e6db74">&#34;os&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#e6db74">&#34;output.csv&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        panic(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">csv</span>.<span style="color:#a6e22e">NewWriter</span>(<span style="color:#a6e22e">f</span>)
+
+    <span style="color:#a6e22e">records</span> <span style="color:#f92672">:=</span> [][]<span style="color:#66d9ef">string</span>{
+        {<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;fruit&#34;</span>, <span style="color:#e6db74">&#34;color&#34;</span>, <span style="color:#e6db74">&#34;taste&#34;</span>},
+        {<span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;sweet&#34;</span>},
+        {<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#e6db74">&#34;sweet&#34;</span>},
+        {<span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;lemon&#34;</span>, <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#e6db74">&#34;sour&#34;</span>},
+        {<span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;grapefruit&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;sour&#34;</span>},
+    }
+
+    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteAll</span>(<span style="color:#a6e22e">records</span>)
+}
+</code></pre></div><pre tabindex="0"><code>id,fruit,color,taste
+0,apple,red,sweet
+1,banana,yellow,sweet
+2,lemon,yellow,sour
+3,grapefruit,red,sour
+</code></pre><p>Very simple and straightforward.</p>
+<ul>
+<li>
+<p>We first need to create a file which we can dump our data into. We are going to call this <code>output.csv</code>. We just call <code>os.Create</code>, and save an instance of it as <code>f</code>.</p>
+</li>
+<li>
+<p>Remember how we created a <code>csv.Reader</code> before? Here we are creating a <code>csv.Writer</code> object <code>w</code>. <code>csv.NewWriter</code> accepts the <code>io.Writer</code> interface, which <code>f</code> implements.</p>
+</li>
+<li>
+<p>We prepare our data as a 2D slice of strings. We will call this <code>records</code>.</p>
+</li>
+<li>
+<p>Finally, we just use <code>w.WriteAll</code> to write <code>records</code> to <code>output.csv</code>.</p>
+</li>
+</ul>
+<h3 id="json">JSON</h3>
+<p>Because Go is used extensively in web services, it has robust support for JSON. I wrote an entire post about reading and writing JSON files, so check that out for a more in-depth guide!</p>
+<h4 id="reading-1">Reading</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;encoding/json&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;os&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">fruit</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Id</span>    <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`json:&#34;id&#34;`</span>
+    <span style="color:#a6e22e">Fruit</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;fruit&#34;`</span>
+    <span style="color:#a6e22e">Color</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;color&#34;`</span>
+    <span style="color:#a6e22e">Taste</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;taste&#34;`</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;jay-son.json&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">dec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">f</span>)
+
+    <span style="color:#75715e">// read opening bracket
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Token</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">More</span>() {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fr</span> <span style="color:#a6e22e">fruit</span>
+        <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">fr</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+        }
+
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fr</span>)
+    }
+
+    <span style="color:#75715e">// read closing bracket
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Token</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+}
+</code></pre></div><pre tabindex="0"><code>{0 apple red sweet}
+{1 banana yellow sweet}
+{2 lemon yellow sour}
+{3 grapefruit red sour}
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#75715e">// jay-son.json
+</span><span style="color:#75715e"></span>[
+    {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#f92672">&#34;fruit&#34;</span>: <span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#f92672">&#34;color&#34;</span>: <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#f92672">&#34;taste&#34;</span>: <span style="color:#e6db74">&#34;sweet&#34;</span>},
+    {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;fruit&#34;</span>: <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#f92672">&#34;color&#34;</span>: <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#f92672">&#34;taste&#34;</span>: <span style="color:#e6db74">&#34;sweet&#34;</span>},
+    {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>, <span style="color:#f92672">&#34;fruit&#34;</span>: <span style="color:#e6db74">&#34;lemon&#34;</span>, <span style="color:#f92672">&#34;color&#34;</span>: <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#f92672">&#34;taste&#34;</span>: <span style="color:#e6db74">&#34;sour&#34;</span>},
+    {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">3</span>, <span style="color:#f92672">&#34;fruit&#34;</span>: <span style="color:#e6db74">&#34;grapefruit&#34;</span>, <span style="color:#f92672">&#34;color&#34;</span>: <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#f92672">&#34;taste&#34;</span>: <span style="color:#e6db74">&#34;sour&#34;</span>}
+]
+</code></pre></div><p>Here&rsquo;s a simple way to read JSON files. Normally, JSONs come in streams. That is, they come in a list of objects. Go handles streams via a decoder.</p>
+<p>Let&rsquo;s take a look at this first:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">fruit</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Id</span>    <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`json:&#34;id&#34;`</span>
+    <span style="color:#a6e22e">Fruit</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;fruit&#34;`</span>
+    <span style="color:#a6e22e">Color</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;color&#34;`</span>
+    <span style="color:#a6e22e">Taste</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;taste&#34;`</span>
+}
+</code></pre></div><p>This struct acts as a model. Because JSON can come in various shapes and sizes, you ideally want to have a model that mirrors the JSON&rsquo;s structure. The struct fields need to be public and should have a tag to the right which denotes what key it refers to. If you don&rsquo;t know what the JSON is going to look like in advance, Go will just use a <code>map[string]interface{}</code>.</p>
+<ul>
+<li>
+<p>First, we open the file and save its instance to <code>f</code>. Don&rsquo;t forget to defer a call to close <code>f</code> later!</p>
+</li>
+<li>
+<p>We create our decoder object <code>dec</code> using <code>json.NewDecoder</code>. Just like <code>csv.NewReader</code>, it accepts an <code>io.Reader</code>. You can start to see the power of interfaces - the details of reading are abstracted, and the workflow for reading is consistent across so many different file types.</p>
+</li>
+<li>
+<p>Once <code>dec</code> is created, we can read our JSON. Just one problem, though. We need to make sure that we catch the opening and closing brackets using <code>dec.Token</code>. Not doing so is like trying to eat a subway sandwich with the wrapper still on. Bleh.</p>
+</li>
+<li>
+<p>Just like how we read the CSV file line by line, we read the JSON stream object by object. We loop over <code>dec.More</code>, which returns <code>true</code> as long as there are objects still left to read.</p>
+</li>
+<li>
+<p>We create an instance of <code>fruit</code> to store our object&rsquo;s data. Use <code>dec.Decode</code> to dump the object data to <code>f</code>. You can do what you want with this now.</p>
+</li>
+<li>
+<p>After you are done reading, make sure to catch the closing bracket.</p>
+</li>
+</ul>
+<h4 id="writing">Writing</h4>
+<p>Writing to a JSON file is simple as well. We call this <em>encoding</em>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;encoding/json&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;os&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fruit</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Id</span>    <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`json:&#34;id&#34;`</span>
+    <span style="color:#a6e22e">Fruit</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;fruit&#34;`</span>
+    <span style="color:#a6e22e">Color</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;color&#34;`</span>
+    <span style="color:#a6e22e">Taste</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;taste&#34;`</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#e6db74">&#34;output.json&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        panic(<span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">enc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">f</span>)
+
+    <span style="color:#a6e22e">apple</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Fruit</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">Fruit</span>: <span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#a6e22e">Color</span>: <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#a6e22e">Taste</span>: <span style="color:#e6db74">&#34;sweet&#34;</span>}
+    <span style="color:#a6e22e">banana</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Fruit</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Fruit</span>: <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#a6e22e">Color</span>: <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#a6e22e">Taste</span>: <span style="color:#e6db74">&#34;sweet&#34;</span>}
+    <span style="color:#a6e22e">lemon</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Fruit</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">Fruit</span>: <span style="color:#e6db74">&#34;lemon&#34;</span>, <span style="color:#a6e22e">Color</span>: <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#a6e22e">Taste</span>: <span style="color:#e6db74">&#34;sour&#34;</span>}
+    <span style="color:#a6e22e">grapefruit</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Fruit</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">Fruit</span>: <span style="color:#e6db74">&#34;grapefruit&#34;</span>, <span style="color:#a6e22e">Color</span>: <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#a6e22e">Taste</span>: <span style="color:#e6db74">&#34;sour&#34;</span>}
+
+    <span style="color:#a6e22e">fruits</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">Fruit</span>{<span style="color:#a6e22e">apple</span>, <span style="color:#a6e22e">banana</span>, <span style="color:#a6e22e">lemon</span>, <span style="color:#a6e22e">grapefruit</span>}
+
+    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">enc</span>.<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">fruits</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    }
+}
+</code></pre></div><pre tabindex="0"><code>[{&quot;id&quot;:0,&quot;fruit&quot;:&quot;apple&quot;,&quot;color&quot;:&quot;red&quot;,&quot;taste&quot;:&quot;sweet&quot;},{&quot;id&quot;:1,&quot;fruit&quot;:&quot;banana&quot;,&quot;color&quot;:&quot;yellow&quot;,&quot;taste&quot;:&quot;sweet&quot;},{&quot;id&quot;:2,&quot;fruit&quot;:&quot;lemon&quot;,&quot;color&quot;:&quot;yellow&quot;,&quot;taste&quot;:&quot;sour&quot;},{&quot;id&quot;:3,&quot;fruit&quot;:&quot;grapefruit&quot;,&quot;color&quot;:&quot;red&quot;,&quot;taste&quot;:&quot;sour&quot;}]
+</code></pre><p>This one&rsquo;s also very straightforward.</p>
+<ul>
+<li>
+<p>We create a file named <code>output.json</code> to dump our data into.</p>
+</li>
+<li>
+<p>We create a new encoder <code>enc</code> by using <code>json.NewEncoder</code>.</p>
+</li>
+<li>
+<p>We prep our data, which is a slice of <code>Fruit</code> objects.</p>
+</li>
+<li>
+<p>Finally, we encode this slice by using <code>enc.Encode</code>.</p>
+</li>
+</ul>
+<h3 id="excel">Excel</h3>
+<p>Go does not support reading and writing Excel files by default. However, there is a popular library called <code>qax-os/excelize</code> that helps you do this. If you take apart the source code, you can see that the package uses <code>*os.File</code> extensively, which is also an <code>io.Reader</code> and <code>io.Writer</code>. I think this shows the beauty of the <code>io.Reader</code> and <code>io.Writer</code> interfaces, because with a bit of tweaking, you can make a custom reader and writer that implements those interfaces, allowing you to support more file types.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Hopefully, this post served as a quick intro to reading and writing files in Go, and how powerful the <code>io.Reader</code> and <code>io.Writer</code> interfaces are. I think this is one of Go&rsquo;s beauty - interfaces allow for a very flexible and reusable code. There are certainly more files that we haven&rsquo;t covered in this post, but the general gist is the same: open the file, create a reader or a writer, and read/write from it. Thank you!</p>
+<p>You can also read this post on <a href="https://medium.com/@jpoly1219/reading-and-writing-different-files-in-go-9c119edec51a">Medium</a> and <a href="https://dev.to/jpoly1219/reading-and-writing-different-files-in-go-4m3i">Dev.to</a>.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          Jacob Kim
+          2022
+
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>

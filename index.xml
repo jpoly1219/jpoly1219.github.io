@@ -6,7 +6,43 @@
     <description>Recent content on Jacob&#39;s Dev Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Jul 2022 15:58:15 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Aug 2022 09:05:39 +0900</lastBuildDate><atom:link href="https://jpoly1219.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reading and Writing Different Files in Go</title>
+      <link>https://jpoly1219.github.io/posts/reading-and-writing-different-files-in-go/</link>
+      <pubDate>Sun, 07 Aug 2022 09:05:39 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/reading-and-writing-different-files-in-go/</guid>
+      
+        <description>Reading and writing files is an important feature of your program. Not all data is stored in the same memory space as your program, and sometimes you will need to share data with other programs or view it later with a different program. Storing your data in a file is a good way to achieve these goals. Today, we will look at how you can read from and write to commonly used file types.</description>
+      
+    </item>
+    
+    <item>
+      <title>Working in a Team</title>
+      <link>https://jpoly1219.github.io/posts/working-in-a-team/</link>
+      <pubDate>Mon, 01 Aug 2022 01:26:47 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/working-in-a-team/</guid>
+      
+        <description>I spend a lot of time developing solo, working on my personal projects. However, I have worked in big project teams in the past, and have had some experience working with other developers and non-developers. Here are some tips that I would like to share with you. Please understand that this is a beginner’s viewpoint and can be subjective. If there are more tips that you would like to share, please comment below!</description>
+      
+    </item>
+    
+    <item>
+      <title>Imposter Syndrome</title>
+      <link>https://jpoly1219.github.io/posts/imposter-syndrome/</link>
+      <pubDate>Sun, 24 Jul 2022 14:33:48 +0900</pubDate>
+      
+      <guid>https://jpoly1219.github.io/posts/imposter-syndrome/</guid>
+      
+        <description>Let’s take a slight detour from the usual programming guides. Today, I want to address the bane of all developers. The one that plagues juniors and seniors alike.
+func (s *self) ImposterSyndrome() { for { doubt() fear() panic() } } s.ImposterSyndrome()  “Maybe I’m not smart enough to be a developer.”
+“He’s so much better at this than I am.”
+“How come she gets it and I don’t, when we started the same?</description>
+      
+    </item>
+    
     <item>
       <title>Interfaces in Go</title>
       <link>https://jpoly1219.github.io/posts/interfaces-in-go/</link>

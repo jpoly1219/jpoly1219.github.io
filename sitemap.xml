@@ -2,13 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://jpoly1219.github.io/posts/interfaces-in-go/</loc>
-    <lastmod>2022-07-17T15:58:15+09:00</lastmod>
-  </url><url>
     <loc>https://jpoly1219.github.io/</loc>
-    <lastmod>2022-07-17T15:58:15+09:00</lastmod>
+    <lastmod>2022-08-07T09:05:39+09:00</lastmod>
   </url><url>
     <loc>https://jpoly1219.github.io/posts/</loc>
+    <lastmod>2022-08-07T09:05:39+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/reading-and-writing-different-files-in-go/</loc>
+    <lastmod>2022-08-07T09:05:39+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/working-in-a-team/</loc>
+    <lastmod>2022-08-01T01:26:47+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/imposter-syndrome/</loc>
+    <lastmod>2022-07-24T14:33:48+09:00</lastmod>
+  </url><url>
+    <loc>https://jpoly1219.github.io/posts/interfaces-in-go/</loc>
     <lastmod>2022-07-17T15:58:15+09:00</lastmod>
   </url><url>
     <loc>https://jpoly1219.github.io/posts/using-goroutines-is-slower/</loc>
