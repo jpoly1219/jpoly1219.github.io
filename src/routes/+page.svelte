@@ -1,4 +1,5 @@
 <script>
+  import { base } from "$app/paths";
   import ScrollableDiv from "../components/ScrollableDiv.svelte";
 
   const sections = ["about", "professional-experiences", "projects", "fun"];
@@ -6,7 +7,7 @@
 
 <div class="container">
   <div class="left">
-    <img src="/jpoly1219.github.io/img3.webp" alt="me coding" />
+    <img src="$lib/img3.webp" alt="me coding" />
   </div>
   <div class="right">
     <ScrollableDiv sectionTitles={sections} />
