@@ -7,7 +7,7 @@
 
 <div class="container">
   <div class="left">
-    <img src="$lib/img3.webp" alt="me coding" />
+    <img src="./static/img3.webp" alt="me coding" />
   </div>
   <div class="right">
     <ScrollableDiv sectionTitles={sections} />
