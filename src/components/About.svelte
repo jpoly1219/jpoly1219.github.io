@@ -36,15 +36,15 @@
     -->
     <p>Let's keep in touch!</p>
     <div class="contact-card">
-      <img src="/email-icon.png" alt="email" class="icon" />
+      <img src="/jpoly1219.github.io/email-icon.png" alt="email" class="icon" />
       <p>Email: jpoly@umich.edu</p>
     </div>
     <div class="contact-card">
-      <img src="/linkedin-icon.png" alt="linkedin" class="icon" />
+      <img src="/jpoly1219.github.io/linkedin-icon.png" alt="linkedin" class="icon" />
       <p>LinkedIn: <a href="https://www.linkedin.com/in/june-hyung-jacob-kim">Jacob Kim</a></p>
     </div>
     <div class="contact-card">
-      <img src="/github-icon.png" alt="github" class="icon" />
+      <img src="/jpoly1219.github.io/github-icon.png" alt="github" class="icon" />
       <p>GitHub: <a href="https://github.com/jpoly1219">jpoly1219</a></p>
     </div>
   </div>
