@@ -1,12 +1,12 @@
 <script>
   import ScrollableDiv from "../components/ScrollableDiv.svelte";
 
-  const sections = ["about", "projects"];
+  const sections = ["about", "professional-experiences", "projects", "fun"];
 </script>
 
 <div class="container">
   <div class="left">
-    <p>image goes here</p>
+    <img src="/img3.webp" alt="me coding" />
   </div>
   <div class="right">
     <ScrollableDiv sectionTitles={sections} />
@@ -18,7 +18,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #fdf6e3;
+    /* background-color: #fdf6e3; */
   }
 
   .container {
@@ -31,11 +31,16 @@
   .left {
     width: 50%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .right {
     width: 50%;
     height: 100%;
     min-height: 100%;
+    padding-right: 3rem;
+    position: relative;
   }
 </style>
