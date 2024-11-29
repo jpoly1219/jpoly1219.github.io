@@ -7,7 +7,7 @@
 
 <div class="container">
   <div class="left">
-    <img src="%sveltekit.assets%/img3.webp" alt="me coding" />
+    <img src="./img3.webp" alt="me coding" />
   </div>
   <div class="right">
     <ScrollableDiv sectionTitles={sections} />
