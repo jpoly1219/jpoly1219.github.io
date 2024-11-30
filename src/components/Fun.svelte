@@ -198,6 +198,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    scroll-snap-align: start;
   }
 
   /* h1 { */
