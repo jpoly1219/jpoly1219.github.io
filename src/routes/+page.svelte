@@ -7,7 +7,7 @@
 
 <div class="container">
   <div class="left">
-    <img src="./img3.webp" alt="me coding" />
+    <img src="./img3.webp" alt="me coding" class="profile-pic" />
   </div>
   <div class="right">
     <ScrollableDiv sectionTitles={sections} />
@@ -35,6 +35,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .profile-pic {
+    width: 80%;
+    height: auto;
   }
 
   .right {
