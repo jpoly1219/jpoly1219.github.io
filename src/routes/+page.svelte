@@ -1,5 +1,9 @@
 <script>
   import { base } from "$app/paths";
+  import About from "../components/About.svelte";
+  import Projects from "../components/Projects.svelte";
+  import ProfessionalExperiences from "../components/ProfessionalExperiences.svelte";
+  import Fun from "../components/Fun.svelte";
   import ScrollableDiv from "../components/ScrollableDiv.svelte";
 
   const sections = ["about", "professional-experiences", "projects", "fun"];
@@ -11,6 +15,12 @@
   </div>
   <div class="right">
     <ScrollableDiv sectionTitles={sections} />
+    <!---
+    <About />
+    <ProfessionalExperiences />
+    <Projects />
+    <Fun />
+    -->
   </div>
 </div>
 
@@ -47,6 +57,9 @@
     height: 100%;
     min-height: 100%;
     padding-right: 3rem;
-    position: relative;
+    /* position: relative; */
+    /* overflow-y: scroll; */
+    /* scroll-snap-type: y mandatory; */
+    /* scroll-behavior: smooth; */
   }
 </style>

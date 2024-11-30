@@ -15,59 +15,59 @@
   const scrollCooldown = 500;
   let startY = 0;
 
-  // onMount(() => {
-  //   const handleScroll = (event: WheelEvent) => {
-  //     event.preventDefault();
-  //     const now = new Date().getTime();
-  //     if (now - lastScrollTime < scrollCooldown) return;
-  //
-  //     const scrollDirection = event.deltaY > 0 ? 1 : -1;
-  //     const nextSection = Math.max(
-  //       0,
-  //       Math.min(sectionTitles.length - 1, activeSection + scrollDirection)
-  //     );
-  //
-  //     if (nextSection !== activeSection) {
-  //       activeSection = nextSection;
-  //       lastScrollTime = now;
-  //     }
-  //     console.log(scrollDirection);
-  //     console.log(activeSection);
-  //   };
-  //
-  //   const handleTouchScroll = (event: TouchEvent) => {
-  //     event.preventDefault();
-  //     const now = new Date().getTime();
-  //     if (now - lastScrollTime < scrollCooldown) return;
-  //
-  //     // Handle touch scroll (for mobile)
-  //     const moveY = event.touches[0].pageY;
-  //     const diff = startY - moveY;
-  //     startY = 0;
-  //     console.log(moveY, diff);
-  //
-  //     const scrollDirection = diff > 0 ? 1 : -1;
-  //     const nextSection = Math.max(
-  //       0,
-  //       Math.min(sectionTitles.length - 1, activeSection + scrollDirection)
-  //     );
-  //
-  //     if (nextSection !== activeSection) {
-  //       activeSection = nextSection;
-  //       lastScrollTime = now;
-  //     }
-  //     console.log(scrollDirection);
-  //     console.log(activeSection);
-  //   };
-  //
-  //   containerRef.addEventListener("wheel", handleScroll, { passive: false });
-  //   containerRef.addEventListener("touchmove", handleTouchScroll, { passive: false });
-  //
-  //   return () => {
-  //     containerRef.removeEventListener("wheel", handleScroll);
-  //     containerRef.removeEventListener("touchmove", handleTouchScroll);
-  //   };
-  // });
+  onMount(() => {
+    const handleScroll = (event: WheelEvent) => {
+      event.preventDefault();
+      const now = new Date().getTime();
+      if (now - lastScrollTime < scrollCooldown) return;
+
+      const scrollDirection = event.deltaY > 0 ? 1 : -1;
+      const nextSection = Math.max(
+        0,
+        Math.min(sectionTitles.length - 1, activeSection + scrollDirection)
+      );
+
+      if (nextSection !== activeSection) {
+        activeSection = nextSection;
+        lastScrollTime = now;
+      }
+      console.log(scrollDirection);
+      console.log(activeSection);
+    };
+
+    const handleTouchScroll = (event: TouchEvent) => {
+      event.preventDefault();
+      const now = new Date().getTime();
+      if (now - lastScrollTime < scrollCooldown) return;
+
+      // Handle touch scroll (for mobile)
+      const moveY = event.touches[0].pageY;
+      // const diff = startY - moveY;
+      // startY = 0;
+      // console.log(moveY, diff);
+
+      const scrollDirection = moveY > 0 ? 1 : -1;
+      const nextSection = Math.max(
+        0,
+        Math.min(sectionTitles.length - 1, activeSection + scrollDirection)
+      );
+
+      if (nextSection !== activeSection) {
+        activeSection = nextSection;
+        lastScrollTime = now;
+      }
+      console.log(scrollDirection);
+      console.log(activeSection);
+    };
+
+    containerRef.addEventListener("wheel", handleScroll, { passive: false });
+    containerRef.addEventListener("touchmove", handleTouchScroll, { passive: false });
+
+    return () => {
+      containerRef.removeEventListener("wheel", handleScroll);
+      containerRef.removeEventListener("touchmove", handleTouchScroll);
+    };
+  });
 
   function goToSection(index: number) {
     activeSection = index;
@@ -143,8 +143,6 @@
     height: 100%;
     /* margin-left: 4rem; */
     /* margin-right: 4rem; */
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
   }
 
   .scroll-nav {

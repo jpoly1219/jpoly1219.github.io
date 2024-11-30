@@ -65,7 +65,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */
   }
 
   .pacifico-regular {
