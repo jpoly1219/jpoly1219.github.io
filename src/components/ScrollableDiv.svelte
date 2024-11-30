@@ -43,7 +43,7 @@
       // Handle touch scroll (for mobile)
       const moveY = event.touches[0].pageY;
       const diff = startY - moveY;
-      startY = moveY;
+      startY = 0;
 
       const scrollDirection = diff > 0 ? 1 : -1;
       const nextSection = Math.max(
