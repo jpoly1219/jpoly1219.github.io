@@ -70,6 +70,9 @@
     flex-direction: column;
     justify-content: center;
     /* scroll-snap-align: start; */
+    @media screen and (max-width: 480px) {
+      justify-content: start;
+    }
   }
 
   .pacifico-regular {
