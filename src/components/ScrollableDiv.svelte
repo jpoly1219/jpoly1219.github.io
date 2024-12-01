@@ -35,18 +35,25 @@
       console.log(activeSection);
     };
 
+    const handleTouchStart = (event: TouchEvent) => {
+      startY = event.touches[0].pageY; // Store the starting touch position
+    };
+
     const handleTouchScroll = (event: TouchEvent) => {
       event.preventDefault();
       const now = new Date().getTime();
       if (now - lastScrollTime < scrollCooldown) return;
+      const moveY = event.touches[0].pageY;
+      console.log(`diff: ${startY - moveY}`);
+
+      if (Math.abs(startY - moveY) < 50) return;
 
       // Handle touch scroll (for mobile)
-      const moveY = event.touches[0].pageY;
       // const diff = startY - moveY;
       // startY = 0;
       // console.log(moveY, diff);
 
-      const scrollDirection = moveY > 0 ? 1 : -1;
+      const scrollDirection = startY - moveY > 0 ? 1 : -1;
       const nextSection = Math.max(
         0,
         Math.min(sectionTitles.length - 1, activeSection + scrollDirection)
@@ -61,10 +68,12 @@
     };
 
     containerRef.addEventListener("wheel", handleScroll, { passive: false });
+    containerRef.addEventListener("touchstart", handleTouchStart, { passive: false });
     containerRef.addEventListener("touchmove", handleTouchScroll, { passive: false });
 
     return () => {
       containerRef.removeEventListener("wheel", handleScroll);
+      containerRef.removeEventListener("touchstart", handleTouchStart);
       containerRef.removeEventListener("touchmove", handleTouchScroll);
     };
   });
@@ -148,18 +157,21 @@
   .scroll-nav {
     position: absolute;
     right: 1.5rem;
-    top: 50%; /* top-1/2 */
-    transform: translateY(-50%); /* transform -translate-y-1/2 */
-    display: flex; /* flex */
-    flex-direction: column; /* flex-col */
-    gap: 0.5rem; /* space-y-2 (2 * 0.25rem = 0.5rem) */
-    z-index: 10; /* z-10 */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 10;
+    @media screen and (max-width: 480px) {
+      right: 0.9rem;
+    }
   }
 
   .scroll-button {
-    width: 1rem; /* w-3 (3 * 0.25rem = 0.75rem) */
-    height: 1rem; /* h-3 (3 * 0.25rem = 0.75rem) */
-    border-radius: 100%; /* rounded-full */
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
     border: none;
     cursor: pointer;
   }
