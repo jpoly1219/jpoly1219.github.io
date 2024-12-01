@@ -1,20 +1,21 @@
 <script lang="ts">
   import Card from "./Card.svelte";
+  import Carousel from "./Carousel.svelte";
   interface Experience {
     title: string;
-    employer: string;
+    metadata: string;
     desc: string[];
   }
 
   const experiences: Experience[] = [
     {
       title: "Reasearch Assistant",
-      employer: "University of Michigan - Oct 2024 to Present",
+      metadata: "University of Michigan - Oct 2024 to Present",
       desc: ["Formally verified 120 Calcite SQL rewrite rules using the Lean theorem prover."]
     },
     {
       title: "Research Software Engineer",
-      employer: "University of Michigan - Feb 2024 to Present",
+      metadata: "University of Michigan - Feb 2024 to Present",
       desc: [
         "Improved LLM-generated TypeScript code correctness by 71% v.s. RAG by inventing a static analysis tool that retrieves relevant context for incomplete programs.",
         "Implemented the integration and automation of remote LSP method calls by designing a headless language server client to interface with TypeScript and OCaml language servers via a library method call.",
@@ -23,7 +24,7 @@
     },
     {
       title: "Managing Online Editor",
-      employer: "The Michigan Daily - Jan 2024 to Present",
+      metadata: "The Michigan Daily - Jan 2024 to Present",
       desc: [
         "Led a team of 20 software engineers and increased new and returning reader counts by 7%.",
         "Increased the retention rate of new engineers from previous year’s maximum of 50% to 93%.",
@@ -32,7 +33,7 @@
     },
     {
       title: "Full-Stack Software Engineer",
-      employer: "University of Michigan - May 2023 to Dec 2023",
+      metadata: "University of Michigan - May 2023 to Dec 2023",
       desc: [
         "Developed an AI web app using React and Node, enhancing student engagement and learning efficiency by 20%.",
         "Decreased AWS Lambda runtime by 75% and saved costs by optimizing queries in MongoDB.",
@@ -41,7 +42,7 @@
     },
     {
       title: "Software Engineer",
-      employer: "The Michigan Daily - Oct 2022 to Dec 2023",
+      metadata: "The Michigan Daily - Oct 2022 to Dec 2023",
       desc: [
         "Served 13,000 requests weekly by creating a full-stack serverless web app.",
         "Lowered the push notification delay by 40% by caching repeated I/O operations.",
@@ -53,9 +54,12 @@
 
 <div class="professional-experiences">
   <h1 class="pacifico-regular">Professional Experience</h1>
+  <!---
   {#each experiences as exp}
-    <Card title={exp.title} employer={exp.employer} desc={exp.desc} />
+    <Card title={exp.title} metadata={exp.metadata} desc={exp.desc} />
   {/each}
+  -->
+  <Carousel cardData={experiences} />
 </div>
 
 <style>

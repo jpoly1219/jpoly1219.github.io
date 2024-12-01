@@ -1,5 +1,5 @@
 <script lang="ts">
-  const { title, employer, desc }: { title: string; employer: string; desc: string[] } = $props();
+  const { title, metadata, desc }: { title: string; metadata: string; desc: string[] } = $props();
 </script>
 
 <div class="card">
@@ -7,10 +7,10 @@
     {title}
   </h2>
   <p class="quicksand">
-    {#if employer.slice(0, 8) === "https://"}
-      <a href={employer}>{employer}</a>
+    {#if metadata.slice(0, 8) === "https://"}
+      <a href={metadata}>{metadata}</a>
     {:else}
-      {employer}
+      {metadata}
     {/if}
   </p>
   {#each desc as d}
