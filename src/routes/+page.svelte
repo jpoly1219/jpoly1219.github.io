@@ -28,7 +28,6 @@
   :global(body) {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     /* background-color: #fdf6e3; */
   }
 
@@ -37,6 +36,10 @@
     flex-direction: row;
     width: 100vw;
     height: 100vh;
+
+    @media screen and (max-width: 480px) {
+      flex-direction: column;
+    }
   }
 
   .left {
@@ -45,11 +48,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      height: 5%;
+    }
   }
 
   .profile-pic {
     width: 80%;
     height: auto;
+    @media screen and (max-width: 480px) {
+      height: 80%;
+      width: auto;
+    }
   }
 
   .right {
@@ -61,5 +73,12 @@
     /* overflow-y: scroll; */
     /* scroll-snap-type: y mandatory; */
     /* scroll-behavior: smooth; */
+    @media screen and (max-width: 480px) {
+      /* width: 100%; */
+      width: auto;
+      height: 95%;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
   }
 </style>
