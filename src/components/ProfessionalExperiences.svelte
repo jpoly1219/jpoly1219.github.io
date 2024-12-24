@@ -9,6 +9,14 @@
 
   const experiences: Experience[] = [
     {
+      title: "Founding Engineer",
+      metadata: "Ace AI - Dec 2024 to Present",
+      desc: [
+        "Creating the cloud-based infrastructure using Go and GCP.",
+        "Developing core AI services such as PII cleaning, synthetic data generation, and codebase analysis."
+      ]
+    },
+    {
       title: "Reasearch Assistant",
       metadata: "University of Michigan - Oct 2024 to Present",
       desc: ["Formally verified 120 Calcite SQL rewrite rules using the Lean theorem prover."]
