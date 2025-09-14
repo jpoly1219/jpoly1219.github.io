@@ -3,40 +3,50 @@ module Main exposing (main, update, view)
 import Browser
 import Html exposing (Html, a, div, h1, img, p, text)
 import Html.Attributes exposing (class, href, id, src)
-import Html.Events exposing (onClick)
 
 
 main =
     Browser.sandbox { init = init, update = update, view = view }
 
 
-type ViewType
-    = Main
-    | Research1
-
-
 type alias Model =
-    { currentView : ViewType
+    { currentViewIndex : Int
     }
+
+
+type Msg
+    = ScrollUp
+    | ScrollDown
 
 
 init : Model
 init =
-    Model Main
+    Model 0
 
 
-update model =
-    model
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        ScrollUp ->
+            { model | currentViewIndex = min 1 (model.currentViewIndex - 1) }
+
+        ScrollDown ->
+            { model | currentViewIndex = max 0 (model.currentViewIndex + 1) }
 
 
 view : Model -> Html msg
 view model =
-    case model.currentView of
-        Main ->
-            div [] [ viewMain ]
+    div []
+        [ case model.currentViewIndex of
+            0 ->
+                viewMain
 
-        Research1 ->
-            div [] [ viewMain ]
+            1 ->
+                viewResearch1
+
+            _ ->
+                viewMain
+        ]
 
 
 viewMain : Html msg
