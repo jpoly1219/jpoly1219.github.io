@@ -1,6 +1,3 @@
--- module Main exposing (Msg(..), main, update, view)
-
-
 module Main exposing (main, update, view)
 
 import Browser
@@ -11,19 +8,6 @@ import Html.Events exposing (onClick)
 
 main =
     Browser.sandbox { init = 0, update = update, view = view }
-
-
-
--- type Msg
---     = Increment
---     | Decrt
--- update msg model =
---     case msg of
---         Increment ->
---             model + 1
---
---         Decrement ->
---             model - 1
 
 
 update model =
