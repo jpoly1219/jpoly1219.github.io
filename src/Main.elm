@@ -7,14 +7,40 @@ import Html.Events exposing (onClick)
 
 
 main =
-    Browser.sandbox { init = 0, update = update, view = view }
+    Browser.sandbox { init = init, update = update, view = view }
+
+
+type ViewType
+    = Main
+    | Research1
+
+
+type alias Model =
+    { currentView : ViewType
+    }
+
+
+init : Model
+init =
+    Model Main
 
 
 update model =
     model
 
 
-view _ =
+view : Model -> Html msg
+view model =
+    case model.currentView of
+        Main ->
+            div [] [ viewMain ]
+
+        Research1 ->
+            div [] [ viewMain ]
+
+
+viewMain : Html msg
+viewMain =
     div [ id "page" ]
         [ div [ class "left" ] [ img [ src "static/img3.webp", id "main-img" ] [] ]
         , div [ class "right" ]
@@ -47,3 +73,8 @@ view _ =
                 ]
             ]
         ]
+
+
+viewResearch1 : Html msg
+viewResearch1 =
+    div [] [ text "Research 1" ]
