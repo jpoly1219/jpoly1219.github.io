@@ -1,38 +1,44 @@
-# sv
+# Personal site
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This page is written in Elm, so that's how you know I am a nerd :)
 
-## Creating a project
+This page used to be written with Hugo, then Astro, then Svelte, and finally Elm.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Design
 
-```bash
-# create a new project in the current directory
-npx sv create
+The page consists of two panes, the left and right, evenly splitting the screen in half.
 
-# create a new project in my-app
-npx sv create my-app
-```
+The left pane holds an image.
 
-## Developing
+The right pane is a vertical carousel that contains the following right pane items.
+- About
+- Experiences
+- Projects
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The vertical carousel should be scrollable. A single scroll action should take the user to the next item.
+- A single scroll action is equivalent to a single swipe -- a single continuous span of scrolling time.
+- For a mouse, a single scroll could contain many scroll ticks if they are all close together.
+- For a trackpad or a touchscreen, a single scroll is a single swipe -- should be until the moment the finger leaves the trackpad/screen.
 
-```bash
-npm run dev
+### Carousel items
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+There are three carousel items.
+Each carousel item should have a top and bottom padding that contains the up and down arrows.
 
-## Building
+About:
+- Holds text.
 
-To create a production version of your app:
+Experiences:
+- A left-to-right, cyclic carousel containing some text that the user can swipe.
+- Has a left arrow and right arrow on either side, with the first and last only containing right and left arrows. These should not move.
+- Calculate the tallest item, then make the whole container that size so that we don't see the header move when swiping through different experience items of different heights.
 
-```bash
-npm run build
-```
+Projects:
+- A left-to-right, cyclic carousel containing some text that the user can swipe.
+- Has a left arrow and right arrow on either side, with the first and last only containing right and left arrows. These should not move.
+- Calculate the tallest item, then make the whole container that size so that we don't see the header move when swiping through different experience items of different heights.
 
-You can preview the production build with `npm run preview`.
+## Media query
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+The page must support mobile devices.
+For mobile devices, only show the right pane.
