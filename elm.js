@@ -5264,7 +5264,7 @@ var $author$project$Main$view = function (_v0) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science.')
+								$elm$html$Html$text('안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science. I did my undergrad at the University of Michigan. Go Blue!')
 							])),
 						A2(
 						$elm$html$Html$p,
