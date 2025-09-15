@@ -5158,31 +5158,64 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
+var $elm$browser$Browser$element = _Browser_element;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $elm$core$Platform$Sub$batch = _Platform_batch;
-var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $elm$browser$Browser$sandbox = function (impl) {
-	return _Browser_element(
-		{
-			init: function (_v0) {
-				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
-			},
-			subscriptions: function (_v1) {
-				return $elm$core$Platform$Sub$none;
-			},
-			update: F2(
-				function (msg, model) {
-					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
-						$elm$core$Platform$Cmd$none);
-				}),
-			view: impl.view
-		});
+var $author$project$Main$init = function (_v0) {
+	return _Utils_Tuple2(
+		{currentViewIndex: 0},
+		$elm$core$Platform$Cmd$none);
 };
-var $author$project$Main$update = function (model) {
-	return model;
+var $author$project$Main$ScrollMsg = function (a) {
+	return {$: 'ScrollMsg', a: a};
 };
+var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $author$project$Main$scrollDirectionMsgReceiver = _Platform_incomingPort('scrollDirectionMsgReceiver', $elm$json$Json$Decode$int);
+var $author$project$Main$subscriptions = function (_v0) {
+	return $author$project$Main$scrollDirectionMsgReceiver($author$project$Main$ScrollMsg);
+};
+var $elm$core$Basics$min = F2(
+	function (x, y) {
+		return (_Utils_cmp(x, y) < 0) ? x : y;
+	});
+var $author$project$Main$clamp = F3(
+	function (low, high, val) {
+		return A2(
+			$elm$core$Basics$max,
+			low,
+			A2($elm$core$Basics$min, high, val));
+	});
+var $author$project$Main$maxViewIndex = 1;
+var $author$project$Main$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'ScrollMsg':
+				var delta = msg.a;
+				var newIndex = A3($author$project$Main$clamp, 0, $author$project$Main$maxViewIndex, model.currentViewIndex + delta);
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{currentViewIndex: newIndex}),
+					$elm$core$Platform$Cmd$none);
+			case 'ScrollUp':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							currentViewIndex: A2($elm$core$Basics$min, 1, model.currentViewIndex - 1)
+						}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							currentViewIndex: A2($elm$core$Basics$max, 0, model.currentViewIndex + 1)
+						}),
+					$elm$core$Platform$Cmd$none);
+		}
+	});
+var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5193,7 +5226,6 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -5212,284 +5244,308 @@ var $elm$html$Html$Attributes$src = function (url) {
 };
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Main$view = function (_v0) {
+var $author$project$Main$viewMain = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$id('page')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('left')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$img,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$src('static/img3.webp'),
+							$elm$html$Html$Attributes$id('main-img')
+						]),
+					_List_Nil)
+				])),
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('right')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$h1,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('pacifico-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Hello!')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science. I did my undergrad at the University of Michigan. Go Blue!')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('This page is written in Elm. That\'s how you know I\'m a nerd :)')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I work at the juncture of software engineering, programming lanugages, and AI to find interesting ways to write code.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Before my PhD, I worked at '),
+							A2(
+							$elm$html$Html$a,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$href('https://continue.dev'),
+									$elm$html$Html$Attributes$class('a-bracket')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Continue.dev')
+								])),
+							$elm$html$Html$text(' delivering '),
+							A2(
+							$elm$html$Html$a,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$href('https://blog.continue.dev/next-edit-powered-by-mercury-coder/'),
+									$elm$html$Html$Attributes$class('a-bracket')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Next Edit')
+								])),
+							$elm$html$Html$text(' prediction on VS Code, JetBrains, and Neovim, using an '),
+							A2(
+							$elm$html$Html$a,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$href('https://blog.continue.dev/instinct/'),
+									$elm$html$Html$Attributes$class('a-bracket')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('in-house diffusion model')
+								])),
+							$elm$html$Html$text(' trained via SFT and DPO.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I also worked on using static analysis tools to improve LLM eval scores for code generation, working closely with parsers, compiler API, and LSPs for recursive type extraction.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Let\'s keep in touch!')
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$id('social-icon-ctnr')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('social-icon')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('mailto:jacobk13@uci.edu')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$img,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$src('static/email-icon.webp')
+												]),
+											_List_Nil)
+										]))
+								])),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('social-icon')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://github.com/jpoly1219')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$img,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$src('static/github-icon.webp')
+												]),
+											_List_Nil)
+										]))
+								])),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('social-icon')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://www.linkedin.com/in/june-hyung-jacob-kim')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$img,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$src('static/linkedin-icon.webp')
+												]),
+											_List_Nil)
+										]))
+								])),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('social-icon')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://x.com/iamjacobkim')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$img,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$src('static/x-icon.webp')
+												]),
+											_List_Nil)
+										]))
+								])),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('social-icon')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://bsky.app/profile/iamjacobkim.bsky.social')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$img,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$src('static/bsky-icon.webp')
+												]),
+											_List_Nil)
+										]))
+								]))
+						]))
+				]))
+		]));
+var $author$project$Main$viewResearch1 = A2(
+	$elm$html$Html$div,
+	_List_Nil,
+	_List_fromArray(
+		[
+			$elm$html$Html$text('Research 1')
+		]));
+var $author$project$Main$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
+		_List_Nil,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$id('page')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('left')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$img,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$src('static/img3.webp'),
-								$elm$html$Html$Attributes$id('main-img')
-							]),
-						_List_Nil)
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('right')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$h1,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('pacifico-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Hello!')
-							])),
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('merriweather-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science. I did my undergrad at the University of Michigan. Go Blue!')
-							])),
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('merriweather-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('This page is written in Elm. That\'s how you know I\'m a nerd :)')
-							])),
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('merriweather-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('I work at the juncture of software engineering, programming lanugages, and AI to find interesting ways to write code.')
-							])),
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('merriweather-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Before my PhD, I worked at '),
-								A2(
-								$elm$html$Html$a,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$href('https://continue.dev'),
-										$elm$html$Html$Attributes$class('a-bracket')
-									]),
-								_List_fromArray(
-									[
-										$elm$html$Html$text('Continue.dev')
-									])),
-								$elm$html$Html$text(' delivering '),
-								A2(
-								$elm$html$Html$a,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$href('https://blog.continue.dev/next-edit-powered-by-mercury-coder/'),
-										$elm$html$Html$Attributes$class('a-bracket')
-									]),
-								_List_fromArray(
-									[
-										$elm$html$Html$text('Next Edit')
-									])),
-								$elm$html$Html$text(' prediction on VS Code, JetBrains, and Neovim, using an '),
-								A2(
-								$elm$html$Html$a,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$href('https://blog.continue.dev/instinct/'),
-										$elm$html$Html$Attributes$class('a-bracket')
-									]),
-								_List_fromArray(
-									[
-										$elm$html$Html$text('in-house diffusion model')
-									])),
-								$elm$html$Html$text(' trained via SFT and DPO.')
-							])),
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('merriweather-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('I also worked on using static analysis tools to improve LLM eval scores for code generation, working closely with parsers, compiler API, and LSPs for recursive type extraction.')
-							])),
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('merriweather-regular')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Let\'s keep in touch!')
-							])),
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$id('social-icon-ctnr')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('social-icon')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('mailto:jacobk13@uci.edu')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$img,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$src('static/email-icon.webp')
-													]),
-												_List_Nil)
-											]))
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('social-icon')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('https://github.com/jpoly1219')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$img,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$src('static/github-icon.webp')
-													]),
-												_List_Nil)
-											]))
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('social-icon')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('https://www.linkedin.com/in/june-hyung-jacob-kim')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$img,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$src('static/linkedin-icon.webp')
-													]),
-												_List_Nil)
-											]))
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('social-icon')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('https://x.com/iamjacobkim')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$img,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$src('static/x-icon.webp')
-													]),
-												_List_Nil)
-											]))
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('social-icon')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('https://bsky.app/profile/iamjacobkim.bsky.social')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$img,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$src('static/bsky-icon.webp')
-													]),
-												_List_Nil)
-											]))
-									]))
-							]))
-					]))
+				function () {
+				var _v0 = model.currentViewIndex;
+				switch (_v0) {
+					case 0:
+						return $author$project$Main$viewMain;
+					case 1:
+						return $author$project$Main$viewResearch1;
+					default:
+						return $author$project$Main$viewMain;
+				}
+			}()
 			]));
 };
-var $author$project$Main$main = $elm$browser$Browser$sandbox(
-	{init: 0, update: $author$project$Main$update, view: $author$project$Main$view});
+var $author$project$Main$main = $elm$browser$Browser$element(
+	{init: $author$project$Main$init, subscriptions: $author$project$Main$subscriptions, update: $author$project$Main$update, view: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
