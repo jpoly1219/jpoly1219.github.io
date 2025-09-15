@@ -5563,6 +5563,16 @@ var $author$project$Main$viewWork1 = A2(
 						]),
 					_List_fromArray(
 						[
+							$elm$html$Html$text('This feature is akin to Cursor Tab, Windsurf Supercomplete, and GitHub Copilot NES.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
 							$elm$html$Html$text('Modern FIM autocomplete is not enough to handle most software development cases. While they are good at inserting new code, it is impossible, by nature, for them to make more general code edits involving deletion and replacement.')
 						])),
 					A2(
@@ -5583,7 +5593,7 @@ var $author$project$Main$viewWork1 = A2(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('I also created the abilility for the users to jump to the next edit location via hitting tab, providing a blazing-fast navigation to all areas that require attention.')
+							$elm$html$Html$text('I also created the ability for the users to jump to the next edit location via hitting tab, providing a blazing-fast navigation to all areas that require attention.')
 						])),
 					A2(
 					$elm$html$Html$p,
