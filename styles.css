@@ -88,8 +88,13 @@ p {
   justify-content: center;
 }
 
-#main-img {
+.left-img {
   width: 80%;
+  height: auto;
+}
+
+#next-edit-img {
+  width: 100%;
   height: auto;
 }
 
