@@ -1,12 +1,31 @@
-module Main exposing (main, update, view)
+port module Main exposing (main, update, view)
 
 import Browser
 import Html exposing (Html, a, div, h1, img, p, text)
 import Html.Attributes exposing (class, href, id, src)
+import Platform.Cmd as Cmd
 
 
+main : Program () Model Msg
 main =
-    Browser.sandbox { init = init, update = update, view = view }
+    Browser.element
+        { init = init
+        , update = update
+        , subscriptions = subscriptions
+        , view = view
+        }
+
+
+
+-- 1 for going to the next view, -1 for previous.
+
+
+port scrollDirectionMsgReceiver : (Int -> msg) -> Sub msg
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    scrollDirectionMsgReceiver ScrollMsg
 
 
 type alias Model =
@@ -15,23 +34,36 @@ type alias Model =
 
 
 type Msg
-    = ScrollUp
-    | ScrollDown
+    = ScrollMsg Int
 
 
-init : Model
-init =
-    Model 0
+maxViewIndex =
+    1
 
 
-update : Msg -> Model -> Model
+
+-- val will always be bound to [low, high].
+
+
+clamp : Int -> Int -> Int -> Int
+clamp low high val =
+    Basics.max low (Basics.min high val)
+
+
+init : () -> ( Model, Cmd Msg )
+init _ =
+    ( { currentViewIndex = 0 }, Cmd.none )
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        ScrollUp ->
-            { model | currentViewIndex = min 1 (model.currentViewIndex - 1) }
-
-        ScrollDown ->
-            { model | currentViewIndex = max 0 (model.currentViewIndex + 1) }
+        ScrollMsg delta ->
+            let
+                newIndex =
+                    clamp 0 maxViewIndex (model.currentViewIndex + delta)
+            in
+            ( { model | currentViewIndex = newIndex }, Cmd.none )
 
 
 view : Model -> Html msg
