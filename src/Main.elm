@@ -38,7 +38,7 @@ type Msg
 
 
 maxViewIndex =
-    1
+    2
 
 
 
@@ -74,6 +74,9 @@ view model =
 
         1 ->
             viewWork1
+
+        2 ->
+            viewWork2
 
         _ ->
             viewMain
@@ -127,5 +130,20 @@ viewWork1 =
             , p [ class "merriweather-regular" ] [ text "Next Edit allows the model to reason about the code fully and suggest the next best edit." ]
             , p [ class "merriweather-regular" ] [ text "I also created the ability for the users to jump to the next edit location via hitting tab, providing a blazing-fast navigation to all areas that require attention." ]
             , p [ class "merriweather-regular" ] [ text "This allows the user to use many different Next Edit-capable models, such as Mercury Coder by Inception and Instinct by Continue." ]
+            ]
+        ]
+
+
+viewWork2 : Html msg
+viewWork2 =
+    div [ id "page" ]
+        [ div [ class "left" ] [ img [ src "static/results-typescript-gpt4-horizontal.webp", id "static-contextualization-img", class "left-img" ] [] ]
+        , div [ class "right" ]
+            [ h1 [ class "pacifico-regular" ] [ text "Statically Contextualizing Large Language Models with Typed Holes" ]
+            , p [ class "merriweather-regular" ] [ text "I coauthored a paper for OOPSLA 24." ]
+            , p [ class "merriweather-regular" ] [ text "Static retrieval allows contextualizing prompts to the LLM with highly-relevant context, retrieved via repository-aware static analysis techniques." ]
+            , p [ class "merriweather-regular" ] [ text "LLMs suffer from low accuracy when given small or irrelevant context. This effect is exacerbated for low-resource languages that the model does not have training data on. Large contexts are hamstringed by limited context window size and poor performance. Static retrieval solves these issues by extracting only the relevant types." ]
+            , p [ class "merriweather-regular" ] [ text "I extended the methodology used for Hazel, our in-house functional language, to TypeScript. I wrote my own static analysis tool from scratch, using typescript-language-server, a custom JSON-RPC client for interacting with the LSP, a recursive descent parser, and a recursive type normalizer/checker for TypeScript." ]
+            , p [ class "merriweather-regular" ] [ text "I also submitted to the Student Research Competition on augmenting the existing LSP with methods to better contextualize the model with ease." ]
             ]
         ]

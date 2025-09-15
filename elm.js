@@ -5185,7 +5185,7 @@ var $author$project$Main$clamp = F3(
 			low,
 			A2($elm$core$Basics$min, high, val));
 	});
-var $author$project$Main$maxViewIndex = 1;
+var $author$project$Main$maxViewIndex = 2;
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		var delta = msg.a;
@@ -5607,6 +5607,102 @@ var $author$project$Main$viewWork1 = A2(
 						]))
 				]))
 		]));
+var $author$project$Main$viewWork2 = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$id('page')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('left')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$img,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$src('static/results-typescript-gpt4-horizontal.webp'),
+							$elm$html$Html$Attributes$id('static-contextualization-img'),
+							$elm$html$Html$Attributes$class('left-img')
+						]),
+					_List_Nil)
+				])),
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('right')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$h1,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('pacifico-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Statically Contextualizing Large Language Models with Typed Holes')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I coauthored a paper for OOPSLA 24.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Static retrieval allows contextualizing prompts to the LLM with highly-relevant context, retrieved via repository-aware static analysis techniques.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('LLMs suffer from low accuracy when given small or irrelevant context. This effect is exacerbated for low-resource languages that the model does not have training data on. Large contexts are hamstringed by limited context window size and poor performance. Static retrieval solves these issues by extracting only the relevant types.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I extended the methodology used for Hazel, our in-house functional language, to TypeScript. I wrote my own static analysis tool from scratch, using typescript-language-server, a custom JSON-RPC client for interacting with the LSP, a recursive descent parser, and a recursive type normalizer/checker for TypeScript.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I also submitted to the Student Research Competition on augmenting the existing LSP with methods to better contextualize the model with ease.')
+						]))
+				]))
+		]));
 var $author$project$Main$view = function (model) {
 	var _v0 = model.currentViewIndex;
 	switch (_v0) {
@@ -5614,6 +5710,8 @@ var $author$project$Main$view = function (model) {
 			return $author$project$Main$viewMain;
 		case 1:
 			return $author$project$Main$viewWork1;
+		case 2:
+			return $author$project$Main$viewWork2;
 		default:
 			return $author$project$Main$viewMain;
 	}
