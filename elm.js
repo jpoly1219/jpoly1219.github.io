@@ -5246,7 +5246,8 @@ var $author$project$Main$viewMain = A2(
 					_List_fromArray(
 						[
 							$elm$html$Html$Attributes$src('static/img3.webp'),
-							$elm$html$Html$Attributes$id('main-img')
+							$elm$html$Html$Attributes$id('main-img'),
+							$elm$html$Html$Attributes$class('left-img')
 						]),
 					_List_Nil)
 				])),
@@ -5500,7 +5501,7 @@ var $author$project$Main$viewMain = A2(
 						]))
 				]))
 		]));
-var $author$project$Main$viewResearch1 = A2(
+var $author$project$Main$viewWork1 = A2(
 	$elm$html$Html$div,
 	_List_fromArray(
 		[
@@ -5508,7 +5509,93 @@ var $author$project$Main$viewResearch1 = A2(
 		]),
 	_List_fromArray(
 		[
-			$elm$html$Html$text('Research 1')
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('left')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$img,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$src('static/next-edit.webp'),
+							$elm$html$Html$Attributes$id('next-edit-img'),
+							$elm$html$Html$Attributes$class('left-img')
+						]),
+					_List_Nil)
+				])),
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('right')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$h1,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('pacifico-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Next Edit Prediction')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I created the Next Edit prediction feature for Continue.dev.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Modern FIM autocomplete is not enough to handle most software development cases. While they are good at inserting new code, it is impossible, by nature, for them to make more general code edits involving deletion and replacement.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Next Edit allows the model to reason about the code fully and suggest the next best edit.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I also created the abilility for the users to jump to the next edit location via hitting tab, providing a blazing-fast navigation to all areas that require attention.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('This allows the user to use many different Next Edit-capable models, such as Mercury Coder by Inception and Instinct by Continue.')
+						]))
+				]))
 		]));
 var $author$project$Main$view = function (model) {
 	var _v0 = model.currentViewIndex;
@@ -5516,7 +5603,7 @@ var $author$project$Main$view = function (model) {
 		case 0:
 			return $author$project$Main$viewMain;
 		case 1:
-			return $author$project$Main$viewResearch1;
+			return $author$project$Main$viewWork1;
 		default:
 			return $author$project$Main$viewMain;
 	}

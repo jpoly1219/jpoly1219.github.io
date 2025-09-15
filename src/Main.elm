@@ -73,7 +73,7 @@ view model =
             viewMain
 
         1 ->
-            viewResearch1
+            viewWork1
 
         _ ->
             viewMain
@@ -82,7 +82,7 @@ view model =
 viewMain : Html msg
 viewMain =
     div [ id "page" ]
-        [ div [ class "left" ] [ img [ src "static/img3.webp", id "main-img" ] [] ]
+        [ div [ class "left" ] [ img [ src "static/img3.webp", id "main-img", class "left-img" ] [] ]
         , div [ class "right" ]
             [ h1 [ class "pacifico-regular" ] [ text "Hello!" ]
             , p [ class "merriweather-regular" ] [ text "안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science. I did my undergrad at the University of Michigan. Go Blue!" ]
@@ -115,6 +115,16 @@ viewMain =
         ]
 
 
-viewResearch1 : Html msg
-viewResearch1 =
-    div [ id "page" ] [ text "Research 1" ]
+viewWork1 : Html msg
+viewWork1 =
+    div [ id "page" ]
+        [ div [ class "left" ] [ img [ src "static/next-edit.webp", id "next-edit-img", class "left-img" ] [] ]
+        , div [ class "right" ]
+            [ h1 [ class "pacifico-regular" ] [ text "Next Edit Prediction" ]
+            , p [ class "merriweather-regular" ] [ text "I created the Next Edit prediction feature for Continue.dev." ]
+            , p [ class "merriweather-regular" ] [ text "Modern FIM autocomplete is not enough to handle most software development cases. While they are good at inserting new code, it is impossible, by nature, for them to make more general code edits involving deletion and replacement." ]
+            , p [ class "merriweather-regular" ] [ text "Next Edit allows the model to reason about the code fully and suggest the next best edit." ]
+            , p [ class "merriweather-regular" ] [ text "I also created the abilility for the users to jump to the next edit location via hitting tab, providing a blazing-fast navigation to all areas that require attention." ]
+            , p [ class "merriweather-regular" ] [ text "This allows the user to use many different Next Edit-capable models, such as Mercury Coder by Inception and Instinct by Continue." ]
+            ]
+        ]
