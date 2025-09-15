@@ -68,17 +68,15 @@ update msg model =
 
 view : Model -> Html msg
 view model =
-    div []
-        [ case model.currentViewIndex of
-            0 ->
-                viewMain
+    case model.currentViewIndex of
+        0 ->
+            viewMain
 
-            1 ->
-                viewResearch1
+        1 ->
+            viewResearch1
 
-            _ ->
-                viewMain
-        ]
+        _ ->
+            viewMain
 
 
 viewMain : Html msg
@@ -119,4 +117,4 @@ viewMain =
 
 viewResearch1 : Html msg
 viewResearch1 =
-    div [] [ text "Research 1" ]
+    div [ id "page" ] [ text "Research 1" ]

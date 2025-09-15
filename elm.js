@@ -5188,34 +5188,14 @@ var $author$project$Main$clamp = F3(
 var $author$project$Main$maxViewIndex = 1;
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		switch (msg.$) {
-			case 'ScrollMsg':
-				var delta = msg.a;
-				var newIndex = A3($author$project$Main$clamp, 0, $author$project$Main$maxViewIndex, model.currentViewIndex + delta);
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{currentViewIndex: newIndex}),
-					$elm$core$Platform$Cmd$none);
-			case 'ScrollUp':
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							currentViewIndex: A2($elm$core$Basics$min, 1, model.currentViewIndex - 1)
-						}),
-					$elm$core$Platform$Cmd$none);
-			default:
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							currentViewIndex: A2($elm$core$Basics$max, 0, model.currentViewIndex + 1)
-						}),
-					$elm$core$Platform$Cmd$none);
-		}
+		var delta = msg.a;
+		var newIndex = A3($author$project$Main$clamp, 0, $author$project$Main$maxViewIndex, model.currentViewIndex + delta);
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{currentViewIndex: newIndex}),
+			$elm$core$Platform$Cmd$none);
 	});
-var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5226,6 +5206,7 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -5521,29 +5502,24 @@ var $author$project$Main$viewMain = A2(
 		]));
 var $author$project$Main$viewResearch1 = A2(
 	$elm$html$Html$div,
-	_List_Nil,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$id('page')
+		]),
 	_List_fromArray(
 		[
 			$elm$html$Html$text('Research 1')
 		]));
 var $author$project$Main$view = function (model) {
-	return A2(
-		$elm$html$Html$div,
-		_List_Nil,
-		_List_fromArray(
-			[
-				function () {
-				var _v0 = model.currentViewIndex;
-				switch (_v0) {
-					case 0:
-						return $author$project$Main$viewMain;
-					case 1:
-						return $author$project$Main$viewResearch1;
-					default:
-						return $author$project$Main$viewMain;
-				}
-			}()
-			]));
+	var _v0 = model.currentViewIndex;
+	switch (_v0) {
+		case 0:
+			return $author$project$Main$viewMain;
+		case 1:
+			return $author$project$Main$viewResearch1;
+		default:
+			return $author$project$Main$viewMain;
+	}
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
 	{init: $author$project$Main$init, subscriptions: $author$project$Main$subscriptions, update: $author$project$Main$update, view: $author$project$Main$view});
