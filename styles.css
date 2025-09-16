@@ -119,6 +119,22 @@ p {
   justify-content: center;
 }
 
+@media (max-width: 767px) {
+  body {
+    font-size: 0.9em;
+    text-wrap: pretty;
+  }
+
+  .left {
+    display: none;
+  }
+
+  .right {
+    width: 100%;
+    padding: 1em;
+  }
+
+}
 
 #social-icon-ctnr {
   display: flex;
