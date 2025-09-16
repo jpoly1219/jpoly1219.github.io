@@ -1,85 +1,26 @@
-port module Main exposing (main, update, view)
+module Main exposing (main, view)
 
 import Browser
 import Html exposing (Html, a, div, h1, img, p, text)
 import Html.Attributes exposing (class, href, id, src)
-import Platform.Cmd as Cmd
 
 
-main : Program () Model Msg
+main : Program () () msg
 main =
-    Browser.element
-        { init = init
-        , update = update
-        , subscriptions = subscriptions
+    Browser.sandbox
+        { init = ()
+        , update = \_ model -> model
         , view = view
         }
 
 
-
--- 1 for going to the next view, -1 for previous.
-
-
-port scrollDirectionMsgReceiver : (Int -> msg) -> Sub msg
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    scrollDirectionMsgReceiver ScrollMsg
-
-
-type alias Model =
-    { currentViewIndex : Int
-    }
-
-
-type Msg
-    = ScrollMsg Int
-
-
-maxViewIndex =
-    2
-
-
-
--- val will always be bound to [low, high].
-
-
-clamp : Int -> Int -> Int -> Int
-clamp low high val =
-    Basics.max low (Basics.min high val)
-
-
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( { currentViewIndex = 0 }, Cmd.none )
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        ScrollMsg delta ->
-            let
-                newIndex =
-                    clamp 0 maxViewIndex (model.currentViewIndex + delta)
-            in
-            ( { model | currentViewIndex = newIndex }, Cmd.none )
-
-
-view : Model -> Html msg
-view model =
-    case model.currentViewIndex of
-        0 ->
-            viewMain
-
-        1 ->
-            viewWork1
-
-        2 ->
-            viewWork2
-
-        _ ->
-            viewMain
+view : () -> Html msg
+view _ =
+    div [ class "ctnr" ]
+        [ viewMain
+        , viewWork1
+        , viewWork2
+        ]
 
 
 viewMain : Html msg
@@ -115,13 +56,15 @@ viewMain =
                     [ a [ href "https://bsky.app/profile/iamjacobkim.bsky.social" ] [ img [ src "static/bsky-icon.webp" ] [] ] ]
                 ]
             ]
+        , div [ class "arrow arrow-down" ] [ text "↓" ]
         ]
 
 
 viewWork1 : Html msg
 viewWork1 =
     div [ id "page" ]
-        [ div [ class "left" ] [ img [ src "static/next-edit.webp", id "next-edit-img", class "left-img" ] [] ]
+        [ div [ class "arrow arrow-up" ] [ text "↑" ]
+        , div [ class "left" ] [ img [ src "static/next-edit.webp", id "next-edit-img", class "left-img" ] [] ]
         , div [ class "right" ]
             [ h1 [ class "pacifico-regular" ] [ text "Next Edit Prediction" ]
             , p [ class "merriweather-regular" ] [ text "I created the Next Edit prediction feature for Continue.dev." ]
@@ -131,13 +74,15 @@ viewWork1 =
             , p [ class "merriweather-regular" ] [ text "I also created the ability for the users to jump to the next edit location via hitting tab, providing a blazing-fast navigation to all areas that require attention." ]
             , p [ class "merriweather-regular" ] [ text "This allows the user to use many different Next Edit-capable models, such as Mercury Coder by Inception and Instinct by Continue." ]
             ]
+        , div [ class "arrow arrow-down" ] [ text "↓" ]
         ]
 
 
 viewWork2 : Html msg
 viewWork2 =
     div [ id "page" ]
-        [ div [ class "left" ] [ img [ src "static/results-typescript-gpt4-horizontal.webp", id "static-contextualization-img", class "left-img" ] [] ]
+        [ div [ class "arrow arrow-up" ] [ text "↑" ]
+        , div [ class "left" ] [ img [ src "static/results-typescript-gpt4-horizontal.webp", id "static-contextualization-img", class "left-img" ] [] ]
         , div [ class "right" ]
             [ h1 [ class "pacifico-regular" ] [ text "Statically Contextualizing Large Language Models with Typed Holes" ]
             , p [ class "merriweather-regular" ] [ text "I coauthored a paper for OOPSLA 24." ]
