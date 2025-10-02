@@ -5229,7 +5229,7 @@ var $author$project$Main$viewMain = A2(
 					$elm$html$Html$img,
 					_List_fromArray(
 						[
-							$elm$html$Html$Attributes$src('static/img3.webp'),
+							$elm$html$Html$Attributes$src('static/headshot.webp'),
 							$elm$html$Html$Attributes$id('main-img'),
 							$elm$html$Html$Attributes$class('left-img')
 						]),
