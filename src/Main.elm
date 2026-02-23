@@ -26,7 +26,7 @@ view _ =
 viewMain : Html msg
 viewMain =
     div [ id "page" ]
-        [ div [ class "left" ] [ img [ src "static/headshot.webp", id "main-img", class "left-img" ] [] ]
+        [ div [ class "left" ] [ img [ src "static/img3.webp", id "main-img", class "left-img" ] [] ]
         , div [ class "right" ]
             [ h1 [ class "pacifico-regular" ] [ text "Hello!" ]
             , p [ class "merriweather-regular" ] [ text "안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science. I did my undergrad at the University of Michigan. Go Blue!" ]
