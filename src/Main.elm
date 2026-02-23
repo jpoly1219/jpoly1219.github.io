@@ -31,7 +31,8 @@ viewMain =
             [ h1 [ class "pacifico-regular" ] [ text "Hello!" ]
             , p [ class "merriweather-regular" ] [ text "안녕하세요! I am a PhD student at the UC Irvine Donald Bren School of Information and Computer Science. I did my undergrad at the University of Michigan. Go Blue!" ]
             , p [ class "merriweather-regular" ] [ text "This page is written in Elm. That's how you know I'm a nerd :)" ]
-            , p [ class "merriweather-regular" ] [ text "I work at the juncture of software engineering, programming lanugages, and AI to find interesting ways to write code." ]
+            , p [ class "merriweather-regular" ] [ text "I work at the juncture of software engineering, AI, and programming languages to find interesting ways to write code." ]
+            , p [ class "merriweather-regular" ] [ text "I am currently investigating ways to improve long-context reasoning and problem solving in SE agents." ]
             , p [ class "merriweather-regular" ]
                 [ text "Before my PhD, I worked at "
                 , a [ href "https://continue.dev", class "a-bracket" ] [ text "Continue.dev" ]
