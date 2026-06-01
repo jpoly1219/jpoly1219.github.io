@@ -5229,7 +5229,7 @@ var $author$project$Main$viewMain = A2(
 					$elm$html$Html$img,
 					_List_fromArray(
 						[
-							$elm$html$Html$Attributes$src('static/headshot.webp'),
+							$elm$html$Html$Attributes$src('static/img4.webp'),
 							$elm$html$Html$Attributes$id('main-img'),
 							$elm$html$Html$Attributes$class('left-img')
 						]),
@@ -5281,7 +5281,17 @@ var $author$project$Main$viewMain = A2(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('I work at the juncture of software engineering, programming lanugages, and AI to find interesting ways to write code.')
+							$elm$html$Html$text('I work at the juncture of software engineering, AI, and programming languages to find interesting ways to write code.')
+						])),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('merriweather-regular')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('I am currently investigating ways to improve long-context reasoning and problem solving in SE agents.')
 						])),
 					A2(
 					$elm$html$Html$p,
